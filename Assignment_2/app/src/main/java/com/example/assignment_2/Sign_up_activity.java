@@ -54,10 +54,6 @@ public class Sign_up_activity extends AppCompatActivity {
                     username.setError("Please enter username");
                     username.requestFocus();
                 }
-                else if(existingUser(databaseRef, username_Str)) {
-                    username.setError("Username exists.");
-                    username.requestFocus();
-                }
                 else if(email.isEmpty()) {
                     emailAddress.setError("Please enter E-mail address");
                     emailAddress.requestFocus();
@@ -67,18 +63,33 @@ public class Sign_up_activity extends AppCompatActivity {
                     password.requestFocus();
                 }
                 else if(!(username_Str.isEmpty() && email.isEmpty() && password_Str.isEmpty())) {
-
-                    firebaseAuth.createUserWithEmailAndPassword(email, password_Str).addOnCompleteListener(Sign_up_activity.this, new OnCompleteListener<AuthResult>() {
+                    Query checkExistence = databaseRef.child("users").orderByChild("username").equalTo(username_Str);
+                    checkExistence.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()) {
-                                Toast.makeText(Sign_up_activity.this,"Sign up unsuccessful", Toast.LENGTH_SHORT).show();
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                username.setError("Username exists");
+                                username.requestFocus();
                             }
-                            else {
-                                databaseRef.child("users").child(username_Str).setValue(new user(username_Str, email, password_Str));
-                                Toast.makeText(Sign_up_activity.this,"Sign up successful!!", Toast.LENGTH_SHORT).show();
-                                finish();
+                            else{
+                                firebaseAuth.createUserWithEmailAndPassword(email, password_Str).addOnCompleteListener(Sign_up_activity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(!task.isSuccessful()) {
+                                            Toast.makeText(Sign_up_activity.this,"Sign up unsuccessful", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            databaseRef.child("users").child(username_Str).setValue(new user(username_Str, email, password_Str));
+                                            Toast.makeText(Sign_up_activity.this,"Sign up successful!!", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    }
+                                });
                             }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
                 }
@@ -87,24 +98,5 @@ public class Sign_up_activity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private boolean existingUser(DatabaseReference databaseRef, String username) {
-        Query checkExistence = databaseRef.child("users").orderByChild("username").equalTo(username);
-        final boolean[] exist = new boolean[1];
-        checkExistence.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                    exist[0] = true;
-                else
-                    exist[0] = false;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-        return exist[0];
     }
 }
