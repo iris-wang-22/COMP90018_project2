@@ -21,6 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Sign_up_activity extends AppCompatActivity {
     //The variables used for sign up activity
     private EditText username, emailAddress, password;
@@ -62,9 +65,14 @@ public class Sign_up_activity extends AppCompatActivity {
                     password.setError("Please enter password");
                     password.requestFocus();
                 }
+                else if(password_Str.length()<6) {
+                    password.setError("Password length has to be at least 6.");
+                    password.requestFocus();
+                }
                 else if(!(username_Str.isEmpty() && email.isEmpty() && password_Str.isEmpty())) {
-                    Query checkExistence = databaseRef.child("users").orderByChild("username").equalTo(username_Str);
-                    checkExistence.addListenerForSingleValueEvent(new ValueEventListener() {
+                    // Check if username exists.
+                    Query checkUsernameExistence = databaseRef.child("users").orderByChild("username").equalTo(username_Str);
+                    checkUsernameExistence.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()){
@@ -72,22 +80,38 @@ public class Sign_up_activity extends AppCompatActivity {
                                 username.requestFocus();
                             }
                             else{
-                                firebaseAuth.createUserWithEmailAndPassword(email, password_Str).addOnCompleteListener(Sign_up_activity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(!task.isSuccessful()) {
-                                            Toast.makeText(Sign_up_activity.this,"Sign up unsuccessful", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else {
-                                            databaseRef.child("users").child(username_Str).setValue(new user(username_Str, email, password_Str));
-                                            Toast.makeText(Sign_up_activity.this,"Sign up successful!!", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                    }
-                                });
+                                // Check if email has been registered.
+                                Query checkEmailExistence = databaseRef.child("users").orderByChild("email").equalTo(email);
+                                checkEmailExistence.addListenerForSingleValueEvent(new ValueEventListener() {
+                                  @Override
+                                  public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                      if(snapshot.exists()) {
+                                          emailAddress.setError("E-mail exists");
+                                          emailAddress.requestFocus();
+                                      }
+                                      else{
+                                          // Create account on Firebase authentication.
+                                          firebaseAuth.createUserWithEmailAndPassword(email, password_Str).addOnCompleteListener(Sign_up_activity.this, new OnCompleteListener<AuthResult>() {
+                                              @Override
+                                              public void onComplete(@NonNull Task<AuthResult> task) {
+                                                  if (!task.isSuccessful()) {
+                                                      Toast.makeText(Sign_up_activity.this, "Sign up unsuccessful", Toast.LENGTH_SHORT).show();
+                                                  } else {
+                                                      databaseRef.child("users").child(username_Str).setValue(new user(username_Str, email, password_Str));
+                                                      Toast.makeText(Sign_up_activity.this, "Sign up successful!!", Toast.LENGTH_SHORT).show();
+                                                      finish();
+                                                  }
+                                              }
+                                          });
+                                      }
+                                  }
+                                  @Override
+                                  public void onCancelled(@NonNull DatabaseError error) {
+
+                                  }
+                              });
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
