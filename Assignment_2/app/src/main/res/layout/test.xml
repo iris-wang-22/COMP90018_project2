@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:visibility="visible">
 
     <View
@@ -10,6 +11,11 @@
         android:layout_height="11dp"
         android:background="#FF3AD29F"
         android:baselineAligned="false" />
+
+    <View
+        android:layout_width="315px"
+        android:layout_height="50px"
+        android:background="#FF3AD29F" />
 
 
 </LinearLayout>
