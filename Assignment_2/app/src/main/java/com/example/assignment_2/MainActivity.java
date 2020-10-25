@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openLogInActivity() {
-        Intent intent = new Intent(this, Log_in_activity.class);
+        //Intent intent = new Intent(this, Log_in_activity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 

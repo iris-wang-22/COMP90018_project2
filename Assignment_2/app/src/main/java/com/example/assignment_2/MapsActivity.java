@@ -14,13 +14,20 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.libraries.maps.CameraUpdateFactory;
-import com.google.android.libraries.maps.GoogleMap;
-import com.google.android.libraries.maps.OnMapReadyCallback;
-import com.google.android.libraries.maps.SupportMapFragment;
-import com.google.android.libraries.maps.model.LatLng;
-import com.google.android.libraries.maps.model.Marker;
-import com.google.android.libraries.maps.model.MarkerOptions;
+//import com.google.android.libraries.maps.CameraUpdateFactory;
+//import com.google.android.libraries.maps.GoogleMap;
+//import com.google.android.libraries.maps.OnMapReadyCallback;
+//import com.google.android.libraries.maps.SupportMapFragment;
+//import com.google.android.libraries.maps.model.LatLng;
+//import com.google.android.libraries.maps.model.Marker;
+//import com.google.android.libraries.maps.model.MarkerOptions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, LocationListener {
 
@@ -32,7 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_maps_test);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
