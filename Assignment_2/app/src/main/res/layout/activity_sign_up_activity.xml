@@ -19,7 +19,7 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="40dp"
         android:paddingRight="20dp">
 
         <EditText
@@ -71,9 +71,9 @@ android:orientation="vertical">
 <Button
     android:id="@+id/Sign_up_submit_button"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     android:layout_gravity="center"
-    android:layout_marginTop="30dp"
+    android:layout_marginTop="40dp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:background="@drawable/click_03"
@@ -109,7 +109,7 @@ android:orientation="vertical">
 <Button
     android:id="@+id/Turn_To_Login_Button"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     android:layout_gravity="center"
 
     android:layout_marginLeft="20dp"

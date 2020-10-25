@@ -18,9 +18,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_height="234dp"
         android:paddingLeft="20dp"
-        android:paddingTop="50dp"
+        android:paddingTop="60dp"
         android:paddingRight="20dp">
 
         <EditText
@@ -66,9 +66,9 @@
     <Button
         android:id="@+id/Log_in_submit_button"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/click_03"
@@ -104,7 +104,7 @@
     <Button
         android:id="@+id/Turn_To_Sign_Button"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
 
         android:layout_marginLeft="20dp"
