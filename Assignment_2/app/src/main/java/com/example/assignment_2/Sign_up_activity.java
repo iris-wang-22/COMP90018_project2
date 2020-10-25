@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +33,7 @@ public class Sign_up_activity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseRef;
     private Button turn_login;
+    private ImageButton arrow_left;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +133,16 @@ public class Sign_up_activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Sign_up_activity.this, Log_in_activity.class);
                 startActivity(intent);
+            }
+        });
+
+        arrow_left = (ImageButton) findViewById(R.id.Arrow_left_btn);
+        arrow_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Sign_up_activity.this, MainActivity.class);
+                startActivity(intent);
+
             }
         });
     }

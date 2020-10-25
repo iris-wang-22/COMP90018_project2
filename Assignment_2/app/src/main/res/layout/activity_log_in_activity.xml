@@ -5,16 +5,33 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/triangle"
-        android:paddingLeft="20dp"
-        android:paddingTop="60dp"
-        android:text="Welcome              Back"
-        android:textColor="#FFFFFF"
-        android:textSize="40dp"
-        android:textStyle="bold" />
+        android:background="@drawable/triangle">
+
+        <ImageButton
+            android:id="@+id/Arrow_left_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="#3D348B"
+            android:src="@drawable/left" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:text="Welcome              Back"
+            android:textColor="#FFFFFF"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/Arrow_left_btn"/>
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
