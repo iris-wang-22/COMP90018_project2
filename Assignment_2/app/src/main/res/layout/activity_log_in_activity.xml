@@ -108,6 +108,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:gravity="center_horizontal"
             android:text="OR"
             android:textColor="#979797"
             android:textSize="16dp" />
