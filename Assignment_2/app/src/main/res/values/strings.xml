@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment_2</string>
+    <string name="app_name">WeTogether</string>
     <string name="sign_up">Sign up</string>
     <string name="log_in">Log in</string>
     <string name="title_activity_login">LoginActivity</string>

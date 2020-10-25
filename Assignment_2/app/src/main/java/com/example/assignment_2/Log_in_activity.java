@@ -3,6 +3,7 @@ package com.example.assignment_2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ public class Log_in_activity extends AppCompatActivity {
     private EditText emailAddress, password;
     private Button login;
     private FirebaseAuth firebaseAuth;
+    private Button turn_signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,15 @@ public class Log_in_activity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        turn_signup = (Button) findViewById(R.id.Turn_To_Sign_Button);
+        turn_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Log_in_activity.this, Sign_up_activity.class);
+                startActivity(intent);
             }
         });
     }

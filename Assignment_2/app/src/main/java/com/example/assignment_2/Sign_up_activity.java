@@ -3,6 +3,7 @@ package com.example.assignment_2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ public class Sign_up_activity extends AppCompatActivity {
     private Button signup;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseRef;
+    private Button turn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +122,15 @@ public class Sign_up_activity extends AppCompatActivity {
                 else {
                     Toast.makeText(Sign_up_activity.this,"Error occured. T_T", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        turn_login = (Button) findViewById(R.id.Turn_To_Login_Button);
+        turn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Sign_up_activity.this, Log_in_activity.class);
+                startActivity(intent);
             }
         });
     }
