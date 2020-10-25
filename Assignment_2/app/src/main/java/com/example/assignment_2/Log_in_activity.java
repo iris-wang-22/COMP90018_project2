@@ -54,6 +54,8 @@ public class Log_in_activity extends AppCompatActivity {
                             if(task.isSuccessful()) {
                                 Toast.makeText(Log_in_activity.this, "Successful!!!!.",
                                         Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Log_in_activity.this, MapsActivity.class);
+                                startActivity(intent);
                             }
                             else {
                                 Toast.makeText(Log_in_activity.this, "Authentication failed.",
