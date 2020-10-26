@@ -1,9 +1,12 @@
 package com.example.assignment_2;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,10 +38,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient mGoogleApiClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private Location mLastLocation;
+    private String username, email, password;
+    private Button friends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        email = getIntent().getStringExtra("email");
+        password = getIntent().getStringExtra("password");
+
         setContentView(R.layout.activity_maps_test);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -52,7 +61,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        friends = findViewById(R.id.main_btn_01);
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFriendsActivity();
+            }
+        });
     }
+
+    private void openFriendsActivity() {
+        Intent intent = new Intent(this, Friends.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

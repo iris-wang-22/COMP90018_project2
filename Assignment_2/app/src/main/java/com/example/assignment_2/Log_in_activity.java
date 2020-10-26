@@ -36,8 +36,8 @@ public class Log_in_activity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = emailAddress.getText().toString();
-                String password_Str = password.getText().toString();
+                final String email = emailAddress.getText().toString();
+                final String password_Str = password.getText().toString();
 
                 if(email.isEmpty()) {
                     emailAddress.setError("Please enter email address");
@@ -55,6 +55,8 @@ public class Log_in_activity extends AppCompatActivity {
                                 Toast.makeText(Log_in_activity.this, "Successful!!!!.",
                                         Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Log_in_activity.this, MapsActivity.class);
+                                intent.putExtra("email", email);
+                                intent.putExtra("password", password_Str);
                                 startActivity(intent);
                             }
                             else {
