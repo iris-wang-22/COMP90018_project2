@@ -4,9 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-/**
- * DO NOT do anything in this Service!<br/>
- */
+
 public class DaemonService extends Service{
 
     @Override

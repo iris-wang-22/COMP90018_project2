@@ -22,7 +22,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Handler.Callback {
     private final String TAG = MainActivity.class.getSimpleName();
-    //循环取当前时刻的步数中间的间隔时间
     private long TIME_INTERVAL = 500;
     private TextView text_step;
     private Messenger messenger;
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
             case Constant.MSG_FROM_SERVER:
-                // 更新界面上的步数
                 text_step.setText(msg.getData().getInt("step") + "");
                 delayHandler.sendEmptyMessageDelayed(Constant.REQUEST_SERVER, TIME_INTERVAL);
                 break;
@@ -96,11 +94,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         super.onStart();
     }
 
-    /**
-     * 启动service
-     *
-     * @param flag true-bind和start两种方式一起执行 false-只执行bind方式
-     */
+
     private void setupService(boolean flag) {
         Intent intent = new Intent(this, StepService.class);
         bindService(intent, conn, Context.BIND_AUTO_CREATE);
@@ -109,13 +103,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         }
     }
 
-    /**
-     * 判断某个服务是否正在运行的方法
-     *
-     * @param mContext
-     * @param serviceName 是包名+服务的类名（例如：net.loonggg.testbackstage.TestService）
-     * @return true代表正在运行，false代表服务没有正在运行
-     */
+
     public boolean isServiceWork(Context mContext, String serviceName) {
         boolean isWork = false;
         ActivityManager myAM =

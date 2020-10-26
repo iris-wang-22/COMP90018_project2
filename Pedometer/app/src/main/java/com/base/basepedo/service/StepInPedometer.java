@@ -15,7 +15,6 @@ public class StepInPedometer extends StepMode {
     private int lastStep = -1;
     private int liveStep = 0;
     private int increment = 0;
-    //0-TYPE_STEP_DETECTOR 1-TYPE_STEP_COUNTER
     private int sensorMode = 0;
 
     public StepInPedometer(Context context, StepCallBack stepCallBack) {
