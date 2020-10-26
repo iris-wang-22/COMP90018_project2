@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Pedometer_改进.iml" filepath="$PROJECT_DIR$/.idea/modules/Pedometer_改进.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Pedometer_改进.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Pedometer_改进.app.iml" />
+    </modules>
+  </component>
+</project>
