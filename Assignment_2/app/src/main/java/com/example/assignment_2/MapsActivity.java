@@ -147,6 +147,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
         if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            System.out.println("-----------------------------");
+            System.out.println(mLastLocation);
+            System.out.println("-----------------------------");
             if (mLastLocation != null) {
                 LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
                         .getLongitude());
