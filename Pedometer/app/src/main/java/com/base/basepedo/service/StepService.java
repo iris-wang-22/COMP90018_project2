@@ -44,7 +44,6 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     private static final long SCREEN_OFF_RECEIVER_DELAY = 500l;
     private final String TAG = "StepService";
     private String DB_NAME = "basepedo";
-    //默认为30秒进行一次存储
     private static int duration = 30000;
     private NotificationManager nm;
     private NotificationCompat.Builder builder;
@@ -52,7 +51,6 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     private BroadcastReceiver mBatInfoReceiver;
     private WakeLock mWakeLock;
     private TimeCount time;
-    //当天的日期
     private String CURRENTDATE = "";
 
     private static class MessenerHandler extends Handler {
@@ -89,19 +87,11 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     private void initBroadcastReceiver() {
         Log.v(TAG, "initBroadcastReceiver");
         final IntentFilter filter = new IntentFilter();
-        // 屏幕灭屏广播
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-        //日期修改
         filter.addAction(Intent.ACTION_DATE_CHANGED);
-        //关机广播
         filter.addAction(Intent.ACTION_SHUTDOWN);
-        // 屏幕亮屏广播
         filter.addAction(Intent.ACTION_SCREEN_ON);
-        // 屏幕解锁广播
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        // 当长按电源键弹出“关机”对话或者锁屏时系统会发出这个广播
-        // example：有时候会用到系统对话框，权限可能很高，会覆盖在锁屏界面或者“关机”对话框之上，
-        // 所以监听这个广播，当收到时就隐藏自己的对话，如点击pad右下角部分弹出的对话框
         filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
 
         mBatInfoReceiver = new BroadcastReceiver() {
@@ -113,9 +103,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
                     Log.v(TAG, "screen on");
                 } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
                     Log.v(TAG, "screen off");
-                    //改为60秒一存储
                     duration = 60000;
-                    //解决某些厂商的rom在锁屏后收不到sensor的回调
                     Runnable runnable = new Runnable() {
                         @Override public void run() {
                             startStep();
@@ -125,11 +113,9 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
                 } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
                     Log.v(TAG, "screen unlock");
                     save();
-                    //改为30秒一存储
                     duration = 30000;
                 } else if (Intent.ACTION_CLOSE_SYSTEM_DIALOGS.equals(intent.getAction())) {
                     Log.v(TAG, " receive Intent.ACTION_CLOSE_SYSTEM_DIALOGS");
-                    //保存一次
                     save();
                 } else if (Intent.ACTION_SHUTDOWN.equals(intent.getAction())) {
                     Log.v(TAG, " receive ACTION_SHUTDOWN");
@@ -167,7 +153,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     public void Step(int stepNum) {
         StepMode.CURRENT_SETP = stepNum;
         Log.v(TAG, "Step:" + stepNum);
-        updateNotification("今日步数：" + stepNum + " 步");
+        updateNotification("Number of step：" + stepNum + " step");
     }
 
     @Override
@@ -183,14 +169,13 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         initTodayData();
-        updateNotification("今日步数：" + StepMode.CURRENT_SETP + " 步");
+        updateNotification("Number of step：" + StepMode.CURRENT_SETP + " step");
         return START_STICKY;
     }
 
     private void initTodayData() {
         CURRENTDATE = getTodayDate();
         DbUtils.createDb(this, DB_NAME);
-        //获取当天的数据，用于展示
         List<StepData> list = DbUtils.getQueryByWhere(StepData.class, "today", new String[]{CURRENTDATE});
         if (list.size() == 0 || list.isEmpty()) {
             StepMode.CURRENT_SETP = 0;
@@ -208,9 +193,6 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     }
 
 
-    /**
-     * update notification
-     */
     private void updateNotification(String content) {
         builder = new NotificationCompat.Builder(this);
         builder.setPriority(Notification.PRIORITY_MIN);
@@ -243,7 +225,6 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
 
         @Override
         public void onFinish() {
-            // 如果计时器正常结束，则开始计步
             time.cancel();
             save();
             startTimeCount();
@@ -276,7 +257,6 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
 
     @Override
     public void onDestroy() {
-        //取消前台进程
         stopForeground(true);
         DbUtils.closeDb();
         unregisterReceiver(mBatInfoReceiver);
@@ -285,15 +265,6 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
         super.onDestroy();
     }
 
-
-//    private  void unlock(){
-//        setLockPatternEnabled(android.provider.Settings.Secure.LOCK_PATTERN_ENABLED,false);
-//    }
-//
-//    private void setLockPatternEnabled(String systemSettingKey, boolean enabled) {
-//        //推荐使用
-//        android.provider.Settings.Secure.putInt(getContentResolver(), systemSettingKey,enabled ? 1 : 0);
-//    }
 
     synchronized private PowerManager.WakeLock getLock(Context context) {
         if (mWakeLock != null) {

@@ -20,23 +20,12 @@ public abstract class CountDownTimer {
  
     private boolean mCancelled = false;
  
-    /**
-     * @param millisInFuture The number of millis in the future from the call
-     *   to {@link #start()} until the countdown is done and {@link #onFinish()}
-     *   is called.
-     * @param countDownInterval The interval along the way to receive
-     *   {@link #onTick(long)} callbacks.
-     */
+
     public CountDownTimer(long millisInFuture, long countDownInterval) {
         mMillisInFuture = millisInFuture;
         mCountdownInterval = countDownInterval;
     }
- 
-    /**
-     * Cancel the countdown.
-     *
-     * Do not call it from inside CountDownTimer threads
-     */
+
     public final void cancel() {
         mHandler.removeMessages(MSG);
         mCancelled = true;
@@ -59,7 +48,6 @@ public abstract class CountDownTimer {
  
     /**
      * Callback fired on regular interval.
-     * @param millisUntilFinished The amount of time until finished.
      */
     public abstract void onTick(long millisUntilFinished);
  
