@@ -8,18 +8,14 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer"
-        />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"
-        />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -28,7 +24,8 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Friends"></activity>
+        <activity android:name=".friendlist.FriendsListActivity"></activity>
+        <activity android:name=".Friends" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -46,25 +43,21 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".Log_in_activity" />
         <activity android:name=".Sign_up_activity" />
-
-        <activity android:name=".basepedo.ui.Activity"/>
-
-        <!-- Main -->
+        <activity android:name=".basepedo.ui.Activity" /> <!-- Main -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!--android:process="com.base.basepedo.step"-->
+        </activity> <!-- android:process="com.base.basepedo.step" -->
         <service
             android:name=".basepedo.service.StepService"
             android:priority="1000"
             android:process=":process1">
             <intent-filter>
-                <!-- 系统启动完成后会调用-->
+
+                <!-- 系统启动完成后会调用 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.DATE_CHANGED" />
                 <action android:name="android.intent.action.MEDIA_MOUNTED" />
@@ -79,10 +72,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
-
-        <!-- 守护进程相关 -->
-
+        </receiver> <!-- 守护进程相关 -->
         <receiver
             android:name=".basepedo.receiver.Receiver1"
             android:process=":process1" />
@@ -90,11 +80,10 @@
         <service
             android:name=".basepedo.service.DaemonService"
             android:process=":process2" />
+
         <receiver
             android:name=".basepedo.receiver.Receiver2"
             android:process=":process2" />
-
     </application>
-
 
 </manifest>

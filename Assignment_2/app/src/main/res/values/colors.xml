@@ -9,4 +9,9 @@
     <color name="mainColor_03">#F7B801</color>
     <color name="mainColor_04">#F18701</color>
     <color name="mainColor_05">#F35B04</color>
+
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
 </resources>

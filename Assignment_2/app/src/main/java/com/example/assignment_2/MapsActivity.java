@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.assignment_2.basepedo.ui.Activity;
+import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationAvailability;
@@ -43,6 +44,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Button btn_main_friend;
     private Button btn_main_person;
+
+    //for test
+    private Button btn_main_map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, Activity.class);
+                startActivity(intent);
+            }
+        });
+        //button map for test friend list
+        btn_main_map = (Button) findViewById(R.id.main_btn_map);
+        btn_main_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, FriendsListActivity.class);
                 startActivity(intent);
             }
         });
