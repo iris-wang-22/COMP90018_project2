@@ -32,6 +32,7 @@ public class Friends extends AppCompatActivity {
     private Button SendRequest;
     private EditText username;
 
+
     private String self_username = null;
 
     @Override
