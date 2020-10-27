@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.assignment_2.basepedo.ui.Activity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationAvailability;
@@ -39,7 +40,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private Location mLastLocation;
     private String username, email, password;
-    private Button friends;
+
+    private Button btn_main_friend;
+    private Button btn_main_person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +65,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .build();
         }
 
-        friends = findViewById(R.id.main_btn_01);
-        friends.setOnClickListener(new View.OnClickListener() {
+        //button friends
+        btn_main_friend = findViewById(R.id.main_btn_friends);
+        btn_main_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openFriendsActivity();
             }
         });
+
+        //button presonal
+        btn_main_person = (Button) findViewById(R.id.main_btn_person);
+        btn_main_person.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, Activity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void openFriendsActivity() {
@@ -153,9 +168,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
         if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            System.out.println("-----------------------------");
-            System.out.println(mLastLocation);
-            System.out.println("-----------------------------");
             if (mLastLocation != null) {
                 LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
                         .getLongitude());
