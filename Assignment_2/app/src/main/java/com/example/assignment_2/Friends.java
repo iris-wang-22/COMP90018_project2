@@ -22,7 +22,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Friends extends AppCompatActivity {
     private DatabaseReference databaseRef;
@@ -43,7 +45,12 @@ public class Friends extends AppCompatActivity {
         data.add("friend1");
         data.add("friend2");
         data.add("friend3");
-        databaseRef.child("friends").child("user1").setValue(data);
+        Map<String, Double> coordinate = new HashMap<String, Double>();
+        coordinate.put("lattitude", 0.0);
+        coordinate.put("landtitude", 0.12);
+
+        //databaseRef.child("friends").child("user1").setValue(data);
+        databaseRef.child("coordinates").child("user1").setValue(coordinate);
         Toast.makeText(Friends.this, "Save successful!!", Toast.LENGTH_SHORT).show();
         //
 
