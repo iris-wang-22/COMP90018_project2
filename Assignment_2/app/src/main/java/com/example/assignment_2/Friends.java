@@ -46,20 +46,20 @@ public class Friends extends AppCompatActivity {
         data.add("friend1");
         data.add("friend2");
         data.add("friend3");
-        Map<String, Double> coordinate = new HashMap<String, Double>();
-        coordinate.put("lattitude", 0.0);
-        coordinate.put("landtitude", 0.12);
+        //Map<String, Double> coordinate = new HashMap<String, Double>();
+        //coordinate.put("lattitude", 0.0);
+        //coordinate.put("landtitude", 0.12);
 
         //databaseRef.child("friends").child("user1").setValue(data);
-        databaseRef.child("coordinates").child("user1").setValue(coordinate);
-        Toast.makeText(Friends.this, "Save successful!!", Toast.LENGTH_SHORT).show();
+        //databaseRef.child("coordinates").child("user1").setValue(coordinate);
+        //Toast.makeText(Friends.this, "Save successful!!", Toast.LENGTH_SHORT).show();
         //
 
 
         firebaseAuth = FirebaseAuth.getInstance();
         username = findViewById(R.id.SearchedPersonName);
         SendRequest = findViewById(R.id.Send_friend_request_button);
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //可用來檢測有沒有登入
         if (user!=null){
@@ -96,7 +96,11 @@ public class Friends extends AppCompatActivity {
                                             username.requestFocus();
                                         }
                                         else{
+                                            Map<String, String> request_details = new HashMap<String, String>();
+                                            request_details.put("waiting", self_username);
+                                            databaseRef.child("friend request").child(user_name).setValue(request_details);
 
+                                            Toast.makeText(Friends.this, "Request successfully sent!!", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                     @Override
@@ -110,6 +114,9 @@ public class Friends extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
+                }
+                else {
+                    Toast.makeText(Friends.this,"Error occured. T_T", Toast.LENGTH_SHORT).show();
                 }
             }
         });
