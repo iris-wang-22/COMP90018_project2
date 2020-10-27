@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Pedometer.iml" filepath="$PROJECT_DIR$/.idea/modules/Pedometer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Pedometer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Pedometer.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/COMP90018_project2.Pedometer.iml" filepath="$PROJECT_DIR$/.idea/modules/COMP90018_project2.Pedometer.iml" />
     </modules>
   </component>
 </project>
