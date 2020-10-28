@@ -13,17 +13,17 @@
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
-        android:text="Search by Name"/>
+        android:text="Search by Name" />
 
     <Button
         android:id="@+id/Send_friend_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Send request"
+        android:layout_below="@+id/SearchedPersonName"
         android:layout_marginLeft="120dp"
-        android:layout_marginRight="120dp"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/SearchedPersonName"/>
+        android:layout_marginRight="120dp"
+        android:text="Send request" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,6 +53,19 @@
             android:text="Personal" />
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/selfUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Send_friend_request_button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="60dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
 
 
 </RelativeLayout>
