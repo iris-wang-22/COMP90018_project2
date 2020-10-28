@@ -57,7 +57,7 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
     //pedometer
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -70,15 +70,15 @@ repositories {
     mavenCentral()
 
     //glide
-=======
+//=======
     //glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+//    implementation 'com.github.bumptech.glide:glide:4.11.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }
 
 //glide
 repositories {
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
     google()
     jcenter()
 }
