@@ -31,6 +31,7 @@ public class Friends extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Button SendRequest;
     private EditText username;
+    private String uEmail;
 
 
     private String self_username = null;
@@ -59,11 +60,13 @@ public class Friends extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         username = findViewById(R.id.SearchedPersonName);
         SendRequest = findViewById(R.id.Send_friend_request_button);
-        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //可用來檢測有沒有登入
         if (user!=null){
-            self_username = user.getDisplayName();
+
+
+
         }
 
 
@@ -86,9 +89,9 @@ public class Friends extends AppCompatActivity {
                                 username.requestFocus();
                             }
                             else{
-
-                                Query checkEmailExistence = databaseRef.child("friends").child(self_username).equalTo(user_name);
-                                checkEmailExistence.addListenerForSingleValueEvent(new ValueEventListener() {
+                                //self_username沒有直導致這邊不對
+                                Query checkFriendExistence = databaseRef.child("friends").child(self_username).equalTo(user_name);
+                                checkFriendExistence.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if(snapshot.exists()) {
@@ -97,7 +100,7 @@ public class Friends extends AppCompatActivity {
                                         }
                                         else{
                                             Map<String, String> request_details = new HashMap<String, String>();
-                                            request_details.put("waiting", self_username);
+                                            request_details.put("waiting", self_username);//這邊型式不對
                                             databaseRef.child("friend request").child(user_name).setValue(request_details);
 
                                             Toast.makeText(Friends.this, "Request successfully sent!!", Toast.LENGTH_SHORT).show();
@@ -125,3 +128,4 @@ public class Friends extends AppCompatActivity {
 
 
 }
+
