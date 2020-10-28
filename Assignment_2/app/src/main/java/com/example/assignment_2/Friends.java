@@ -31,7 +31,7 @@ public class Friends extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Button SendRequest;
     private EditText username;
-    private String uEmail;
+    //private String uEmail;
 
     //暫時讓user自己輸入自己的username，因為不能讀取現在登入的user的username！！
     private EditText selfUsername;
