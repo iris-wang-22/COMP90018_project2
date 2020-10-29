@@ -86,7 +86,7 @@ public class Activity extends AppCompatActivity implements Handler.Callback {
     }
 
     private void init() {
-        text_step = findViewById(R.id.text_step);
+        text_step = findViewById(R.id.p_text_step);
         delayHandler = new Handler(this);
     }
 

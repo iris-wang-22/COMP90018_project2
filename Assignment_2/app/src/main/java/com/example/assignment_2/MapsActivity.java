@@ -197,15 +197,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
                         .getLongitude());
                 //add pin at user's location
-<<<<<<< Updated upstream
+
                 //placeMarkerOnMap(currentLocation);
                 databaseRef.child("coordinates").child("user3").setValue(currentLocation);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
-=======
-                //给朋友定大头针
-//                placeMarkerOnMap(currentLocation);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16));
->>>>>>> Stashed changes
+
+//                //给朋友定大头针
+////                placeMarkerOnMap(currentLocation);
+//                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16));
+
 
                 System.out.println("------------------------------");
                 System.out.println(getAddress(currentLocation));
@@ -215,9 +215,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-<<<<<<< Updated upstream
-
-=======
     protected void placeMarkerOnMap(LatLng location){
         MarkerOptions markerOptions = new MarkerOptions().position(location);
         String titleStr = getAddress(location);  // add these two lines
@@ -248,6 +245,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return addressText;
     }
->>>>>>> Stashed changes
+
 
 }
