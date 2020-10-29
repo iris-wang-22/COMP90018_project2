@@ -51,7 +51,7 @@ public class Friends extends AppCompatActivity {
         data.add("friend2");
         data.add("friend3");
         //Map<String, Double> coordinate = new HashMap<String, Double>();
-        //coordinate.put("lattitude", 0.0);
+        //coordinate.put("latitude", 0.0);
         //coordinate.put("landtitude", 0.12);
 
         //databaseRef.child("friends").child("user1").setValue(data);

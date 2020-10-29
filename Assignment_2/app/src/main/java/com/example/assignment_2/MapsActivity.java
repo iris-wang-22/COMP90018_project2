@@ -33,6 +33,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, LocationListener {
 
@@ -41,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private Location mLastLocation;
     private String username, email, password;
-
+    private DatabaseReference databaseRef;
     private Button btn_main_friend;
     private Button btn_main_person;
 
@@ -52,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        databaseRef = FirebaseDatabase.getInstance().getReference();
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
         username = getIntent().getStringExtra("username");
@@ -188,6 +191,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .getLongitude());
                 //add pin at user's location
                 //placeMarkerOnMap(currentLocation);
+                databaseRef.child("coordinates").child("user3").setValue(currentLocation);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
 
 //                MarkerOptions markerOptions = new MarkerOptions().position(currentLocation).title("I am here!");
@@ -195,5 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
+
+
 
 }
