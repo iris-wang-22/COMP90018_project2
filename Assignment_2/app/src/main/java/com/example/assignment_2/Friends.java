@@ -32,11 +32,8 @@ public class Friends extends AppCompatActivity {
     private Button SendRequest;
     private EditText username;
     //private String uEmail;
-    //private String username
+    private String self_username;
 
-
-    //暫時讓user自己輸入自己的username，因為不能讀取現在登入的user的username！！
-    private EditText selfUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +41,9 @@ public class Friends extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        //username = getIntent().getStringExtra("username");
+        self_username = getIntent().getStringExtra("username");
+
+        /*
         //
         List<String> data = new ArrayList<>();
         data.add("friend1");
@@ -59,43 +58,19 @@ public class Friends extends AppCompatActivity {
         //Toast.makeText(Friends.this, "Save successful!!", Toast.LENGTH_SHORT).show();
         //
 
+         */
 
         firebaseAuth = FirebaseAuth.getInstance();
         username = findViewById(R.id.SearchedPersonName);
         SendRequest = findViewById(R.id.Send_friend_request_button);
         //FirebaseUser user = firebaseAuth.getCurrentUser();  //可先不要
 
-        selfUsername = findViewById(R.id.selfUserName);
-
-        //可先不要
-        //可用來檢測有沒有登入
-        /*
-        if (user!=null){
-            uEmail = user.getEmail();//這邊其實沒有直 = “”
-            Query findSelfUserName = databaseRef.child("users").equalTo(uEmail);
-            findSelfUserName.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Post post = dataSnapshot.getValue(Post.class);
-                    self_username = post.selfUsername;
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-
-        }
-
-         */
-
 
         SendRequest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 final String user_name = username.getText().toString();
-                final String self_username = selfUsername.getText().toString();
+
 
                 if (user_name.isEmpty()){
                     username.setError("Please enter the username you want to search");
@@ -111,7 +86,7 @@ public class Friends extends AppCompatActivity {
                                 username.requestFocus();
                             }
                             else{
-                                //self_username沒有直導致這邊不對
+
                                 Query checkFriendExistence = databaseRef.child("friends").child(self_username).orderByChild("username").equalTo(user_name);
                                 checkFriendExistence.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -125,7 +100,7 @@ public class Friends extends AppCompatActivity {
                                             request_details.put("requestFrom", self_username);
                                             request_details.put("requestTo", user_name);
                                             request_details.put("status", "waiting");
-                                            //request_details.put("waiting", self_username);//這邊型式不對
+
                                             databaseRef.child("friend request").child(user_name).setValue(request_details);
 
                                             Toast.makeText(Friends.this, "Request successfully sent!!", Toast.LENGTH_SHORT).show();
