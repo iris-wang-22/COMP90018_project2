@@ -72,7 +72,7 @@ public class Activity extends AppCompatActivity implements Handler.Callback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pedometer);
+        setContentView(R.layout.personal);
         init();
         startServiceForStrategy();
     }
