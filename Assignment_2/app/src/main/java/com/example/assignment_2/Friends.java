@@ -3,6 +3,7 @@ package com.example.assignment_2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,8 @@ public class Friends extends AppCompatActivity {
     private EditText username;
     //private String uEmail;
     private String self_username;
+
+    private Button my_friend_request_btn;
 
 
     @Override
@@ -124,6 +127,20 @@ public class Friends extends AppCompatActivity {
             }
         });
 
+        my_friend_request_btn = findViewById(R.id.request_to_me_button);
+        my_friend_request_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMyRequestActivity();
+            }
+        });
+
+    }
+
+    private void openMyRequestActivity() {
+        Intent intent = new Intent(this, Friends.class); //要改成一個新的activity class
+        intent.putExtra("selfUsername", self_username);
+        startActivity(intent);
     }
 
 
