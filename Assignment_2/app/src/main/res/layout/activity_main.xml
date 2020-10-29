@@ -42,7 +42,7 @@
         android:background="@drawable/click_02"
         android:text="@string/log_in"
         android:textColor="#3D348B"
-        />
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/Sign_up_Button"
@@ -55,6 +55,7 @@
         android:background="@drawable/click_01"
         android:text="@string/sign_up"
         android:textColor="#FFFFFF"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:textAllCaps="false"/>
 
 </LinearLayout>

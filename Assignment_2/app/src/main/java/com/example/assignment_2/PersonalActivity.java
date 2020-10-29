@@ -35,15 +35,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 public class PersonalActivity extends AppCompatActivity implements Handler.Callback{
-//    private DatabaseReference databaseRef;
-//    private FirebaseAuth firebaseAuth;
-//    private static final String TAG = "FIRE_BASE";
-//    private Button SendRequest;
-//    private EditText username;
-    //private EditText selfUsername;
+
+    public String self_username;
+    private DatabaseReference databaseRef;
+    private FirebaseAuth firebaseAuth;
 
     private ImageButton iBtn_01;
     private ImageButton iBtn_02;
+    private TextView tv_userName;
 
     //basepedo
     private final String TAG = Activity.class.getSimpleName();
@@ -104,6 +103,12 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         iBtn_01 = (ImageButton) findViewById(R.id.p_ib_01);
         iBtn_02 = (ImageButton) findViewById(R.id.p_ib_02);
         setListeners();
+
+        databaseRef = FirebaseDatabase.getInstance().getReference("users");
+        self_username = getIntent().getStringExtra("username");
+        tv_userName = (TextView) findViewById(R.id.p_tv_username);
+        tv_userName.setText(self_username);
+
 
     }
 
@@ -169,7 +174,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         super.onDestroy();
         unbindService(conn);
     }
-    
+
     //button onClick
     private void setListeners(){
         OnClick onclick = new OnClick();
@@ -193,23 +198,4 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         }
     }
 }
-//        final DatabaseReference proRef = databaseRef.child("profile/");
-//        final DatabaseReference ageRef = databaseRef.child("profile/age");
-//        final DatabaseReference genderRef = databaseRef.child("profile/gender/");
-//
-//        int x = 25;
-//        ageRef.setValue("25");
-//        ageRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String value = dataSnapshot.getValue(String.class);
-//                tv_01.setText(value);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
-//
-//        tv_02.setText(ageRef.getKey());
+

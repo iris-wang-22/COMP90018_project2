@@ -90,7 +90,8 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/click_03"
         android:text="@string/log_in"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -110,7 +111,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center_horizontal"
-            android:text="OR"
+            android:text="or"
+            android:textAllCaps="false"
             android:textColor="#979797"
             android:textSize="16dp" />
         <View
@@ -131,6 +133,6 @@
         android:background="@drawable/click_04"
         android:text="@string/sign_up"
         android:textColor="#3D348B"
-        />
+        android:textAllCaps="false" />
 
 </LinearLayout>

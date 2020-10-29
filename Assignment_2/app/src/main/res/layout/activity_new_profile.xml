@@ -30,14 +30,14 @@
             android:orientation="vertical"
             android:padding="10dp"
             android:gravity="center">
-            <EditText
-                android:id="@+id/new_ev_username"
+            <TextView
+                android:id="@+id/new_tv_username"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:hint="Please input your username"
+                android:hint="Username"
                 android:textColor="@color/white"
-                android:textSize="10sp"
-                android:background="@drawable/list_shape"
+                android:textSize="15sp"
+
                 android:padding="10dp"
                 android:maxLines="1"
                 android:inputType="number" />

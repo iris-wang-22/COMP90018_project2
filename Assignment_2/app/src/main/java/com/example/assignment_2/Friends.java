@@ -43,8 +43,13 @@ public class Friends extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
-        databaseRef = FirebaseDatabase.getInstance().getReference();
+        databaseRef = FirebaseDatabase.getInstance().getReference("users");
         self_username = getIntent().getStringExtra("username");
+
+        System.out.println("-------------------------------------------");
+        System.out.println(self_username);
+        System.out.println(databaseRef.getKey());
+        System.out.println("-------------------------------------------");
 
         /*
         //
@@ -139,7 +144,7 @@ public class Friends extends AppCompatActivity {
 
     private void openMyRequestActivity() {
         Intent intent = new Intent(this, Friends.class); //要改成一個新的activity class
-        intent.putExtra("selfUsername", self_username);
+        //intent.putExtra("selfUsername", self_username);
         startActivity(intent);
     }
 

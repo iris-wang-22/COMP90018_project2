@@ -60,6 +60,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/m_shape"
+            android:src="@drawable/pig"
             android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/p_tv_username"
@@ -115,7 +116,9 @@
             android:id="@+id/p_text_step"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:hint="Step"
             android:gravity="center"
+            android:layout_marginLeft="10dp"
 
             android:textColor="#000000"
             android:textSize="50dp" />
@@ -166,33 +169,33 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal">
-
-        <Button
-            android:id="@+id/person_btn_friends"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Friends" />
-
-        <Button
-            android:id="@+id/person_btn_map"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="Map" />
-
-        <Button
-            android:id="@+id/person_btn_person"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Personal" />
+        <ImageButton
+            android:id="@+id/main_btn_friends"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/friends_0"
+            android:background="@color/transparent"
+            />
+        <ImageButton
+            android:id="@+id/main_btn_map"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/map_0"
+            android:background="@color/transparent"
+            android:layout_marginLeft="50dp"/>
+        <ImageButton
+            android:id="@+id/main_btn_personal"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/person_2"
+            android:background="@color/transparent"
+            android:layout_marginLeft="50dp"/>
     </LinearLayout>
 
 </RelativeLayout>
