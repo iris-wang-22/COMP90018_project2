@@ -32,6 +32,7 @@ public class Friends extends AppCompatActivity {
     private Button SendRequest;
     private EditText username;
     //private String uEmail;
+    //private String username
 
 
     //暫時讓user自己輸入自己的username，因為不能讀取現在登入的user的username！！
@@ -43,6 +44,7 @@ public class Friends extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
+        //username = getIntent().getStringExtra("username");
         //
         List<String> data = new ArrayList<>();
         data.add("friend1");
