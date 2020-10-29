@@ -38,7 +38,6 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
 
     public String self_username;
     private DatabaseReference databaseRef;
-    private FirebaseAuth firebaseAuth;
 
     private ImageButton iBtn_01;
     private ImageButton iBtn_02;
@@ -51,6 +50,29 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
     private Messenger messenger;
     private Messenger mGetReplyMessenger = new Messenger(new Handler(this));
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_personal);
+        init();
+        startServiceForStrategy();
+
+        iBtn_01 = (ImageButton) findViewById(R.id.p_ib_01);
+        iBtn_02 = (ImageButton) findViewById(R.id.p_ib_02);
+        setListeners();
+
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+        self_username = getIntent().getStringExtra("username");
+        tv_userName = (TextView) findViewById(R.id.p_tv_username);
+        tv_userName.setText(self_username);
+
+        System.out.println("-------------------------------------------");
+        System.out.println(self_username);
+        System.out.println("-------------------------------------------");
+
+    }
+
+    //basepedo
     private Handler delayHandler;
     ServiceConnection conn = new ServiceConnection() {
         @Override
@@ -93,24 +115,6 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
     }
 
     @SuppressLint("RestrictedApi")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personal);
-        init();
-        startServiceForStrategy();
-
-        iBtn_01 = (ImageButton) findViewById(R.id.p_ib_01);
-        iBtn_02 = (ImageButton) findViewById(R.id.p_ib_02);
-        setListeners();
-
-        databaseRef = FirebaseDatabase.getInstance().getReference("users");
-        self_username = getIntent().getStringExtra("username");
-        tv_userName = (TextView) findViewById(R.id.p_tv_username);
-        tv_userName.setText(self_username);
-
-
-    }
 
     //basepedo
     private void startServiceForStrategy() {
