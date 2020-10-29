@@ -27,7 +27,7 @@ public class NewProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_profile);
 
-        databaseRef = FirebaseDatabase.getInstance().getReference("users");
+        databaseRef = FirebaseDatabase.getInstance().getReference();
         self_username = getIntent().getStringExtra("username");
 
         System.out.println("-------------------------------------------");

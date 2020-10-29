@@ -109,7 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btn_main_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, Activity.class);
+                Intent intent = new Intent(MapsActivity.this, PersonalActivity.class);
                 startActivity(intent);
             }
         });
