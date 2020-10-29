@@ -54,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
+        username = getIntent().getStringExtra("username");
 
         setContentView(R.layout.activity_maps_test);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -101,6 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void openFriendsActivity() {
         Intent intent = new Intent(this, Friends.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
