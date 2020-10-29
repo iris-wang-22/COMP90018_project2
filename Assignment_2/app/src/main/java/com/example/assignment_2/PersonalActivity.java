@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.service.StepService;
@@ -36,7 +37,7 @@ import java.util.List;
 
 public class PersonalActivity extends AppCompatActivity implements Handler.Callback{
 
-    public String self_username;
+    public String username;
     private DatabaseReference databaseRef;
 
     private ImageButton iBtn_01;
@@ -62,13 +63,9 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         setListeners();
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        self_username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
         tv_userName = (TextView) findViewById(R.id.p_tv_username);
-        tv_userName.setText(self_username);
-
-        System.out.println("-------------------------------------------");
-        System.out.println(self_username);
-        System.out.println("-------------------------------------------");
+        tv_userName.setText(username);
 
     }
 
