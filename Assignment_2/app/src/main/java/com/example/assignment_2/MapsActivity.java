@@ -190,10 +190,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         if (latLng != null) {
-            mMap.addMarker(new MarkerOptions().position(latLng).title("I am here"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
+            //mMap.addMarker(new MarkerOptions().position(latLng).title("I am here"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
+            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
         }
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -210,6 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     {android.Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_PERMISSION_REQUEST_CODE);
             return;
         }
+        mMap.setMyLocationEnabled(true);
         startLocationUpdates();
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
