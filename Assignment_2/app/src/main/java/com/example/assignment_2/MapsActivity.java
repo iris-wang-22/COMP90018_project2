@@ -2,6 +2,8 @@ package com.example.assignment_2;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -30,11 +32,17 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import android.location.Address;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, LocationListener {
 
@@ -46,7 +54,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference databaseRef;
     private Button btn_main_friend;
     private Button btn_main_person;
-
     //for test
     private Button btn_main_map;
 
@@ -87,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btn_main_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, Activity.class);
+                Intent intent = new Intent(MapsActivity.this, PersonalActivity.class);
                 startActivity(intent);
             }
         });
@@ -190,16 +197,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
                         .getLongitude());
                 //add pin at user's location
+<<<<<<< Updated upstream
                 //placeMarkerOnMap(currentLocation);
                 databaseRef.child("coordinates").child("user3").setValue(currentLocation);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+=======
+                //给朋友定大头针
+//                placeMarkerOnMap(currentLocation);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16));
+>>>>>>> Stashed changes
 
+                System.out.println("------------------------------");
+                System.out.println(getAddress(currentLocation));
 //                MarkerOptions markerOptions = new MarkerOptions().position(currentLocation).title("I am here!");
 //                mMap.addMarker(markerOptions);
             }
         }
     }
 
+<<<<<<< Updated upstream
 
+=======
+    protected void placeMarkerOnMap(LatLng location){
+        MarkerOptions markerOptions = new MarkerOptions().position(location);
+        String titleStr = getAddress(location);  // add these two lines
+        markerOptions.title(titleStr);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource
+                (getResources(), R.drawable.pig)));
+
+        mMap.addMarker(markerOptions);
+    }
+
+    private String getAddress( LatLng latLng ) {
+        // 1
+        Geocoder geocoder = new Geocoder( this );
+        String addressText = "";
+        List<Address> addresses = null;
+        Address address = null;
+        try {
+            // 2
+            addresses = geocoder.getFromLocation( latLng.latitude, latLng.longitude, 1 );
+            // 3
+            if (null != addresses && !addresses.isEmpty()) {
+                address = addresses.get(0);
+                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                    addressText += (i == 0)?address.getAddressLine(i):("\n" + address.getAddressLine(i));
+                }
+            }
+        } catch (IOException e ) {
+        }
+        return addressText;
+    }
+>>>>>>> Stashed changes
 
 }

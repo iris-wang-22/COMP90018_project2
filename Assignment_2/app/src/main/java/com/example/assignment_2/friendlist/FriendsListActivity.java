@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.assignment_2.Friends;
 import com.example.assignment_2.R;
 
 public class FriendsListActivity extends AppCompatActivity {
@@ -24,7 +25,10 @@ public class FriendsListActivity extends AppCompatActivity {
         firendlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(FriendsListActivity.this,"Friend:"+position,Toast.LENGTH_LONG).show();
+                Toast toast1 = Toast.makeText(FriendsListActivity.this,"Friend:"+position,Toast.LENGTH_SHORT);
+                toast1.show();
+
+
             }
         });
     }

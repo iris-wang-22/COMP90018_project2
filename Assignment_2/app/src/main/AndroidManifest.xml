@@ -24,7 +24,9 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".friendlist.FriendsListActivity"></activity>
+        <activity android:name=".NewProfileActivity"></activity>
+        <activity android:name=".PersonalActivity" />
+        <activity android:name=".friendlist.FriendsListActivity" />
         <activity android:name=".Friends" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
