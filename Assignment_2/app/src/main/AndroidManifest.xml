@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewProfileActivity"></activity>
+        <activity android:name=".ForgetPasswordActivity"></activity>
+        <activity android:name=".NewProfileActivity" />
         <activity android:name=".PersonalActivity" />
         <activity android:name=".friendlist.FriendsListActivity" />
         <activity android:name=".Friends" />
