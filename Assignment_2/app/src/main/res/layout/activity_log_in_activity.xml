@@ -20,15 +20,25 @@
             android:src="@drawable/left" />
 
         <TextView
+            android:id="@+id/l_tv_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
-            android:text="Welcome              Back"
+            android:text="Welcome"
             android:textColor="#FFFFFF"
             android:textSize="40dp"
             android:textStyle="bold"
             android:layout_below="@+id/Arrow_left_btn"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="Back"
+            android:textColor="#FFFFFF"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/l_tv_1"/>
     </RelativeLayout>
 
 
@@ -75,8 +85,8 @@
             android:layout_below="@id/Password_text"
             android:layout_alignRight="@id/Password_text"
             android:gravity="right"
-            android:text="Forgot Passport?"
-            android:textColor="#3D348B"
+            android:text="Forgot Password?"
+            android:textColor="@drawable/click_forgot"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -92,7 +102,7 @@
         android:background="@drawable/click_03"
         android:text="@string/log_in"
         android:textColor="#FFFFFF"
-        android:textAllCaps="false"/>
+        android:textSize="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,12 +138,11 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center"
-
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/click_04"
         android:text="@string/sign_up"
         android:textColor="#3D348B"
-        android:textAllCaps="false" />
+        android:textSize="16dp"/>
 
 </LinearLayout>

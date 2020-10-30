@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,8 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     private EditText et_email;
-    private EditText et_new;
     private Button yes;
+    private ImageButton ib_left;
+
     private DatabaseReference databaseRef;
 
     @Override
@@ -31,9 +33,9 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
 
         et_email = findViewById(R.id.fb_et_email);
-        et_new = findViewById(R.id.fb_et_new);
         databaseRef = FirebaseDatabase.getInstance().getReference();
         yes = findViewById(R.id.fp_btn_yes);
+        ib_left = findViewById(R.id.fp_left_btn);
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,16 +50,24 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ForgetPasswordActivity.this, "Reset email has been sent!!!!.",
+                                        Toast.makeText(ForgetPasswordActivity.this, "Reset email has been sent!",
                                                 Toast.LENGTH_SHORT).show();
+                                        finish();
                                     } else {
-                                        et_email.setError("Email not exists.");
+                                        et_email.setError("Email is not registered.");
                                         et_email.requestFocus();
                                     }
 
                                 }
                             });
                 }
+            }
+        });
+
+        ib_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

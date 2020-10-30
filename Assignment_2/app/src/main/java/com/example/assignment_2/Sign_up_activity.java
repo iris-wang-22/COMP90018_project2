@@ -140,8 +140,7 @@ public class Sign_up_activity extends AppCompatActivity {
         arrow_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Sign_up_activity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
 
             }
         });

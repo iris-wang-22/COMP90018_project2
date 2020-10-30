@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -106,8 +107,7 @@ public class Log_in_activity extends AppCompatActivity {
         arrow_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Log_in_activity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
 
             }
         });

@@ -29,33 +29,33 @@
         android:textSize="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="20dp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="50dp"/>
 
     <Button
         android:id="@+id/Log_in_Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/click_02"
         android:text="@string/log_in"
         android:textColor="#3D348B"
-        android:textAllCaps="false"/>
+        android:textSize="18sp"/>
 
     <Button
         android:id="@+id/Sign_up_Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/click_01"
         android:text="@string/sign_up"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="20dp"
-        android:textAllCaps="false"/>
+        android:textSize="18sp"/>
 
 </LinearLayout>
