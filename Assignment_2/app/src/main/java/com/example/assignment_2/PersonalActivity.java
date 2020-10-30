@@ -15,28 +15,21 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.service.StepService;
-import com.example.assignment_2.basepedo.ui.Activity;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.assignment_2.basepedo.ui.bActivity;
+import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PersonalActivity extends AppCompatActivity implements Handler.Callback{
 
@@ -46,12 +39,14 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
     private ImageButton iBtn_01;
     private ImageButton iBtn_02;
     private TextView p_quit;
+    private ImageButton p_fl;
+    private ImageButton p_map;
 
     private TextView tv_userName;
     private TextView tv_age;
     private TextView tv_gender;
     //basepedo
-    private final String TAG = Activity.class.getSimpleName();
+    private final String TAG = bActivity.class.getSimpleName();
     private long TIME_INTERVAL = 500;
     private TextView text_step;
     private Messenger messenger;
@@ -66,6 +61,8 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
 
         iBtn_01 = (ImageButton) findViewById(R.id.p_ib_01);
         iBtn_02 = (ImageButton) findViewById(R.id.p_ib_02);
+        p_fl = findViewById(R.id.p_btn_friends);
+        p_map = findViewById(R.id.p_btn_map);
         p_quit = findViewById(R.id.p_tv_quit);
         setListeners();
 
@@ -220,6 +217,8 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         iBtn_01.setOnClickListener(onclick);
         iBtn_02.setOnClickListener(onclick);
         p_quit.setOnClickListener(onclick);
+        p_fl.setOnClickListener(onclick);
+        p_map.setOnClickListener(onclick);
     }
 
     private class OnClick implements View.OnClickListener{
@@ -234,6 +233,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     intent2 = new Intent(PersonalActivity.this, NewProfileActivity.class);
                     intent2.putExtra("username", username);
                     startActivity(intent2);
+                    finish();
                     break;
 
                 case R.id.p_tv_quit:
@@ -241,6 +241,18 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     intent_main.setClass(PersonalActivity.this, MainActivity.class);
                     intent_main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //关键的一句，将新的activity置为栈顶
                     startActivity(intent_main);
+                    finish();
+                    break;
+                case R.id.p_btn_friends:
+                    Intent intent_f = new Intent(PersonalActivity.this, FriendsListActivity.class);
+                    intent_f.putExtra("username", username);
+                    startActivity(intent_f);
+                    finish();
+                    break;
+                case R.id.p_btn_map:
+                    Intent intent_m = new Intent(PersonalActivity.this, MapsActivity.class);
+                    intent_m.putExtra("username", username);
+                    startActivity(intent_m);
                     finish();
                     break;
             }

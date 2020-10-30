@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.assignment_2.basepedo.ui.Activity;
-
 public class MainActivity extends AppCompatActivity {
     private Button sign_up;
     private Button log_in;

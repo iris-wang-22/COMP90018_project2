@@ -21,8 +21,8 @@ import com.example.assignment_2.basepedo.service.StepService;
 
 import java.util.List;
 
-public class Activity extends AppCompatActivity implements Handler.Callback {
-    private final String TAG = Activity.class.getSimpleName();
+public class bActivity extends AppCompatActivity implements Handler.Callback {
+    private final String TAG = bActivity.class.getSimpleName();
     private long TIME_INTERVAL = 500;
     private TextView text_step;
     private Messenger messenger;

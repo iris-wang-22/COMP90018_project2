@@ -33,7 +33,6 @@ import com.example.assignment_2.R;
 import com.example.assignment_2.basepedo.callback.StepCallBack;
 import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.pojo.StepData;
-import com.example.assignment_2.basepedo.ui.Activity;
 import com.example.assignment_2.basepedo.utils.CountDownTimer;
 import com.example.assignment_2.basepedo.utils.DbUtils;
 import com.example.assignment_2.basepedo.base.StepMode;
