@@ -6,16 +6,17 @@
     android:gravity="center_horizontal"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="100dp"
+    android:paddingTop="10dp"
     android:paddingBottom="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:orientation="horizontal"
         android:background="@drawable/personal_shape"
         android:padding="10dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="20dp">
         <ImageView
             android:id="@+id/p_iv"
             android:layout_width="100dp"
@@ -33,21 +34,20 @@
             <TextView
                 android:id="@+id/new_tv_username"
                 android:layout_width="150dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:hint="Username"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="10dp" />
 
-                android:padding="10dp"
-                android:maxLines="1"
-                android:inputType="number" />
             <EditText
                 android:id="@+id/new_ev_age"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:hint="Please input your age"
-                android:textColor="@color/white"
-                android:textSize="10sp"
+                android:hint="Please input age."
+                android:textColor="@color/mainColor_02"
+                android:textSize="15sp"
                 android:background="@drawable/list_shape"
                 android:padding="10dp"
                 android:layout_marginTop="10dp"
@@ -56,10 +56,11 @@
 
 
             <RadioGroup
+                android:id="@+id/new_rp_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="25dp"
                 android:gravity="center">
 
                 <RadioButton
@@ -67,13 +68,12 @@
                     android:layout_width="70dp"
                     android:layout_height="35dp"
                     android:gravity="center"
-                    android:text="男"
+                    android:text="Male"
                     android:button="@null"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="@color/mainColor_02"
-                    android:checked="true"
-                    android:background="@drawable/list_shape"
+                    android:textColor="@drawable/color_gender"
+                    android:background="@drawable/radiobtn_gender"
                     />
                 <RadioButton
                     android:id="@+id/new_rb_f"
@@ -81,12 +81,12 @@
                     android:layout_height="35dp"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="女"
+                    android:text="Female"
                     android:button="@null"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="@color/mainColor_02"
-                    android:background="@drawable/list_shape"
+                    android:textColor="@drawable/color_gender"
+                    android:background="@drawable/radiobtn_gender"
                     />
             </RadioGroup>
         </LinearLayout>
@@ -96,8 +96,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="60dp"
-        android:gravity="center">
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:background="@color/white">
         <Button
             android:id="@+id/new_btn_yes"
             android:layout_width="150dp"
@@ -106,17 +107,16 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/click_05"
             android:text="Yes"
-            android:textColor="#FFFFFF" />
+            android:textColor="@drawable/color_yes" />
         <Button
             android:id="@+id/new_btn_no"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/click_02"
+            android:background="@drawable/click_06"
             android:text="No"
-            android:textColor="@color/mainColor_02" />
-
+            android:textColor="@drawable/color_no"/>
     </LinearLayout>
 
 </LinearLayout>

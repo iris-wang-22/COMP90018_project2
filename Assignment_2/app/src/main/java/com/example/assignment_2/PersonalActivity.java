@@ -1,5 +1,6 @@
 package com.example.assignment_2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -33,17 +34,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PersonalActivity extends AppCompatActivity implements Handler.Callback{
 
-    public String username;
+    private String username, age, gender;
     private DatabaseReference databaseRef;
 
     private ImageButton iBtn_01;
     private ImageButton iBtn_02;
-    private TextView tv_userName;
+    private TextView p_quit;
 
+    private TextView tv_userName;
+    private TextView tv_age;
+    private TextView tv_gender;
     //basepedo
     private final String TAG = Activity.class.getSimpleName();
     private long TIME_INTERVAL = 500;
@@ -60,14 +66,46 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
 
         iBtn_01 = (ImageButton) findViewById(R.id.p_ib_01);
         iBtn_02 = (ImageButton) findViewById(R.id.p_ib_02);
+        p_quit = findViewById(R.id.p_tv_quit);
         setListeners();
 
-        databaseRef = FirebaseDatabase.getInstance().getReference();
         username = getIntent().getStringExtra("username");
+
         tv_userName = (TextView) findViewById(R.id.p_tv_username);
+        tv_age = (TextView) findViewById(R.id.p_tv_age);
+        tv_gender = (TextView) findViewById(R.id.p_tv_gender);
+
         tv_userName.setText(username);
 
+        String user_path = "users/"+username;
+        databaseRef = FirebaseDatabase.getInstance().getReference(user_path);
+
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("+++++++++++++++++++++++++++++++++");
+
+                //Object document = snapshot.getValue();
+                //Map pro = snapshot.child("profile").getValue(Map.class);
+                //snapshot.child("profile").getValue().getClass();
+                age = snapshot.child("profile/age").getValue(String.class);
+                gender = snapshot.child("profile/gender").getValue(String.class);
+                tv_age.setText("Age: "+age);
+                tv_gender.setText(gender);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // TODO Auto-generated method stub
+                System.out.println("This didn't work");
+            }
+        });
+
+
     }
+
+
+
 
     //basepedo
     private Handler delayHandler;
@@ -181,22 +219,33 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         OnClick onclick = new OnClick();
         iBtn_01.setOnClickListener(onclick);
         iBtn_02.setOnClickListener(onclick);
+        p_quit.setOnClickListener(onclick);
     }
 
     private class OnClick implements View.OnClickListener{
         @Override
         public void onClick(View v){
-            Intent intent = null;
             switch (v.getId()){
                 case R.id.p_ib_01:
-                    intent = new Intent(PersonalActivity.this,MapsActivity.class);
+                    finish();
                     break;
                 case R.id.p_ib_02:
-                    intent = new Intent(PersonalActivity.this, NewProfileActivity.class);
+                    Intent intent2 = null;
+                    intent2 = new Intent(PersonalActivity.this, NewProfileActivity.class);
+                    intent2.putExtra("username", username);
+                    startActivity(intent2);
+                    break;
+
+                case R.id.p_tv_quit:
+                    Intent intent_main = new Intent();
+                    intent_main.setClass(PersonalActivity.this, MainActivity.class);
+                    intent_main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //关键的一句，将新的activity置为栈顶
+                    startActivity(intent_main);
+                    finish();
                     break;
             }
-            startActivity(intent);
         }
     }
+
 }
 

@@ -52,6 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private String username, email, password;
+    private String age, gender;
     private DatabaseReference databaseRef;
     private ImageButton btn_main_friend;
     private ImageButton btn_main_person;
@@ -79,6 +80,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
         username = getIntent().getStringExtra("username");
+        age = getIntent().getStringExtra("z_age");
+        gender =getIntent().getStringExtra("z_gender");
 
         if(requestSinglePermission()) {
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
