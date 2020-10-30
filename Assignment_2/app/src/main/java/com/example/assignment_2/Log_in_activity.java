@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Log_in_activity extends AppCompatActivity {
     private EditText emailAddress, password;
+    private TextView forgotPassword;
     private Button login;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseRef;
@@ -37,6 +39,7 @@ public class Log_in_activity extends AppCompatActivity {
         emailAddress = findViewById(R.id.Email_address_text);
         password = findViewById(R.id.Password_text);
         login = findViewById(R.id.Log_in_submit_button);
+        forgotPassword = findViewById(R.id.forgot_password);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
@@ -52,7 +55,7 @@ public class Log_in_activity extends AppCompatActivity {
                 }
                 else if(password_Str.isEmpty()) {
                     password.setError("Please enter password");
-                    emailAddress.requestFocus();
+                    password.requestFocus();
                 }
                 else if(!(email.isEmpty() && password_Str.isEmpty())) {
                     firebaseAuth.signInWithEmailAndPassword(email, password_Str).addOnCompleteListener(Log_in_activity.this, new OnCompleteListener<AuthResult>() {
@@ -81,7 +84,7 @@ public class Log_in_activity extends AppCompatActivity {
                                 });
                             }
                             else {
-                                Toast.makeText(Log_in_activity.this, "Authentication failed.",
+                                Toast.makeText(Log_in_activity.this, "Authentication failed. Check your email/password.",
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -106,6 +109,14 @@ public class Log_in_activity extends AppCompatActivity {
                 Intent intent = new Intent(Log_in_activity.this, MainActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Log_in_activity.this, ForgetPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }

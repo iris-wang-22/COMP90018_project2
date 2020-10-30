@@ -1,14 +1,29 @@
 package com.example.assignment_2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     private EditText et_email;
     private EditText et_new;
+    private Button yes;
+    private DatabaseReference databaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,5 +32,47 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
         et_email = findViewById(R.id.fb_et_email);
         et_new = findViewById(R.id.fb_et_new);
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+        yes = findViewById(R.id.fp_btn_yes);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(et_email.getText().toString().isEmpty()){
+                    et_email.requestFocus();
+                    et_email.setError("Cannot be empty");
+                }
+                else {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(et_email.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(ForgetPasswordActivity.this, "Reset email has been sent!!!!.",
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        et_email.setError("Email not exists.");
+                                        et_email.requestFocus();
+                                    }
+
+                                }
+                            });
+                }
+            }
+        });
+
+        //databaseRef.child("user").orderByChild("email").equalTo(et_email.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()) {
+
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 }
