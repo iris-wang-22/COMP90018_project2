@@ -19,8 +19,6 @@ import kotlinx.coroutines.*
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
-    //You can ignore this messageList if you're coming from the tutorial,
-    // it was used only for my personal debugging
     var messagesList = mutableListOf<Message>()
 
     private lateinit var adapter: MessagingAdapter
