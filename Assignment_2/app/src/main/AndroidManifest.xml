@@ -31,7 +31,8 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".AvatarActivity"></activity>
-        <activity android:name=".ForgetPasswordActivity"></activity>
+        <activity android:name=".MyRequestActivity"></activity>
+        <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".NewProfileActivity" />
         <activity android:name=".PersonalActivity" />
         <activity android:name=".friendlist.FriendsListActivity" />

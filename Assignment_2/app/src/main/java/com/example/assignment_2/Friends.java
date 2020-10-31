@@ -112,7 +112,7 @@ public class Friends extends AppCompatActivity {
                                             request_details.put("requestTo", user_name);
                                             request_details.put("status", "waiting");
 
-                                            databaseRef.child("friend request").child(user_name).setValue(request_details);
+                                            databaseRef.child("friend request").child(user_name).child(self_username).setValue(request_details);
 
                                             Toast.makeText(Friends.this, "Request successfully sent!!", Toast.LENGTH_SHORT).show();
                                         }
@@ -146,8 +146,8 @@ public class Friends extends AppCompatActivity {
     }
 
     private void openMyRequestActivity() {
-        Intent intent = new Intent(this, Friends.class); //要改成一個新的activity class
-        //intent.putExtra("selfUsername", self_username);
+        Intent intent = new Intent(this, MyRequestActivity.class); //要改成一個新的activity class
+        intent.putExtra("selfUsername", self_username);
         startActivity(intent);
     }
 
