@@ -43,14 +43,17 @@ public class Friends extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
-        databaseRef = FirebaseDatabase.getInstance().getReference("users");
+        databaseRef = FirebaseDatabase.getInstance().getReference();
         self_username = getIntent().getStringExtra("username");
 
+        /*
         System.out.println("-------------------------------------------");
         System.out.println(self_username);
         System.out.println(databaseRef.getKey());
         System.out.println("-------------------------------------------");
 
+
+         */
         /*
         //
         List<String> data = new ArrayList<>();
