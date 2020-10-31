@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -72,6 +73,13 @@ public class Log_in_activity extends AppCompatActivity {
                                         }
                                         Toast.makeText(Log_in_activity.this, "Successful!!!!.",
                                                 Toast.LENGTH_SHORT).show();
+                                        SharedPreferences sharedpreferences;
+                                        sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                                        editor.putString("username", username);
+                                        editor.putString("password", password_Str);
+                                        editor.putString("email", email);
+                                        editor.commit();
                                         Intent intent = new Intent(Log_in_activity.this, MapsActivity.class);
                                         intent.putExtra("email", email);
                                         intent.putExtra("password", password_Str);
