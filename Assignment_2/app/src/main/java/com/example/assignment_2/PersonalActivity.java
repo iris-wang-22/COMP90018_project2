@@ -9,14 +9,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.assignment_2.basepedo.config.Constant;
@@ -29,11 +33,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class PersonalActivity extends AppCompatActivity implements Handler.Callback{
 
-    private String username, age, gender;
+    private String username, age, gender, avatar;
     private DatabaseReference databaseRef;
 
     private ImageButton iBtn_01;
@@ -45,6 +50,9 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
     private TextView tv_userName;
     private TextView tv_age;
     private TextView tv_gender;
+    private ImageView iv_avatar;
+    private Bitmap image;
+
     //basepedo
     private final String TAG = bActivity.class.getSimpleName();
     private long TIME_INTERVAL = 500;
@@ -71,6 +79,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         tv_userName = (TextView) findViewById(R.id.p_tv_username);
         tv_age = (TextView) findViewById(R.id.p_tv_age);
         tv_gender = (TextView) findViewById(R.id.p_tv_gender);
+        iv_avatar = findViewById(R.id.p_iv);
 
         tv_userName.setText(username);
 
@@ -82,13 +91,22 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println("+++++++++++++++++++++++++++++++++");
 
-                //Object document = snapshot.getValue();
-                //Map pro = snapshot.child("profile").getValue(Map.class);
-                //snapshot.child("profile").getValue().getClass();
+
                 age = snapshot.child("profile/age").getValue(String.class);
                 gender = snapshot.child("profile/gender").getValue(String.class);
-                tv_age.setText("Age: "+age);
-                tv_gender.setText(gender);
+                avatar = snapshot.child("profile/avatar").getValue(String.class);
+
+
+                if (age != null){
+                    tv_age.setText(age);
+                }
+                if (gender != null){
+                    tv_gender.setText(gender);
+                }
+                if (avatar != null){
+                    image = base64ToBitmap(avatar);
+                    iv_avatar.setImageBitmap(image);
+                }
 
             }
             @Override
@@ -99,6 +117,12 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         });
 
 
+    }
+
+
+    public static Bitmap base64ToBitmap(String base64Data) {
+        byte[] bytes = Base64.decode(base64Data, Base64.URL_SAFE);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
 
@@ -229,9 +253,11 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     finish();
                     break;
                 case R.id.p_ib_02:
-                    Intent intent2 = null;
-                    intent2 = new Intent(PersonalActivity.this, NewProfileActivity.class);
+                    Intent intent2 = new Intent(PersonalActivity.this, NewProfileActivity.class);
                     intent2.putExtra("username", username);
+                    intent2.putExtra("age", age);
+                    intent2.putExtra("gender", gender);
+                    intent2.putExtra("avatar", avatar);
                     startActivity(intent2);
                     finish();
                     break;

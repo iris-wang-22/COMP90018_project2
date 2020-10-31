@@ -17,6 +17,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- - -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <!-- - -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon2"
@@ -24,6 +29,8 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".AvatarActivity"></activity>
         <activity android:name=".ForgetPasswordActivity"></activity>
         <activity android:name=".NewProfileActivity" />
         <activity android:name=".PersonalActivity" />
@@ -46,14 +53,18 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".Log_in_activity" />
         <activity android:name=".Sign_up_activity" />
-        <activity android:name=".basepedo.ui.bActivity" /> <!-- Main -->
+        <activity android:name=".basepedo.ui.bActivity" />
+
+        <!-- Main -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- android:process="com.base.basepedo.step" -->
+        </activity>
+
+        <!-- android:process="com.base.basepedo.step" -->
         <service
             android:name=".basepedo.service.StepService"
             android:priority="1000"
@@ -87,6 +98,17 @@
         <receiver
             android:name=".basepedo.receiver.Receiver2"
             android:process=":process2" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.assignment_2.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
     </application>
 
 </manifest>

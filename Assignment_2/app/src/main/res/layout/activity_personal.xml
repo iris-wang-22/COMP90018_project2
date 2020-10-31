@@ -61,7 +61,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/m_shape"
-            android:src="@drawable/pig"
+            android:src="@drawable/default_cover_img"
             android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/p_tv_username"
@@ -139,8 +139,7 @@
             android:drawableLeft="@drawable/award"
             android:text="    Rank"
             android:gravity="center_vertical"
-            android:padding="5dp"
-            android:background="@drawable/line_shape"/>
+            android:padding="5dp" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
