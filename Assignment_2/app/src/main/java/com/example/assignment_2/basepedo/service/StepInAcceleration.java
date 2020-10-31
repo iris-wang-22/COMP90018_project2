@@ -80,9 +80,9 @@ public class StepInAcceleration extends StepMode {
         isAvailable = sensorManager.registerListener(this, sensor,
                 SensorManager.SENSOR_DELAY_UI);
         if (isAvailable) {
-            Log.v(TAG, "加速度传感器可以使用");
+            Log.v(TAG, "Acceleration sensors can be used");
         } else {
-            Log.v(TAG, "加速度传感器无法使用");
+            Log.v(TAG, "Acceleration sensors can be used");
         }
     }
 
@@ -116,7 +116,7 @@ public class StepInAcceleration extends StepMode {
                 if (timeOfNow - timeOfLastPeak >= 200
                         && (peakOfWave - valleyOfWave >= ThreadValue) && (timeOfNow - timeOfLastPeak) <= 2000) {
                     timeOfThisPeak = timeOfNow;
-                    //更新界面的处理，不涉及到算法
+
                     preStep();
                 }
                 if (timeOfNow - timeOfLastPeak >= 200
@@ -131,11 +131,10 @@ public class StepInAcceleration extends StepMode {
 
     private void preStep() {
         if (CountTimeState == 0) {
-            // 开启计时器
             time = new TimeCount(duration, 700);
             time.start();
             CountTimeState = 1;
-            Log.v(TAG, "开启计时器");
+            Log.v(TAG, "Start");
         } else if (CountTimeState == 1) {
             TEMP_STEP++;
             Log.v(TAG, "计步中 TEMP_STEP:" + TEMP_STEP);
