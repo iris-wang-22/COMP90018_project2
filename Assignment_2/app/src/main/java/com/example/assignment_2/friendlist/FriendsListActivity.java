@@ -54,7 +54,6 @@ public class FriendsListActivity extends AppCompatActivity {
                     Map<String,Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child("friends/"+username).getValue();
                     fNameList =new ArrayList<String>(friendsList.keySet());
 
-                    System.out.println(fNameList);
                     for(int i=0; i<fNameList.size(); i++){
                         f_name = fNameList.get(i);
                         Object obj = friendsList.get(f_name).get("number");
@@ -105,8 +104,6 @@ public class FriendsListActivity extends AppCompatActivity {
                     Toast toast1 = Toast.makeText(FriendsListActivity.this,"You don't have friends",Toast.LENGTH_LONG);
                     toast1.show();
                 }
-
-
             }
 
             @Override

@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    android:layout_width="match_parent">
+    <fragment
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal">
+        <ImageButton
+            android:id="@+id/main_btn_friends"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/friends_0"
+            android:background="@color/transparent"
+            />
+        <ImageButton
+            android:id="@+id/main_btn_map"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/map_2"
+            android:background="@color/transparent"
+            android:layout_marginLeft="50dp"/>
+        <ImageButton
+            android:id="@+id/main_btn_personal"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/person_0"
+            android:background="@color/transparent"
+            android:layout_marginLeft="50dp"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
