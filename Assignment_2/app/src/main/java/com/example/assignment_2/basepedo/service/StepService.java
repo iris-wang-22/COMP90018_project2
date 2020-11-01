@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +37,11 @@ import com.example.assignment_2.basepedo.pojo.StepData;
 import com.example.assignment_2.basepedo.utils.CountDownTimer;
 import com.example.assignment_2.basepedo.utils.DbUtils;
 import com.example.assignment_2.basepedo.base.StepMode;
+import com.example.assignment_2.user;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.text.SimpleDateFormat;
@@ -56,6 +62,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     private BroadcastReceiver mBatInfoReceiver;
     private WakeLock mWakeLock;
     private TimeCount time;
+    private DatabaseReference databaseRef;
 
     private String CURRENTDATE = "";
 
@@ -84,6 +91,8 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     @Override
     public void onCreate() {
         super.onCreate();
+        FirebaseApp.initializeApp(this);
+        databaseRef = FirebaseDatabase.getInstance().getReference();
         Log.v(TAG, "onCreate");
         initBroadcastReceiver();
         startStep();
@@ -256,6 +265,8 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
 
     private void save() {
         int tempStep = StepMode.CURRENT_SETP;
+        SharedPreferences sharedPreferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
         List<StepData> list = DbUtils.getQueryByWhere(StepData.class, "today", new String[]{CURRENTDATE});
         if (list.size() == 0 || list.isEmpty()) {
             StepData data = new StepData();
@@ -265,6 +276,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
         } else if (list.size() == 1) {
             StepData data = list.get(0);
             data.setStep(tempStep + "");
+            databaseRef.child("current_steps").child(username).setValue(tempStep);
             DbUtils.update(data);
         } else {
         }

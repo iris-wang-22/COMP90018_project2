@@ -73,8 +73,7 @@ public class Log_in_activity extends AppCompatActivity {
                                         }
                                         Toast.makeText(Log_in_activity.this, "Successful!!!!.",
                                                 Toast.LENGTH_SHORT).show();
-                                        SharedPreferences sharedpreferences;
-                                        sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
+                                        SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedpreferences.edit();
                                         editor.putString("username", username);
                                         editor.putString("password", password_Str);
