@@ -122,7 +122,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btn_main_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openFriendsActivity();
+                Intent intent = new Intent(MapsActivity.this, FriendsListActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
             }
         });
 
@@ -136,16 +138,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(intent);
             }
         });
-        //button map for test friend list
-        btn_main_map = (ImageButton) findViewById(R.id.main_btn_map);
-        btn_main_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, FriendsListActivity.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
-            }
-        });
+//        //button map for test friend list
+//        btn_main_map = (ImageButton) findViewById(R.id.main_btn_map);
+//        btn_main_map.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MapsActivity.this, FriendsListActivity.class);
+//                intent.putExtra("username", username);
+//                startActivity(intent);
+//            }
+//        });
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -228,12 +230,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
-    private void openFriendsActivity() {
-        Intent intent = new Intent(this, Friends.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
     }
 
     @Override

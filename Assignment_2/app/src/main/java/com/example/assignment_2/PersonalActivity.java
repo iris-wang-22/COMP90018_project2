@@ -45,6 +45,9 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
 
     private ImageButton iBtn_01;
     private ImageButton iBtn_02;
+    private TextView p_rank;
+    private TextView p_find;
+    private TextView p_settings;
     private TextView p_quit;
     private ImageButton p_fl;
     private ImageButton p_map;
@@ -73,6 +76,9 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         iBtn_02 = (ImageButton) findViewById(R.id.p_ib_02);
         p_fl = findViewById(R.id.p_btn_friends);
         p_map = findViewById(R.id.p_btn_map);
+        p_rank = findViewById(R.id.p_tv_rank);
+        p_find = findViewById(R.id.p_tv_find);
+        p_settings = findViewById(R.id.p_tv_settings);
         p_quit = findViewById(R.id.p_tv_quit);
         setListeners();
 
@@ -241,9 +247,12 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         OnClick onclick = new OnClick();
         iBtn_01.setOnClickListener(onclick);
         iBtn_02.setOnClickListener(onclick);
-        p_quit.setOnClickListener(onclick);
         p_fl.setOnClickListener(onclick);
         p_map.setOnClickListener(onclick);
+        p_rank.setOnClickListener(onclick);
+        p_find.setOnClickListener(onclick);
+        p_settings.setOnClickListener(onclick);
+        p_quit.setOnClickListener(onclick);
     }
 
     private class OnClick implements View.OnClickListener{
@@ -262,7 +271,21 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     startActivity(intent2);
                     finish();
                     break;
-
+                case R.id.p_tv_rank:
+                    Intent intent_r = new Intent(PersonalActivity.this, RankActivity.class);
+                    intent_r.putExtra("username", username);
+                    startActivity(intent_r);
+                    break;
+                case R.id.p_tv_find:
+                    Intent intent_find = new Intent(PersonalActivity.this, Friends.class);
+                    intent_find.putExtra("username", username);
+                    startActivity(intent_find);
+                    break;
+                case R.id.p_tv_settings:
+                    Intent intent_s = new Intent(PersonalActivity.this, SettingActivity.class);
+                    intent_s.putExtra("username", username);
+                    startActivity(intent_s);
+                    break;
                 case R.id.p_tv_quit:
                     Intent intent_main = new Intent();
                     intent_main.setClass(PersonalActivity.this, MainActivity.class);
