@@ -95,6 +95,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        LocationService();
+
         databaseRef = FirebaseDatabase.getInstance().getReference();
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
@@ -189,6 +192,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+    public void LocationService(){
+        Intent intent = new Intent(this,LocationService.class);
+        startService(intent);
+    }
 
     private boolean checkLocation() {
         if(!isLocationEnabled()){
@@ -243,6 +250,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(mGoogleApiClient != null){
             mGoogleApiClient.connect();
         }
+
     }
 
     @Override
@@ -371,7 +379,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 location.getLongitude(),
                 location.getLatitude()); //,username
         //test for update value!
-        databaseRef.child("coordinates").child(username).setValue(helper).
+        databaseRef.child("coordinates").child("aaaaaa").setValue(helper).
                 addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -390,6 +398,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
+
 
 
 
