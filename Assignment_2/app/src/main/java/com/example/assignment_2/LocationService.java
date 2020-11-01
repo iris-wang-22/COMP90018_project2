@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -27,6 +28,11 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,9 +56,14 @@ public class LocationService extends Service {
     }
     @Override
     public void onCreate() {
-
+        super.onCreate();
         Log.e(TAG, "onCreate: ");
-        Toast.makeText(this,"create",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"create",Toast.LENGTH_SHORT).show();
+
+//        SharedPreferences sharedPreferences
+//                = getSharedPreferences("Preferences", MODE_PRIVATE);
+//        username = sharedPreferences.getString("username", "");
+
 
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -61,7 +72,6 @@ public class LocationService extends Service {
             startMyOwnForeground();
         else
             startForeground(1, new Notification());
-        super.onCreate();
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -89,13 +99,15 @@ public class LocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: called.");
+        databaseReference = FirebaseDatabase.getInstance().getReference("coordinates");
+        username = intent.getStringExtra("username");
         getLocation();
-        Toast.makeText(this,"testing",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"testing",Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
 
     private void getLocation() {
-        Log.e(TAG,"Get location.....");
+//        Log.e(TAG,"Get location.....");
         // ---------------------------------- LocationRequest ------------------------------------
         // Create the location request to start receiving updates
         LocationRequest mLocationRequestHighAccuracy = new LocationRequest();
@@ -111,24 +123,35 @@ public class LocationService extends Service {
             stopSelf();
             return;
         }
-        Log.d(TAG, "getLocation: getting location information.");
+//        Log.d(TAG, "getLocation: getting location information.");
         mFusedLocationClient.requestLocationUpdates(mLocationRequestHighAccuracy, new LocationCallback() {
                     @Override
                     public void onLocationResult(LocationResult locationResult) {
 
-                        Log.d(TAG, "onLocationResult: got location result.");
-
                         Location location = locationResult.getLastLocation();
 
                         if (location != null) {
-                            //User user = ((UserClient)(getApplicationContext())).getUser();
-                            LocationHelper geoPoint = new LocationHelper(location.getLatitude(), location.getLongitude());
-                            //UserLocation userLocation = new UserLocation(username, geoPoint, null);
-                            databaseReference = FirebaseDatabase.getInstance().getReference();
-                            SharedPreferences sharedPreferences
-                                    = getSharedPreferences("Preferences", MODE_PRIVATE);
-                            username = sharedPreferences.getString("username", "");
-                            databaseReference.child("coordinates").child(username).setValue(geoPoint);
+                            LocationHelper helper = new LocationHelper(location.getLongitude(), location.getLatitude());
+
+                            String msg = "update Location: " +
+                                    Double.toString(location.getLatitude()) + "," +
+                                    Double.toString(location.getLongitude());
+
+                            Log.d(TAG, msg);
+
+                            databaseReference.child(username).setValue(helper)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Log.d(TAG, "Location Saved");
+                                            }else {
+                                                Log.d(TAG, "not Location data");
+                                            }
+                                        }
+                                    });
+
+
                             Log.e(TAG,"successful");
 
                         }

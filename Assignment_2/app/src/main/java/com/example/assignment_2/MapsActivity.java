@@ -200,6 +200,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     public void LocationService(){
         Intent intent = new Intent(this,LocationService.class);
+        intent.putExtra("username", username);
         startService(intent);
     }
 

@@ -90,7 +90,10 @@
         <service
             android:name=".basepedo.service.DaemonService"
             android:process=":process2" />
-        <service android:name=".LocationService" />
+        <service android:name=".LocationService"
+            android:enabled="true"
+            android:exported="true"
+            />
 
         <receiver
             android:name=".basepedo.receiver.Receiver2"
