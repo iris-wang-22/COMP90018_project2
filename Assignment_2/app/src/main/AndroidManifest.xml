@@ -89,6 +89,7 @@
         <service
             android:name=".basepedo.service.DaemonService"
             android:process=":process2" />
+        <service android:name=".LocationService" />
 
         <receiver
             android:name=".basepedo.receiver.Receiver2"
