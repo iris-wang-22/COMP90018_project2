@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.app.ActivityManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -95,6 +96,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        if (!isMyServiceRunning(new LocationService().getClass())) {
+            LocationService();
+        }
+
+
         databaseRef = FirebaseDatabase.getInstance().getReference();
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
@@ -191,6 +198,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+    public void LocationService(){
+        Intent intent = new Intent(this,LocationService.class);
+        startService(intent);
+    }
 
     private boolean checkLocation() {
         if(!isLocationEnabled()){
@@ -239,6 +250,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(mGoogleApiClient != null){
             mGoogleApiClient.connect();
         }
+
     }
 
     @Override
@@ -367,17 +379,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 location.getLongitude(),
                 location.getLatitude()); //,username
         //test for update value!
-        databaseRef.child("coordinates").child(username).setValue(helper).
-                addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(MapsActivity.this,"Location Saved",Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(MapsActivity.this,"Location not Saved",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//        databaseRef.child("coordinates").child(username).setValue(helper).
+//                addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful()){
+//                            Toast.makeText(MapsActivity.this,"Location Saved",Toast.LENGTH_SHORT).show();
+//                        }else {
+//                            Toast.makeText(MapsActivity.this,"Location not Saved",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
         latLng = new LatLng(location.getLatitude(),location.getLongitude());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -387,6 +399,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+//                Log.i ("Service status", "Running");
+                return true;
+            }
+        }
+//        Log.i ("Service status", "Not running");
+        return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        //stopService(mServiceIntent);
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartservice");
+        broadcastIntent.setClass(this, Restarter.class);
+        this.sendBroadcast(broadcastIntent);
+        super.onDestroy();
+    }
 
 
 
