@@ -271,6 +271,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.clear();
+                    editor.commit();
                     finish();
                     break;
                 case R.id.p_btn_friends:
