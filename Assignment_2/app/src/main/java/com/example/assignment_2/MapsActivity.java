@@ -375,7 +375,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 location.getLongitude(),
                 location.getLatitude()); //,username
         //test for update value!
-        databaseRef.child("coordinates").child("aaaaaa").setValue(helper).
+        databaseRef.child("coordinates").child(username).setValue(helper).
                 addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
