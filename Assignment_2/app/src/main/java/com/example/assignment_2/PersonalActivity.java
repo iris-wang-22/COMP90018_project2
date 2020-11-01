@@ -19,7 +19,6 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,13 +28,13 @@ import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.service.StepService;
 import com.example.assignment_2.basepedo.ui.bActivity;
 import com.example.assignment_2.friendlist.FriendsListActivity;
+import com.example.assignment_2.rank.RankActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class PersonalActivity extends AppCompatActivity implements Handler.Callback{

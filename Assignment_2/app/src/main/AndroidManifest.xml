@@ -28,7 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SettingActivity"></activity>
-        <activity android:name=".RankActivity" />
+        <activity android:name=".rank.RankActivity" />
         <activity android:name=".AvatarActivity" />
         <activity android:name=".MyRequestActivity" />
         <activity android:name=".ForgetPasswordActivity" />

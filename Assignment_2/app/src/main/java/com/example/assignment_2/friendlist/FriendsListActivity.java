@@ -1,6 +1,7 @@
 package com.example.assignment_2.friendlist;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -46,7 +47,6 @@ public class FriendsListActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
         firend_lv = (ListView) findViewById(R.id.f_lv);
 
-        //String friends_path = "friends/"+username;
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -105,6 +105,7 @@ public class FriendsListActivity extends AppCompatActivity {
 
                     firend_lv.setAdapter(new MyListAdapter(FriendsListActivity.this, friendsListNew));
                 } else {
+
                     Toast toast1 = Toast.makeText(FriendsListActivity.this,"You don't have friends",Toast.LENGTH_LONG);
                     toast1.show();
                 }
