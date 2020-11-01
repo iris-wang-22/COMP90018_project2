@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
@@ -53,27 +55,35 @@ public class LocationService extends Service {
         Toast.makeText(this,"create",Toast.LENGTH_SHORT).show();
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        SharedPreferences sharedPreferences
-                = getSharedPreferences("Preferences", MODE_PRIVATE);
-        username = sharedPreferences.getString("username", "");
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        if (Build.VERSION.SDK_INT >= 26) {
-            String CHANNEL_ID = "my_channel_01";
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    "My Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
-
-            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle("")
-                    .setContentText("").build();
-
-            startForeground(1, notification);
-        }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
+            startMyOwnForeground();
+        else
+            startForeground(1, new Notification());
         super.onCreate();
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private void startMyOwnForeground()
+    {
+        String NOTIFICATION_CHANNEL_ID = "example.permanence";
+        String channelName = "Background Service";
+        NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
+        chan.setLightColor(Color.BLUE);
+        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        assert manager != null;
+        manager.createNotificationChannel(chan);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+        Notification notification = notificationBuilder.setOngoing(true)
+                .setContentTitle("App is running in background")
+                .setPriority(NotificationManager.IMPORTANCE_MIN)
+                .setCategory(Notification.CATEGORY_SERVICE)
+                .build();
+        startForeground(2, notification);
     }
 
     @Override
@@ -81,11 +91,11 @@ public class LocationService extends Service {
         Log.d(TAG, "onStartCommand: called.");
         getLocation();
         Toast.makeText(this,"testing",Toast.LENGTH_SHORT).show();
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void getLocation() {
-
+        Log.e(TAG,"Get location.....");
         // ---------------------------------- LocationRequest ------------------------------------
         // Create the location request to start receiving updates
         LocationRequest mLocationRequestHighAccuracy = new LocationRequest();
@@ -114,14 +124,27 @@ public class LocationService extends Service {
                             //User user = ((UserClient)(getApplicationContext())).getUser();
                             LocationHelper geoPoint = new LocationHelper(location.getLatitude(), location.getLongitude());
                             //UserLocation userLocation = new UserLocation(username, geoPoint, null);
+                            databaseReference = FirebaseDatabase.getInstance().getReference();
+                            SharedPreferences sharedPreferences
+                                    = getSharedPreferences("Preferences", MODE_PRIVATE);
+                            username = sharedPreferences.getString("username", "");
                             databaseReference.child("coordinates").child(username).setValue(geoPoint);
                             Log.e(TAG,"successful");
-
 
                         }
                     }
                 },
                 Looper.myLooper()); // Looper.myLooper tells this to repeat forever until thread is destroyed
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartservice");
+        broadcastIntent.setClass(this, Restarter.class);
+        this.sendBroadcast(broadcastIntent);
     }
 
 
