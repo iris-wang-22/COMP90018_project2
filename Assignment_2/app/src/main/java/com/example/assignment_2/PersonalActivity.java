@@ -304,9 +304,6 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     finish();
                     break;
                 case R.id.p_btn_map:
-                    Intent intent_m = new Intent(PersonalActivity.this, MapsActivity.class);
-                    intent_m.putExtra("username", username);
-                    startActivity(intent_m);
                     finish();
                     break;
             }

@@ -3,12 +3,15 @@ package com.example.assignment_2.friendlist;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.assignment_2.PersonalActivity;
 import com.example.assignment_2.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +27,9 @@ import java.util.Map;
 public class FriendsListActivity extends AppCompatActivity {
 
     private ListView firend_lv;
+    private ImageButton fl_p;
+    private ImageButton fl_map;
 
-    private List<friendsMode> friendsListT=new ArrayList();
     private List<friendsMode> friendsListNew=new ArrayList();
 
 
@@ -120,6 +124,25 @@ public class FriendsListActivity extends AppCompatActivity {
                 toast1.show();
             }
 
+        });
+
+        fl_p = findViewById(R.id.fl_btn_personal);
+        fl_map = findViewById(R.id.fl_btn_map);
+        fl_p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_p = new Intent(FriendsListActivity.this, PersonalActivity.class);
+                intent_p.putExtra("username", username);
+                startActivity(intent_p);
+                finish();
+            }
+        });
+
+        fl_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
 
