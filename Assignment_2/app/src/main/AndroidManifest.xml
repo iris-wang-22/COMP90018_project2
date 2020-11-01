@@ -15,12 +15,9 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <!-- - -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- - -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <!-- - -->
 
     <application
         android:allowBackup="true"
@@ -29,13 +26,14 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".AvatarActivity"></activity>
-        <activity android:name=".MyRequestActivity"></activity>
+        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".RankActivity" />
+        <activity android:name=".AvatarActivity" />
+        <activity android:name=".MyRequestActivity" />
         <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".NewProfileActivity" />
         <activity android:name=".PersonalActivity" />
-        <activity android:name=".friendlist.FriendsListActivity" ></activity>
+        <activity android:name=".friendlist.FriendsListActivity" />
         <activity android:name=".Friends" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -54,18 +52,14 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".Log_in_activity" />
         <activity android:name=".Sign_up_activity" />
-        <activity android:name=".basepedo.ui.bActivity" />
-
-        <!-- Main -->
+        <activity android:name=".basepedo.ui.bActivity" /> <!-- Main -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- android:process="com.base.basepedo.step" -->
+        </activity> <!-- android:process="com.base.basepedo.step" -->
         <service
             android:name=".basepedo.service.StepService"
             android:priority="1000"
@@ -109,7 +103,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
     </application>
 
 </manifest>
