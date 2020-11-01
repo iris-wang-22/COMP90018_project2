@@ -1,9 +1,11 @@
-package com.example.assignment_2;
+package com.example.assignment_2.Maps;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+
+import com.example.assignment_2.Maps.LocationService;
 
 public class Restarter extends BroadcastReceiver {
     @Override

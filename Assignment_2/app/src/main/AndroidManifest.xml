@@ -49,7 +49,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".Maps.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".Log_in_activity" />
         <activity android:name=".Sign_up_activity" />
@@ -90,7 +90,7 @@
         <service
             android:name=".basepedo.service.DaemonService"
             android:process=":process2" />
-        <service android:name=".LocationService"
+        <service android:name=".Maps.LocationService"
             android:enabled="true"
             android:exported="true"
             />
@@ -109,7 +109,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <receiver
-            android:name="Restarter"
+            android:name=".Maps.Restarter"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
