@@ -95,7 +95,11 @@ public class RankActivity extends AppCompatActivity {
                         int max_index = 0;
                         while (it.hasNext()){
                             f_name = it.next().toString();
-                            f_steps = Integer.parseInt(snapshot.child("current_steps/"+f_name).getValue().toString());
+                            if(snapshot.child("current_steps/"+f_name).getValue() != null){
+                                f_steps = Integer.parseInt(snapshot.child("current_steps/"+f_name).getValue().toString());
+                            } else {
+                                f_steps = 0;
+                            }
 
                             if (f_steps>max_steps){
                                 max_steps = f_steps;
