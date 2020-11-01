@@ -19,6 +19,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -92,11 +93,9 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println("+++++++++++++++++++++++++++++++++");
 
-
                 age = snapshot.child("profile/age").getValue(String.class);
                 gender = snapshot.child("profile/gender").getValue(String.class);
                 avatar = snapshot.child("profile/avatar").getValue(String.class);
-
 
                 if (age != null){
                     tv_age.setText(age);
@@ -146,6 +145,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            System.out.println("Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
         }
     };

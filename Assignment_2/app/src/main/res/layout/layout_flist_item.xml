@@ -10,7 +10,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:background="@color/transparent"/>
+        android:background="@drawable/m_shape"
+        android:src="@drawable/default_cover_img"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,14 +21,14 @@
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:hint="Username"
             android:textSize="20sp"
             android:textColor="@color/black"/>
         <TextView
-            android:id="@+id/tv_email"
+            android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:hint="Gender"
             android:textSize="18sp"
             android:textColor="#979797"
             android:layout_marginTop="10dp"/>

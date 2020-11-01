@@ -135,9 +135,9 @@
         <TextView
             android:id="@+id/p_tv_rank"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/award"
-            android:text="    Rank"
+            android:text="      Rank"
             android:gravity="center_vertical"
             android:padding="5dp" />
         <View
@@ -148,7 +148,7 @@
         <TextView
             android:id="@+id/p_tv_find"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/findfriends_icon"
             android:text="    Find Friend"
             android:gravity="center_vertical"
@@ -161,9 +161,9 @@
         <TextView
             android:id="@+id/p_tv_settings"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/settings_icon"
-            android:text="    Settings"
+            android:text="   Settings"
             android:gravity="center_vertical"
             android:padding="5dp"/>
         <View
@@ -174,13 +174,12 @@
         <TextView
             android:id="@+id/p_tv_quit"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/pig"
-            android:text="    Quit"
+            android:text="  Quit"
             android:gravity="center_vertical"
             android:padding="5dp"/>
-
-
+        
     </LinearLayout>
 
     <LinearLayout
