@@ -35,9 +35,7 @@
         <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".NewProfileActivity" />
         <activity android:name=".PersonalActivity" />
-        <activity android:name=".friendlist.FriendsListActivity" >
-
-        </activity>
+        <activity android:name=".friendlist.FriendsListActivity" ></activity>
         <activity android:name=".Friends" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

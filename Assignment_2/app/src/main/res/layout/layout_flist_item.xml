@@ -6,7 +6,7 @@
     android:padding="15dp">
 
     <ImageView
-        android:id="@+id/iv_l"
+        android:id="@+id/iv_avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
@@ -30,15 +30,15 @@
             android:layout_height="wrap_content"
             android:hint="Gender"
             android:textSize="18sp"
-            android:textColor="#979797"
+            android:textColor="@color/mainColor_02"
             android:layout_marginTop="10dp"/>
         <TextView
             android:id="@+id/tv_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Age"
+            android:hint="Age"
             android:textSize="18sp"
-            android:textColor="#979797"
+            android:textColor="@color/mainColor_03"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
 </LinearLayout>

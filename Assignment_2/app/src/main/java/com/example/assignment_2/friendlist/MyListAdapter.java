@@ -1,6 +1,9 @@
 package com.example.assignment_2.friendlist;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +21,8 @@ public class MyListAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
-    private List<friendmode> mData;
-
+    private List<friendsMode> mData;
+    private ViewHolder holder = null;
 
     MyListAdapter(Context context, List data){
         this.mContext = context;
@@ -42,72 +45,42 @@ public class MyListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder{
-        public ImageView imageView;
-        public TextView tvUsername, tvEmail, tvAge;
+        public ImageView ivAvatar;
+        public TextView tvUsername, tvAge, tvGender;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
         if (convertView==null){
             convertView = mLayoutInflater.inflate(R.layout.layout_flist_item, null);
-
-            friendmode friend = mData.get(position);
+            friendsMode friends = mData.get(position);
 
             holder = new ViewHolder();
-            holder.imageView = (ImageView) convertView.findViewById(R.id.iv_l);
+            holder.ivAvatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
             holder.tvUsername = (TextView) convertView.findViewById(R.id.tv_username);
-            holder.tvEmail = (TextView) convertView.findViewById(R.id.tv_gender);
             holder.tvAge = (TextView) convertView.findViewById(R.id.tv_age);
+            holder.tvGender = (TextView) convertView.findViewById(R.id.tv_gender);
 
-            holder.tvUsername.setText(friend.getNickname());
-            holder.tvEmail.setText(friend.getDescribe());
+
+            holder.tvUsername.setText(friends.getUsername());
+            holder.tvAge.setText(friends.getAge());
+            holder.tvGender.setText(friends.getGender());
+
+            if (friends.getAvatar() != null){
+                holder.ivAvatar.setImageBitmap(base64ToBitmap(friends.getAvatar()));
+            }
 
             convertView.setTag(holder);
+
         } else{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        //给控件赋值
-//        holder.tvUsername.setText(friend.getNickname());
-//        holder.tvEmail.setText(friend.getDescribe());
-        holder.tvAge.setText("18");
-        holder.imageView.setImageResource(R.drawable.pig);
-        //Glide.with(mContext).load("https://img2.chinadaily.com.cn/images/201808/09/5b6b8efea310add1c695e853.jpeg").into(holder.imageView);
-
         return convertView;
     }
 
-
-    public class friendmode {
-        private int avatar;
-        private String nickname;
-        private String describe;
-
-        public String getDescribe() {
-            return describe;
-        }
-
-        public void setDescribe(String describe) {
-            this.describe = describe;
-        }
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
-
-        public int getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(int avatar) {
-            this.avatar = avatar;
-        }
-
-
+    public static Bitmap base64ToBitmap(String base64Data) {
+        byte[] bytes = Base64.decode(base64Data, Base64.URL_SAFE);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
 }
