@@ -1,12 +1,14 @@
 package com.example.assignment_2;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -24,11 +26,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.assignment_2.Util.ToastUtil;
 import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.service.StepService;
 import com.example.assignment_2.basepedo.ui.bActivity;
 import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.example.assignment_2.rank.RankActivity;
+import com.example.assignment_2.widget.CustomDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -286,15 +290,28 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     startActivity(intent_s);
                     break;
                 case R.id.p_tv_quit:
-                    Intent intent_main = new Intent();
-                    intent_main.setClass(PersonalActivity.this, MainActivity.class);
-                    intent_main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //关键的一句，将新的activity置为栈顶
-                    startActivity(intent_main);
-                    SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.clear();
-                    editor.commit();
-                    finish();
+                    CustomDialog customDialog = new CustomDialog(PersonalActivity.this, R.style.CustomDialog);
+                    customDialog.setTitle("Tips").setMessage("Are you sure to quit?")
+                            .setCancel("No, not sure.", new CustomDialog.IOnCancelListener() {
+                                @Override
+                                public void onCancel(CustomDialog dialog) {
+                                    ToastUtil.showMsg(PersonalActivity.this,"Good choice!");
+                                }
+                            }).setConfirm("Yes, sure.", new CustomDialog.IOnConfirmListener() {
+                        @Override
+                        public void onConfirm(CustomDialog dialog) {
+                            Intent intent_main = new Intent();
+                            intent_main.setClass(PersonalActivity.this, MainActivity.class);
+                            intent_main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //关键的一句，将新的activity置为栈顶
+                            startActivity(intent_main);
+                            SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.clear();
+                            editor.commit();
+                            finish();
+                        }
+                    }).setCancelable(false);
+                    customDialog.show();
                     break;
                 case R.id.p_btn_friends:
                     Intent intent_f = new Intent(PersonalActivity.this, FriendsListActivity.class);

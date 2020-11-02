@@ -6,11 +6,27 @@
     android:padding="10dp"
     android:background="@color/mainColor_01">
 
+    <TextView
+        android:id="@+id/fl_tv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/fire"
+        android:drawablePadding="6dp"
+        android:text="Friends"
+        android:textSize="36sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@color/transparent"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="5dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/list_shape">
+        android:background="@drawable/list_shape"
+        android:layout_below="@+id/fl_tv">
         <ListView
             android:id="@+id/f_lv"
             android:layout_width="match_parent"

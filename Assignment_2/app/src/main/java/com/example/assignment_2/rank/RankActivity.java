@@ -37,6 +37,7 @@ public class RankActivity extends AppCompatActivity {
 
     private ListView rank_lv;
     private Button rank_up;
+    private ImageButton rank_back;
 
     private DatabaseReference databaseRef;
     private String username;
@@ -50,6 +51,7 @@ public class RankActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
         rank_lv = (ListView) findViewById(R.id.rank_lv);
         rank_up = (Button) findViewById(R.id.rank_btn_up);
+        rank_back = (ImageButton) findViewById(R.id.rank_btn_back);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
@@ -70,6 +72,12 @@ public class RankActivity extends AppCompatActivity {
             }
         });
 
+        rank_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void updateRank(){
