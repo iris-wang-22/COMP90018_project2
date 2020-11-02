@@ -54,8 +54,6 @@ public class LocationService extends Service {
         Log.e(TAG, "onCreate: ");
         //Toast.makeText(this,"create",Toast.LENGTH_SHORT).show();
 
-
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
@@ -93,7 +91,7 @@ public class LocationService extends Service {
                 = getSharedPreferences("Preferences", MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
         databaseReference = FirebaseDatabase.getInstance().getReference("coordinates");
-        //username = intent.getStringExtra("username");
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
         //Toast.makeText(this,"testing",Toast.LENGTH_SHORT).show();
         return START_STICKY;
