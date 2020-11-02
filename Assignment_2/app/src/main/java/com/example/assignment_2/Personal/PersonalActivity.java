@@ -1,4 +1,4 @@
-package com.example.assignment_2;
+package com.example.assignment_2.Personal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.assignment_2.friendsRequest.Friends;
+import com.example.assignment_2.Login.MainActivity;
+import com.example.assignment_2.R;
 import com.example.assignment_2.Util.ToastUtil;
 import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.service.StepService;
@@ -270,7 +273,6 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     intent2.putExtra("gender", gender);
                     intent2.putExtra("avatar", avatar);
                     startActivity(intent2);
-                    finish();
                     break;
                 case R.id.p_tv_rank:
                     Intent intent_r = new Intent(PersonalActivity.this, RankActivity.class);

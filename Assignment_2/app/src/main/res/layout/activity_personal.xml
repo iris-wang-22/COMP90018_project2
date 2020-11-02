@@ -241,7 +241,7 @@
             <View
                 android:id="@+id/p_tv_quit0"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingTop="15dp"
