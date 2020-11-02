@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -53,10 +54,6 @@ public class LocationService extends Service {
         Log.e(TAG, "onCreate: ");
         //Toast.makeText(this,"create",Toast.LENGTH_SHORT).show();
 
-//        SharedPreferences sharedPreferences
-//                = getSharedPreferences("Preferences", MODE_PRIVATE);
-//        username = sharedPreferences.getString("username", "");
-
 
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -92,8 +89,11 @@ public class LocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: called.");
+        SharedPreferences sharedPreferences
+                = getSharedPreferences("Preferences", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", "");
         databaseReference = FirebaseDatabase.getInstance().getReference("coordinates");
-        username = intent.getStringExtra("username");
+        //username = intent.getStringExtra("username");
         getLocation();
         //Toast.makeText(this,"testing",Toast.LENGTH_SHORT).show();
         return START_STICKY;
