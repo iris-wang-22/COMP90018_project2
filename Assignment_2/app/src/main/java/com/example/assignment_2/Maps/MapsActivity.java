@@ -88,6 +88,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private HashMap<String, Object> fProfiles;
     private HashMap<String, HashMap<String, Object>> fAll;
 
+    private Marker marker;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -289,6 +292,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     protected  void placeMarkerOnMap(LatLng location, String avatar) {
+
+        if (marker != null) {
+            marker.remove();
+        }
+
         MarkerOptions markerOptions = new MarkerOptions().position(location);
 
         Bitmap icon;
@@ -301,17 +309,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
 
-        Marker marker = mMap.addMarker(markerOptions);
+        marker = mMap.addMarker(markerOptions);
+
         //String titleStr = getAddress(location);  // add these two lines
         //markerOptions.title(titleStr);
-        if(markerOptions != null)
-        {
-            marker.remove();
-            mMap.addMarker(markerOptions);
-        }
-        else {
-            mMap.addMarker(markerOptions);
-        }
 
     }
 
