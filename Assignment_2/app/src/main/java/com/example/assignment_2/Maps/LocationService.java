@@ -93,6 +93,8 @@ public class LocationService extends Service {
         databaseReference = FirebaseDatabase.getInstance().getReference("coordinates");
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //Toast.makeText(this,"testing",Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }

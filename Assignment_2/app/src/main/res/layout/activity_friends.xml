@@ -12,8 +12,7 @@
         android:layout_marginTop="241dp"
         android:ems="10"
         android:hint="@string/username"
-        android:inputType="textPersonName"
-        android:text="Search by Name" />
+        android:inputType="textPersonName"/>
 
     <Button
         android:id="@+id/Send_friend_request_button"
@@ -25,33 +24,7 @@
         android:layout_marginRight="120dp"
         android:text="Send request" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:gravity="center_horizontal">
 
-        <Button
-            android:id="@+id/main_btn_friends"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Friends" />
-
-        <Button
-            android:id="@+id/main_btn_02"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:text="Map" />
-
-        <Button
-            android:id="@+id/main_btn_person"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Personal" />
-    </LinearLayout>
 
     <Button
         android:id="@+id/request_to_me_button"
