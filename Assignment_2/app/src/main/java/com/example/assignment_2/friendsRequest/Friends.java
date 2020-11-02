@@ -55,11 +55,12 @@ public class Friends extends AppCompatActivity {
         self_avatar_iv = findViewById(R.id.fs_avatar);
 
         self_name_tv.setText(self_username);
+
         if (avatar != null){
             avatar_bit = base64ToBitmap(avatar);
             self_avatar_iv.setImageBitmap(avatar_bit);
         }
-        
+
         /*
         System.out.println("-------------------------------------------");
         System.out.println(self_username);

@@ -106,9 +106,9 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println("+++++++++++++++++++++++++++++++++");
 
-                age = snapshot.child("profile/age").getValue(String.class);
-                gender = snapshot.child("profile/gender").getValue(String.class);
-                avatar = snapshot.child("profile/avatar").getValue(String.class);
+                age = (String) snapshot.child("profile/age").getValue();
+                gender = (String) snapshot.child("profile/gender").getValue();
+                avatar = (String) snapshot.child("profile/avatar").getValue();
 
                 if (age != null){
                     tv_age.setText(age);
