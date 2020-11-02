@@ -48,6 +48,8 @@ public class FriendsListActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("username");
         firend_lv = (ListView) findViewById(R.id.f_lv);
 
+
+
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
