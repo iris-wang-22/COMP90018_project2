@@ -88,6 +88,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private HashMap<String, Object> fProfiles;
     private HashMap<String, HashMap<String, Object>> fAll;
 
+    private Marker marker;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,11 +267,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         if (latLng != null) {
             //mMap.addMarker(new MarkerOptions().position(latLng).title("I am here"));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,12));
+            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
             //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
         }
+        //mMap.getMinZoomLevel();
+        mMap.getUiSettings().setZoomControlsEnabled(false);
+        mMap.getUiSettings().setCompassEnabled(false);
 
-        mMap.getUiSettings().setZoomControlsEnabled(true);
+//        mMap.getUiSettings().setZoomControlsEnabled(true);
         //mMap.setOnMarkerClickListener(this);
 
 //        //friends
@@ -286,7 +292,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     protected  void placeMarkerOnMap(LatLng location, String avatar) {
+
+        if (marker != null) {
+            marker.remove();
+        }
+
         MarkerOptions markerOptions = new MarkerOptions().position(location);
+
         Bitmap icon;
         if (avatar != null){
             icon = base64ToBitmap(avatar);
@@ -296,9 +308,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
+
+        marker = mMap.addMarker(markerOptions);
+
         //String titleStr = getAddress(location);  // add these two lines
         //markerOptions.title(titleStr);
-        mMap.addMarker(markerOptions);
 
     }
 
@@ -321,14 +335,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startLocationUpdates();
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-        if(mLastLocation == null)
-        {
-            startLocationUpdates();
-        }
-        else {
-            Toast.makeText(this,"Location is not Detected",Toast.LENGTH_SHORT).show();
-
-        }
+//        if(mLastLocation == null)
+//        {
+//            startLocationUpdates();
+//        }
+//        else {
+//            Toast.makeText(this,"Location is not Detected",Toast.LENGTH_SHORT).show();
+//
+//        }
     }
 
     private void startLocationUpdates() {
@@ -373,21 +387,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Double.toString(location.getLongitude());
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
 
-        LocationHelper helper  = new LocationHelper(
-                location.getLongitude(),
-                location.getLatitude()); //,username
-        //test for update value!
-//        databaseRef.child("coordinates").child(username).setValue(helper).
-//                addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(MapsActivity.this,"Location Saved",Toast.LENGTH_SHORT).show();
-//                        }else {
-//                            Toast.makeText(MapsActivity.this,"Location not Saved",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
         latLng = new LatLng(location.getLatitude(),location.getLongitude());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

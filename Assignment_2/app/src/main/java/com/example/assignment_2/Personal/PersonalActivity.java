@@ -32,6 +32,7 @@ import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.service.StepService;
 import com.example.assignment_2.basepedo.ui.bActivity;
 import com.example.assignment_2.friendlist.FriendsListActivity;
+import com.example.assignment_2.friendsRequest.MyRequestActivity;
 import com.example.assignment_2.rank.RankActivity;
 import com.example.assignment_2.Util.CustomDialog;
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +52,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
     private ImageButton iBtn_02;
     private TextView p_rank;
     private TextView p_find;
+    private TextView p_request;
     private TextView p_settings;
     private TextView p_quit;
     private ImageButton p_fl;
@@ -82,6 +84,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         p_map = findViewById(R.id.p_btn_map);
         p_rank = findViewById(R.id.p_tv_rank);
         p_find = findViewById(R.id.p_tv_find);
+        p_request = findViewById(R.id.p_tv_request);
         p_settings = findViewById(R.id.p_tv_settings);
         p_quit = findViewById(R.id.p_tv_quit);
         setListeners();
@@ -103,9 +106,9 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println("+++++++++++++++++++++++++++++++++");
 
-                age = snapshot.child("profile/age").getValue(String.class);
-                gender = snapshot.child("profile/gender").getValue(String.class);
-                avatar = snapshot.child("profile/avatar").getValue(String.class);
+                age = (String) snapshot.child("profile/age").getValue();
+                gender = (String) snapshot.child("profile/gender").getValue();
+                avatar = (String) snapshot.child("profile/avatar").getValue();
 
                 if (age != null){
                     tv_age.setText(age);
@@ -255,6 +258,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         p_map.setOnClickListener(onclick);
         p_rank.setOnClickListener(onclick);
         p_find.setOnClickListener(onclick);
+        p_request.setOnClickListener(onclick);
         p_settings.setOnClickListener(onclick);
         p_quit.setOnClickListener(onclick);
     }
@@ -282,7 +286,13 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                 case R.id.p_tv_find:
                     Intent intent_find = new Intent(PersonalActivity.this, Friends.class);
                     intent_find.putExtra("username", username);
+                    intent_find.putExtra("avatar", avatar);
                     startActivity(intent_find);
+                    break;
+                case R.id.p_tv_request:
+                    Intent intent = new Intent(PersonalActivity.this, MyRequestActivity.class); //要改成一個新的activity class
+                    intent.putExtra("username", username);
+                    startActivity(intent);
                     break;
                 case R.id.p_tv_settings:
                     Intent intent_s = new Intent(PersonalActivity.this, SettingActivity.class);

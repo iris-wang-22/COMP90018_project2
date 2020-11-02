@@ -223,7 +223,7 @@ public class NewProfileActivity extends AppCompatActivity {
         String imageB64 = null;
         if (bmp != null){
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, bos); // bmp is bitmap from user image file
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, bos);
             bmp.recycle();
 
             bos.flush();
@@ -231,8 +231,6 @@ public class NewProfileActivity extends AppCompatActivity {
 
             byte[] byteArray = bos.toByteArray();
             imageB64 = Base64.encodeToString(byteArray, Base64.URL_SAFE);
-            //  store & retrieve this string which is URL safe(can be used to store in FBDB) to firebase
-            // Use either Realtime Database or Firestore
 
         }
         return imageB64;
@@ -257,7 +255,13 @@ public class NewProfileActivity extends AppCompatActivity {
                         startActivityForResult(openCameraIntent, TAKE_PICTURE);
                         break;
                     case CHOOSE_PICTURE:
-                        Intent openAlbumIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        Intent openAlbumIntent;
+                        if (Build.VERSION.SDK_INT<19){
+                            openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                            openAlbumIntent.setType("image/*");
+                    } else{
+                            openAlbumIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        }
                         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                         break;
                 }
