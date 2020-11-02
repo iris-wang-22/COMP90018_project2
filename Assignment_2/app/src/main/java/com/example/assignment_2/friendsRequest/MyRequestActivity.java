@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,37 +20,31 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.Query;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyRequestActivity extends AppCompatActivity {
 
     private String self_username;
     private DatabaseReference databaseRef;
-    private DatabaseReference mReference;
+    private ImageButton btn_backward;
 
     private ListView requestList;
-    private ImageButton mr_back;
 
-    private String request_from;
-    private String request_to;
-    private String status;
+    
 
     private RequestListAdapter adapter;
 
     private List<requestDetail> requestListNew=new ArrayList();//requestDetail要修改！
     private List<String> userRequestList;
 
-    /*
-    ////
-    private static final String userName = "username";
-    private static final String theName = "The name";
-    /////
-
-     */
+    Timer timer;
 
 
     @Override
@@ -56,55 +52,95 @@ public class MyRequestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_request);
 
-        databaseRef = FirebaseDatabase.getInstance().getReference();
-        self_username = getIntent().getStringExtra("username");
 
         requestList = (ListView) findViewById(R.id.r_lv);
-        mr_back = findViewById(R.id.mr_btn_back);
+        timer = new Timer();
+        timer.schedule(new keepUpdate(), 0, 5000);
 
-        mr_back.setOnClickListener(new View.OnClickListener() {
+
+        ////可用
+        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast toast1 = Toast.makeText(MyRequestActivity.this,"Friend request: "+position,Toast.LENGTH_SHORT);
+                toast1.show();
+            }
+
+        });
+
+        btn_backward = findViewById(R.id.backward_btn);
+        btn_backward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
                 finish();
             }
         });
 
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String request_from_user;
 
-                if (snapshot.child("friend request/"+self_username).getValue() != null){
-                    Map<String,Map<?,?>> request_list = (Map<String, Map<?, ?>>) snapshot.child("friend request/"+self_username).getValue();
-                    userRequestList =new ArrayList<String>(request_list.keySet());
+    }
+    
+    public class keepUpdate extends TimerTask {
+        public void run(){
+            databaseRef = FirebaseDatabase.getInstance().getReference();
+            self_username = getIntent().getStringExtra("selfUsername");
+            /////
+            if (requestListNew.size() != 0){
+                requestListNew.clear();
+            }
 
-                    for(int i=0; i<userRequestList.size(); i++){ //userRequestList.size()
-                        request_from_user = userRequestList.get(i);
+            databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String request_from_user;
 
-                        Map<String,String> request_details = (Map<String, String>) snapshot.child("friend request/"+self_username+"/"+userRequestList.get(i)).getValue();
-                        String fromAvatar = (String) snapshot.child("users/"+userRequestList.get(i)+"/profile/avatar").getValue();
-
-                        if (request_details != null) {
-                            if (request_details.containsValue("waiting")){
-                                requestDetail request_detail=new requestDetail();
-                                request_detail.setRequestFrom(request_from_user); //requestDetail要加
-                                request_detail.setRequestTo(request_details.get("requestTo"));
-                                request_detail.setStatus(request_details.get("status"));
-                                request_detail.setFromAvatar(fromAvatar);
-                                requestListNew.add(request_detail);
+                    Query checkRequestExistence = databaseRef.child("friend request").child(self_username).orderByChild("status").equalTo("waiting");
+                    checkRequestExistence.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(!(snapshot.exists())) {
+                                Toast toast1 = Toast.makeText(MyRequestActivity.this,"You don't have any friend requests",Toast.LENGTH_LONG);
+                                toast1.show();
                             }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
+                    });
+
+
+                    if (snapshot.child("friend request/"+self_username).getValue() != null){
+                        Map<String,Map<?,?>> request_list = (Map<String, Map<?, ?>>) snapshot.child("friend request/"+self_username).getValue();
+                        userRequestList =new ArrayList<String>(request_list.keySet());
+
+                        for(int i=0; i<userRequestList.size(); i++){ //userRequestList.size()
+                            request_from_user = userRequestList.get(i);
+
+                            Map<String,String> request_details = (Map<String, String>) snapshot.child("friend request/"+self_username+"/"+userRequestList.get(i)).getValue();
+                            String fromAvatar = (String) snapshot.child("users/"+userRequestList.get(i)+"/profile/avatar").getValue();
+
+                            if (request_details != null) {
+                                if (request_details.containsValue("waiting")){
+                                    requestDetail request_detail=new requestDetail();
+                                    request_detail.setRequestFrom(request_from_user); //requestDetail要加
+                                    request_detail.setRequestTo(request_details.get("requestTo"));
+                                    request_detail.setStatus(request_details.get("status"));
+                                    request_detail.setFromAvatar(fromAvatar);
+                                    requestListNew.add(request_detail);
+                                }
+
+                            }
+                        }
+                        requestList.setAdapter(new RequestListAdapter(MyRequestActivity.this, requestListNew));//要改
                     }
-                    adapter = new RequestListAdapter(MyRequestActivity.this, requestListNew);
-                    requestList.setAdapter(adapter);//要改
 
-                }
-                else {
-                    Toast toast1 = Toast.makeText(MyRequestActivity.this,"You don't have any friend requests",Toast.LENGTH_LONG);
-                    toast1.show();
+                    else {
+                        Toast toast1 = Toast.makeText(MyRequestActivity.this,"You don't have any friend requests",Toast.LENGTH_LONG);
+                        toast1.show();
 
-                }
+                    }
             }
 
             @Override
@@ -112,112 +148,9 @@ public class MyRequestActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 System.out.println("This didn't work");
             }
-        });
-
-        /*
-        /////
-        List<Map<String, String>> item_list = new ArrayList<Map<String, String>>();
-        String[] username11 = {"username", "username", "username"};
-        String[] theName11 = {"hhh", "yyy", "eee"};
-
-        for (int i = 0; i < username11.length; i++){
-            Map<String, String> item = new HashMap<String, String>();
-            item.put(userName, username11[i]);
-            item.put(theName, theName11[i]);
-            item_list.add(item);
+            });
         }
-        /////
-
-         */
-
-
-
-        //requestList.setAdapter(new RequestListAdapter(MyRequestActivity.this, item_list));
-
-
-        //mReference = databaseRef.child("friend request").child("waiting").child(self_username);
-
-
-
-
-        //mReference = FirebaseDatabase.getInstance().getReference().child(self_username).child("hhh");
-
-        //ValueEventListener postListener = ;
-        /*
-        //會直接關掉
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                requestDetail request_detail = dataSnapshot.getValue(requestDetail.class);
-                // [START_EXCLUDE]
-
-                //request_from = detail.requestFrom;
-                //request_to = detail.requestTo;
-                //status = detail.status;
-
-                Toast.makeText(MyRequestActivity.this, "okok", Toast.LENGTH_SHORT).show();
-
-
-                // [END_EXCLUDE]
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-         */
-
-
-
-
-
-
-        //這邊似乎不用？
-        /*
-        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            //這邊放接受或拒絕的動作？
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast1 = Toast.makeText(MyRequestActivity.this,"Friend:"+position,Toast.LENGTH_SHORT);
-                toast1.show();
-
-
-            }
-        });
-
-         */
-
-        ////可用
-        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast1 = Toast.makeText(MyRequestActivity.this,"Friend:"+position,Toast.LENGTH_SHORT);
-                toast1.show();
-            }
-
-        });
-
-//        adapter.notifyDataSetChanged();
-
-
     }
-
-
-
-
-
-    /*
-    @Override
-    protected void onStart(){
-        super.onStart();
-
-
-    }
-
-     */
 
 }
+
