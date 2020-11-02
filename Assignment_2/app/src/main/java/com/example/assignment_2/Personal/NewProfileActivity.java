@@ -10,13 +10,16 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -29,6 +32,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.assignment_2.R;
 import com.example.assignment_2.Util.BitmapUtils;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,9 +41,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.IOException;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import static com.example.assignment_2.Util.Base64Util.base64ToBitmap;
 
 public class NewProfileActivity extends AppCompatActivity {
 
@@ -260,7 +266,8 @@ public class NewProfileActivity extends AppCompatActivity {
                             openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
                             openAlbumIntent.setType("image/*");
                     } else{
-                            openAlbumIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            openAlbumIntent = new Intent(Intent.ACTION_PICK, null);
+                            openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                         }
                         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                         break;
@@ -301,22 +308,23 @@ public class NewProfileActivity extends AppCompatActivity {
     protected void startPhotoZoom(Uri uri) {
         if (uri == null) {
             Log.i("tag", "The uri is not exist.");
+        } else{
+            tempUri = uri;
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.setDataAndType(uri, "image/*");
+            // 设置裁剪
+            intent.putExtra("crop", "true");
+            // aspectX aspectY: Ratio of width to height
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+            // outputX outputY: Crop image width and height
+            intent.putExtra("outputX", 150);
+            intent.putExtra("outputY", 150);
+            intent.putExtra("return-data", true);
+            startActivityForResult(intent, CROP_SMALL_PICTURE);
         }
-        tempUri = uri;
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        // 设置裁剪
-        intent.putExtra("crop", "true");
-        // aspectX aspectY: Ratio of width to height
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        // outputX outputY: Crop image width and height
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, CROP_SMALL_PICTURE);
     }
 
     /**
@@ -337,10 +345,10 @@ public class NewProfileActivity extends AppCompatActivity {
         }
     }
 
-    public static Bitmap base64ToBitmap(String base64Data) {
-        byte[] bytes = Base64.decode(base64Data, Base64.URL_SAFE);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }
+//    public static Bitmap base64ToBitmap(String base64Data) {
+//        byte[] bytes = Base64.decode(base64Data, Base64.URL_SAFE);
+//        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//    }
 //
 //    private void saveImage(Bitmap bitmap) {
 //        File filesDir;
