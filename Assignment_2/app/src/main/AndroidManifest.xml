@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".SettingActivity" />
         <activity android:name=".rank.RankActivity" />
         <activity android:name=".AvatarActivity" />
         <activity android:name=".MyRequestActivity" />
@@ -90,10 +91,10 @@
         <service
             android:name=".basepedo.service.DaemonService"
             android:process=":process2" />
-        <service android:name=".Maps.LocationService"
+        <service
+            android:name=".Maps.LocationService"
             android:enabled="true"
-            android:exported="true"
-            />
+            android:exported="true" />
 
         <receiver
             android:name=".basepedo.receiver.Receiver2"
@@ -108,6 +109,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <receiver
             android:name=".Maps.Restarter"
             android:enabled="true"
@@ -116,7 +118,6 @@
                 <action android:name="restartservice" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
