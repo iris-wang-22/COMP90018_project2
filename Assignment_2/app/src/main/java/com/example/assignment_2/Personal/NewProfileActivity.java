@@ -255,7 +255,13 @@ public class NewProfileActivity extends AppCompatActivity {
                         startActivityForResult(openCameraIntent, TAKE_PICTURE);
                         break;
                     case CHOOSE_PICTURE:
-                        Intent openAlbumIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        Intent openAlbumIntent;
+                        if (Build.VERSION.SDK_INT<19){
+                            openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                            openAlbumIntent.setType("image/*");
+                    } else{
+                            openAlbumIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        }
                         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
                         break;
                 }

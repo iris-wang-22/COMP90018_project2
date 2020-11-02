@@ -205,7 +205,7 @@ public class RequestListAdapter extends BaseAdapter {
                     }
                 });
 
-                Toast toast1 = Toast.makeText(mContext,"The request from "+request_from1.get(position)+" has been accepted",Toast.LENGTH_LONG);
+                Toast toast1 = Toast.makeText(mContext,"The request from "+request_from1.get(position)+" has been accepted",Toast.LENGTH_SHORT);
                 toast1.show();
 
 
@@ -243,7 +243,7 @@ public class RequestListAdapter extends BaseAdapter {
                 }).setCancelable(false);
                 customDialog.show();
 
-                Toast toast2 = Toast.makeText(mContext,"The request from "+request_from1.get(position)+" has been denied",Toast.LENGTH_LONG);
+                Toast toast2 = Toast.makeText(mContext,"The request from "+request_from1.get(position)+" has been denied",Toast.LENGTH_SHORT);
                 toast2.show();
             }
         });
