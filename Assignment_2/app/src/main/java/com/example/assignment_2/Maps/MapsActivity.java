@@ -20,7 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.assignment_2.PersonalActivity;
+import com.example.assignment_2.Personal.PersonalActivity;
 import com.example.assignment_2.R;
 import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.google.android.gms.common.ConnectionResult;

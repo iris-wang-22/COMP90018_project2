@@ -1,4 +1,4 @@
-package com.example.assignment_2;
+package com.example.assignment_2.friendsRequest;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;

@@ -1,4 +1,4 @@
-package com.example.assignment_2;
+package com.example.assignment_2.friendsRequest;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,17 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.assignment_2.R;
-import com.example.assignment_2.friendlist.MyListAdapter;
-import com.example.assignment_2.friendlist.friendsMode;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

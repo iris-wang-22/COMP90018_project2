@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/mainColor_01">
+
+    <TextView
+        android:id="@+id/set_tv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="6dp"
+        android:drawableLeft="@drawable/smile_02"
+        android:text="About Us"
+        android:textSize="36sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@color/transparent"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/list_shape"
+        android:layout_below="@+id/set_tv">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From the University of Melbourne"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:textColor="@color/mainColor_01"
+            android:background="@drawable/setting_selector"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="100dp"
+            android:background="@color/grey" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This application is for Mobile Computing Systems Programming ((COMP90018_2020_SM2)
+)"
+            android:textSize="16sp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/mainColor_01"
+            android:background="@drawable/setting_selector"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="10dp"
+        android:gravity="left"
+        android:paddingLeft="10dp">
+
+        <ImageButton
+            android:id="@+id/about_btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_icon"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rank_update" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

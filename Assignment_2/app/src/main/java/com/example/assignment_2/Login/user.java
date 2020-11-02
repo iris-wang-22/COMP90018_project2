@@ -1,4 +1,4 @@
-package com.example.assignment_2;
+package com.example.assignment_2.Login;
 
 public class user {
     private String username, email, password;

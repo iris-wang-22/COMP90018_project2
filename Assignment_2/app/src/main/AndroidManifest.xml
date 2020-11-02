@@ -27,15 +27,16 @@
         android:roundIcon="@mipmap/icon2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".Personal.AboutUsActivity"></activity>
+        <activity android:name=".Personal.SettingActivity" />
         <activity android:name=".rank.RankActivity" />
-        <activity android:name=".AvatarActivity" />
-        <activity android:name=".MyRequestActivity" />
-        <activity android:name=".ForgetPasswordActivity" />
-        <activity android:name=".NewProfileActivity" />
-        <activity android:name=".PersonalActivity" />
+        <activity android:name=".Personal.AvatarActivity" />
+        <activity android:name=".friendsRequest.MyRequestActivity" />
+        <activity android:name=".Login.ForgetPasswordActivity" />
+        <activity android:name=".Personal.NewProfileActivity" />
+        <activity android:name=".Personal.PersonalActivity" />
         <activity android:name=".friendlist.FriendsListActivity" />
-        <activity android:name=".Friends" />
+        <activity android:name=".friendsRequest.Friends" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -51,10 +52,10 @@
         <activity
             android:name=".Maps.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Log_in_activity" />
-        <activity android:name=".Sign_up_activity" />
+        <activity android:name=".Login.Log_in_activity" />
+        <activity android:name=".Login.Sign_up_activity" />
         <activity android:name=".basepedo.ui.bActivity" /> <!-- Main -->
-        <activity android:name=".MainActivity">
+        <activity android:name=".Login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -90,10 +91,10 @@
         <service
             android:name=".basepedo.service.DaemonService"
             android:process=":process2" />
-        <service android:name=".Maps.LocationService"
+        <service
+            android:name=".Maps.LocationService"
             android:enabled="true"
-            android:exported="true"
-            />
+            android:exported="true" />
 
         <receiver
             android:name=".basepedo.receiver.Receiver2"
@@ -108,6 +109,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <receiver
             android:name=".Maps.Restarter"
             android:enabled="true"
@@ -116,7 +118,6 @@
                 <action android:name="restartservice" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.assignment_2;
+package com.example.assignment_2.friendsRequest;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,25 +10,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.assignment_2.friendlist.FriendsListActivity;
-import com.example.assignment_2.friendlist.MyListAdapter;
-import com.example.assignment_2.friendlist.friendsMode;
+import com.example.assignment_2.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
-import android.util.Log;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;

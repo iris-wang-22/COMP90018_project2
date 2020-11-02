@@ -26,7 +26,7 @@ import androidx.core.app.NotificationCompat;
 
 
 
-import com.example.assignment_2.MainActivity;
+import com.example.assignment_2.Login.MainActivity;
 //import com.example.assignment_2.basepedo.R;
 ///* import com.example.assignment_2.basepedo.R; */
 //import com.example.assignment_2.basepedo.StepMode;
@@ -37,9 +37,7 @@ import com.example.assignment_2.basepedo.pojo.StepData;
 import com.example.assignment_2.basepedo.utils.CountDownTimer;
 import com.example.assignment_2.basepedo.utils.DbUtils;
 import com.example.assignment_2.basepedo.base.StepMode;
-import com.example.assignment_2.user;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
