@@ -44,9 +44,9 @@ public class RequestListAdapter extends BaseAdapter {
     /////
     //List<Map<String, String>> my_item_list;
 
-    private String request_from1;
-    private String request_to1;
-    private String status1;
+    private List<String> request_from1 = new ArrayList<String>();
+    private List<String> request_to1 = new ArrayList<String>();
+    private List<String> status1 = new ArrayList<String>();
 
     private DatabaseReference databaseRef;
 
@@ -133,9 +133,9 @@ public class RequestListAdapter extends BaseAdapter {
 
             holder.rUsername.setText(details.getRequestFrom());
 
-            request_from1 = details.getRequestFrom();
-            request_to1 = details.getRequestTo();
-            status1 = details.getStatus();
+            request_from1.add(details.getRequestFrom());
+            request_to1.add(details.getRequestTo());
+            status1.add(details.getStatus());
 
             convertView.setTag(holder);
 
@@ -153,40 +153,40 @@ public class RequestListAdapter extends BaseAdapter {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //更新好友邀請的status
-                        databaseRef.child("friend request").child(request_to1).child(request_from1).child("status").setValue("replied");
+                        databaseRef.child("friend request").child(request_to1.get(position)).child(request_from1.get(position)).child("status").setValue("replied");
 
                         //更新requestTo的好友
                         String friendNum;
                         //找exist
-                        if(!(snapshot.child("friends/"+request_to1).exists())){
+                        if(!(snapshot.child("friends/"+request_to1.get(position)).exists())){
                             friendNum = "0";
                         }
                         else {
-                            Map<String,Map<?,?>> friend_list11 = (Map<String, Map<?, ?>>) snapshot.child("friends/"+request_to1).getValue();
+                            Map<String,Map<?,?>> friend_list11 = (Map<String, Map<?, ?>>) snapshot.child("friends/"+request_to1.get(position)).getValue();
                             friendList11 =new ArrayList<String>(friend_list11.keySet());
                             int friend_num = friendList11.size();//看他總共有幾個好友
                             friendNum = String.valueOf(friend_num);
                         }
                         Map<String, String> friendInfo = new HashMap<String, String>();
                         friendInfo.put("number", friendNum);
-                        friendInfo.put("username", request_from1);
-                        databaseRef.child("friends").child(request_to1).child(request_from1).setValue(friendInfo);
+                        friendInfo.put("username", request_from1.get(position));
+                        databaseRef.child("friends").child(request_to1.get(position)).child(request_from1.get(position)).setValue(friendInfo);
 
                         //更新requestFrom的好友
                         String friendNum2;
-                        if(!(snapshot.child("friends/"+request_from1).exists())){
+                        if(!(snapshot.child("friends/"+request_from1.get(position)).exists())){
                             friendNum2 = "0";
                         }
                         else {
-                            Map<String,Map<?,?>> friend_list22 = (Map<String, Map<?, ?>>) snapshot.child("friends/"+request_from1).getValue();
+                            Map<String,Map<?,?>> friend_list22 = (Map<String, Map<?, ?>>) snapshot.child("friends/"+request_from1.get(position)).getValue();
                             friendList22 =new ArrayList<String>(friend_list22.keySet());
                             int friend_num2 = friendList22.size();//看他總共有幾個好友
                             friendNum2 = String.valueOf(friend_num2);
                         }
                         Map<String, String> friendInfo2 = new HashMap<String, String>();
                         friendInfo2.put("number", friendNum2);
-                        friendInfo2.put("username", request_to1);
-                        databaseRef.child("friends").child(request_from1).child(request_to1).setValue(friendInfo2);
+                        friendInfo2.put("username", request_to1.get(position));
+                        databaseRef.child("friends").child(request_from1.get(position)).child(request_to1.get(position)).setValue(friendInfo2);
                     }
 
                     @Override
@@ -195,7 +195,7 @@ public class RequestListAdapter extends BaseAdapter {
                     }
                 });
 
-                Toast toast1 = Toast.makeText(mContext,"The request from "+request_from1+" has been accepted",Toast.LENGTH_LONG);
+                Toast toast1 = Toast.makeText(mContext,"The request from "+request_from1.get(position)+" has been accepted",Toast.LENGTH_LONG);
                 toast1.show();
 
 
@@ -209,7 +209,7 @@ public class RequestListAdapter extends BaseAdapter {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //更新好友邀請的status
-                        databaseRef.child("friend request").child(request_to1).child(request_from1).child("status").setValue("replied");
+                        databaseRef.child("friend request").child(request_to1.get(position)).child(request_from1.get(position)).child("status").setValue("replied");
                     }
 
                     @Override
@@ -218,7 +218,7 @@ public class RequestListAdapter extends BaseAdapter {
                     }
                 });
 
-                Toast toast2 = Toast.makeText(mContext,"The request from "+request_from1+" has been denied",Toast.LENGTH_LONG);
+                Toast toast2 = Toast.makeText(mContext,"The request from "+request_from1.get(position)+" has been denied",Toast.LENGTH_LONG);
                 toast2.show();
             }
         });
