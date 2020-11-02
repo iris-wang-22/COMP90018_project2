@@ -20,52 +20,59 @@
             android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/r_username"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="50sp"
             android:gravity="center"
             android:text="Request from:"
             android:textSize="16sp"
-            android:paddingLeft="10dp"
-            android:paddingRight="32dp"/>
+            android:paddingLeft="2dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:paddingBottom="3dp"
-            android:paddingRight="3dp"
-            android:background="@drawable/shadow">
-            <Button
-                android:id="@+id/r_accept"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:focusable="false"
-                android:text="Accept"
-                android:textSize="12sp"
-                android:background="@drawable/click_05"
-                android:textAllCaps="false"
-                android:textColor="@drawable/color_yes" />
+                android:layout_height="40dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"
+                android:background="@drawable/shadow"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/r_accept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:focusable="false"
+                    android:text="Accept"
+                    android:textSize="12sp"
+                    android:background="@drawable/click_05"
+                    android:textAllCaps="false"
+                    android:textColor="@drawable/color_yes" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingRight="3dp"
+                android:paddingBottom="3dp"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/shadow"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/r_deny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:focusable="false"
+                    android:text="Deny"
+                    android:textSize="12sp"
+                    android:background="@drawable/click_06"
+                    android:textAllCaps="false"
+                    android:textColor="@drawable/color_no"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:paddingRight="3dp"
-            android:paddingBottom="3dp"
-            android:layout_marginLeft="12dp"
-            android:background="@drawable/shadow">
-            <Button
-                android:id="@+id/r_deny"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:focusable="false"
-                android:text="Deny"
-                android:textSize="12sp"
-                android:background="@drawable/click_06"
-                android:textAllCaps="false"
-                android:textColor="@drawable/color_no"/>
-        </LinearLayout>
     </LinearLayout>
 
 

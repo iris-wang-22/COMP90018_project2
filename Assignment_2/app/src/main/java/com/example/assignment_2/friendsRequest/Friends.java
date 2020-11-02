@@ -130,7 +130,8 @@ public class Friends extends AppCompatActivity {
 
                                             databaseRef.child("friend request").child(user_name).child(self_username).setValue(request_details);
 
-                                            Toast.makeText(Friends.this, "Request successfully sent!!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Friends.this, "Request successfully sent!", Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
                                     }
                                     @Override

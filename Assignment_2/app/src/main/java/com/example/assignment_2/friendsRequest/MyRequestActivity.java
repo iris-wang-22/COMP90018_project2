@@ -83,7 +83,7 @@ public class MyRequestActivity extends AppCompatActivity {
     public class keepUpdate extends TimerTask {
         public void run(){
             databaseRef = FirebaseDatabase.getInstance().getReference();
-            self_username = getIntent().getStringExtra("selfUsername");
+            self_username = getIntent().getStringExtra("username");
             /////
             if (requestListNew.size() != 0){
                 requestListNew.clear();
@@ -135,7 +135,6 @@ public class MyRequestActivity extends AppCompatActivity {
                         }
                         requestList.setAdapter(new RequestListAdapter(MyRequestActivity.this, requestListNew));//要改
                     }
-
                     else {
                         Toast toast1 = Toast.makeText(MyRequestActivity.this,"You don't have any friend requests",Toast.LENGTH_LONG);
                         toast1.show();
