@@ -9,6 +9,7 @@ public class requestDetail {
     private String requestFrom;
     private String requestTo;
     private String status;
+    private String fromAvatar;
 
     public String getRequestFrom() {
         return requestFrom;
@@ -29,6 +30,14 @@ public class requestDetail {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    public String getFromAvatar() {
+        return fromAvatar;
+    }
+    public void setFromAvatar(String fromAvatar) {
+        this.fromAvatar = fromAvatar;
     }
 
     /*

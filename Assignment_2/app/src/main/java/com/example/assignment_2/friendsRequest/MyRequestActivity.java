@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,10 +31,13 @@ public class MyRequestActivity extends AppCompatActivity {
     private DatabaseReference mReference;
 
     private ListView requestList;
+    private ImageButton mr_back;
 
     private String request_from;
     private String request_to;
     private String status;
+
+    private RequestListAdapter adapter;
 
     private List<requestDetail> requestListNew=new ArrayList();//requestDetail要修改！
     private List<String> userRequestList;
@@ -51,9 +57,17 @@ public class MyRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_request);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        self_username = getIntent().getStringExtra("selfUsername");
+        self_username = getIntent().getStringExtra("username");
 
         requestList = (ListView) findViewById(R.id.r_lv);
+        mr_back = findViewById(R.id.mr_btn_back);
+
+        mr_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -68,6 +82,7 @@ public class MyRequestActivity extends AppCompatActivity {
                         request_from_user = userRequestList.get(i);
 
                         Map<String,String> request_details = (Map<String, String>) snapshot.child("friend request/"+self_username+"/"+userRequestList.get(i)).getValue();
+                        String fromAvatar = (String) snapshot.child("users/"+userRequestList.get(i)+"/profile/avatar").getValue();
 
                         if (request_details != null) {
                             if (request_details.containsValue("waiting")){
@@ -75,12 +90,15 @@ public class MyRequestActivity extends AppCompatActivity {
                                 request_detail.setRequestFrom(request_from_user); //requestDetail要加
                                 request_detail.setRequestTo(request_details.get("requestTo"));
                                 request_detail.setStatus(request_details.get("status"));
+                                request_detail.setFromAvatar(fromAvatar);
                                 requestListNew.add(request_detail);
                             }
 
                         }
                     }
-                    requestList.setAdapter(new RequestListAdapter(MyRequestActivity.this, requestListNew));//要改
+                    adapter = new RequestListAdapter(MyRequestActivity.this, requestListNew);
+                    requestList.setAdapter(adapter);//要改
+
                 }
                 else {
                     Toast toast1 = Toast.makeText(MyRequestActivity.this,"You don't have any friend requests",Toast.LENGTH_LONG);
@@ -182,6 +200,8 @@ public class MyRequestActivity extends AppCompatActivity {
             }
 
         });
+
+//        adapter.notifyDataSetChanged();
 
 
     }

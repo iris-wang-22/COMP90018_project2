@@ -30,7 +30,6 @@
         <activity android:name=".Personal.AboutUsActivity"></activity>
         <activity android:name=".Personal.SettingActivity" />
         <activity android:name=".rank.RankActivity" />
-        <activity android:name=".Personal.AvatarActivity" />
         <activity android:name=".friendsRequest.MyRequestActivity" />
         <activity android:name=".Login.ForgetPasswordActivity" />
         <activity android:name=".Personal.NewProfileActivity" />

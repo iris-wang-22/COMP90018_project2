@@ -98,7 +98,6 @@
             android:paddingRight="10dp"
             android:textColor="@color/white"
             android:background="@drawable/rank_update" />
-
     </LinearLayout>
 
 

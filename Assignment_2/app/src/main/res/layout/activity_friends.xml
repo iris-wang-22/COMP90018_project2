@@ -1,36 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:gravity="center_horizontal"
+android:paddingLeft="10dp"
+android:paddingRight="10dp"
+android:paddingTop="10dp"
+android:paddingBottom="10dp"
+android:background="@color/grey">
+
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/new_shape"
+    android:padding="10dp">
 
-    <EditText
-        android:id="@+id/SearchedPersonName"
+    <TextView
+        android:id="@+id/new_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="241dp"
-        android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textPersonName"/>
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="6dp"
+        android:text="- Search Friends -"
+        android:textSize="32sp"
+        android:textColor="@color/mainColor_05"
+        android:textStyle="italic"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:shadowColor="@color/mainColor_03"
+        android:shadowRadius="2"
+        android:shadowDx="3"
+        android:shadowDy="3"/>
 
-    <Button
-        android:id="@+id/Send_friend_request_button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SearchedPersonName"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="120dp"
-        android:text="Send request" />
+        android:background="@drawable/new_shape_2"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:background="@drawable/personal_shape"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/fs_avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/m_shape"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_cover_img"/>
+                <TextView
+                    android:id="@+id/fs_tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Username"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:shadowColor="@color/mainColor_01"
+                    android:shadowRadius="2"
+                    android:shadowDx="3"
+                    android:shadowDy="3"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:text="Please enter username of your friend:"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+                <EditText
+                    android:id="@+id/SearchedPersonName"
+                    android:layout_width="240dp"
+                    android:layout_height="40dp"
+                    android:textColor="@color/mainColor_02"
+                    android:textSize="15sp"
+                    android:background="@drawable/list_shape"
+                    android:padding="10dp"
+                    android:maxLines="1"
+                    android:ems="10"
+                    android:hint="Friend's username"
+                    android:inputType="textPersonName"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 
-
-    <Button
-        android:id="@+id/request_to_me_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="My friend request" />
+        android:orientation="horizontal"
+        android:layout_marginTop="80dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:paddingRight="3dp"
+            android:background="@drawable/shadow">
+            <Button
+                android:id="@+id/Send_friend_request_button"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/click_05"
+                android:text="Confirm"
+                android:textAllCaps="false"
+                android:textColor="@drawable/color_yes" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shadow">
+            <Button
+                android:id="@+id/request_to_me_button"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/click_06"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="@drawable/color_no"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

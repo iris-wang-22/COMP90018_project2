@@ -1,17 +1,24 @@
 package com.example.assignment_2.friendsRequest;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.assignment_2.Login.MainActivity;
+import com.example.assignment_2.Personal.PersonalActivity;
 import com.example.assignment_2.R;
+import com.example.assignment_2.Util.CustomDialog;
+import com.example.assignment_2.Util.ToastUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.assignment_2.Util.Base64Util.base64ToBitmap;
 
 
 public class RequestListAdapter extends BaseAdapter {
@@ -57,8 +66,6 @@ public class RequestListAdapter extends BaseAdapter {
 
         this.mData = data;
         mLayoutInflater = LayoutInflater.from(context);
-
-
     }
 
     @Override
@@ -82,6 +89,7 @@ public class RequestListAdapter extends BaseAdapter {
         //public ImageView imageView;
         //public TextView tvEmail, tvAge;
         public TextView rUsername;
+        public ImageView rAvatar;
         public Button viewBtn_accept;
         public Button viewBtn_deny;
 
@@ -121,12 +129,17 @@ public class RequestListAdapter extends BaseAdapter {
 
             holder = new ViewHolder1();
             holder.rUsername = (TextView) convertView.findViewById(R.id.r_username);
+            holder.rAvatar = (ImageView) convertView.findViewById(R.id.mr_iv_avatar);
 
             holder.viewBtn_accept = (Button) convertView.findViewById(R.id.r_accept);
             holder.viewBtn_deny = (Button) convertView.findViewById(R.id.r_deny);
 
 
             holder.rUsername.setText(details.getRequestFrom());
+            if (details.getFromAvatar() != null){
+                holder.rAvatar.setImageBitmap(base64ToBitmap(details.getFromAvatar()));
+            }
+
 
             request_from1.add(details.getRequestFrom());
             request_to1.add(details.getRequestTo());
@@ -143,6 +156,8 @@ public class RequestListAdapter extends BaseAdapter {
         holder.viewBtn_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //convertView;
+                //mData.remove(position);
                 databaseRef = FirebaseDatabase.getInstance().getReference();
                 databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -199,19 +214,34 @@ public class RequestListAdapter extends BaseAdapter {
         holder.viewBtn_deny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseRef = FirebaseDatabase.getInstance().getReference();
-                databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                CustomDialog customDialog = new CustomDialog(mContext, R.style.CustomDialog);
+                customDialog.setTitle("Tips").setMessage("Are you sure to deny?")
+                        .setCancel("No, not sure.", new CustomDialog.IOnCancelListener() {
+                            @Override
+                            public void onCancel(CustomDialog dialog) {
+                                ToastUtil.showMsg(mContext,"Good choice!");
+                            }
+                        }).setConfirm("Yes, sure.", new CustomDialog.IOnConfirmListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        //更新好友邀請的status
-                        databaseRef.child("friend request").child(request_to1.get(position)).child(request_from1.get(position)).child("status").setValue("replied");
-                    }
+                    public void onConfirm(CustomDialog dialog) {
+                        //mData.remove(position);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        databaseRef = FirebaseDatabase.getInstance().getReference();
+                        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                //更新好友邀請的status
+                                databaseRef.child("friend request").child(request_to1.get(position)).child(request_from1.get(position)).child("status").setValue("replied");
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
-                });
+                }).setCancelable(false);
+                customDialog.show();
 
                 Toast toast2 = Toast.makeText(mContext,"The request from "+request_from1.get(position)+" has been denied",Toast.LENGTH_LONG);
                 toast2.show();

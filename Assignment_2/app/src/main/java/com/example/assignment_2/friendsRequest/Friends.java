@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.assignment_2.R;
@@ -22,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.assignment_2.Util.Base64Util.base64ToBitmap;
+
 public class Friends extends AppCompatActivity {
     private DatabaseReference databaseRef;
     private FirebaseAuth firebaseAuth;
@@ -29,7 +34,11 @@ public class Friends extends AppCompatActivity {
     private EditText username;
     //private String uEmail;
     private String self_username;
+    private String avatar;
+    private Bitmap avatar_bit;
 
+    private TextView self_name_tv;
+    private ImageView self_avatar_iv;
     private Button my_friend_request_btn;
 
 
@@ -40,6 +49,15 @@ public class Friends extends AppCompatActivity {
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
         self_username = getIntent().getStringExtra("username");
+        avatar = getIntent().getStringExtra("avatar");
+
+        self_name_tv = findViewById(R.id.fs_tv_username);
+        self_avatar_iv = findViewById(R.id.fs_avatar);
+
+        self_name_tv.setText(self_username);
+        avatar_bit = base64ToBitmap(avatar);
+        self_avatar_iv.setImageBitmap(avatar_bit);
+
 
         /*
         System.out.println("-------------------------------------------");
@@ -135,17 +153,18 @@ public class Friends extends AppCompatActivity {
         my_friend_request_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openMyRequestActivity();
+                finish();
+//                openMyRequestActivity();
             }
         });
 
     }
 
-    private void openMyRequestActivity() {
-        Intent intent = new Intent(this, MyRequestActivity.class); //要改成一個新的activity class
-        intent.putExtra("selfUsername", self_username);
-        startActivity(intent);
-    }
+//    private void openMyRequestActivity() {
+//        Intent intent = new Intent(this, MyRequestActivity.class); //要改成一個新的activity class
+//        intent.putExtra("selfUsername", self_username);
+//        startActivity(intent);
+//    }
 
 
 }
