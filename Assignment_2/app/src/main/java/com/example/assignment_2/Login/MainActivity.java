@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
     private Button sign_up;
     private Button log_in;
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openLogInActivity() {
         //Intent intent = new Intent(this, Log_in_activity.class);
-        Intent intent = new Intent(this, Log_in_activity.class);
+        Intent intent = new Intent(this,Log_in_activity.class);
         startActivity(intent);
     }
 

@@ -143,10 +143,6 @@ public class LocationService extends Service {
                                             }
                                         }
                                     });
-
-
-                            Log.e(TAG,"successful");
-
                         }
                     }
                 },
