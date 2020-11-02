@@ -8,13 +8,25 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.assignment_2.R;
+import com.example.assignment_2.friendlist.MyListAdapter;
+import com.example.assignment_2.friendlist.friendsMode;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class RequestListAdapter extends BaseAdapter {
@@ -22,31 +34,61 @@ public class RequestListAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
+    private List<requestDetail> mData;
+    private ViewHolder1 holder = null;
+
+    //private Button btn_accept;
+    //private Button btn_deny;
+    //private Object item;
+
+    /////
+    //List<Map<String, String>> my_item_list;
+
+    private String request_from1;
+    private String request_to1;
+    private String status1;
+
     private DatabaseReference databaseRef;
 
-    RequestListAdapter(Context context){
+    private List<String> friendList11;
+    private List<String> friendList22;
+
+
+    public RequestListAdapter(Context context, List data){
         this.mContext = context;
+
+        /////
+        //my_item_list = item_list;//this???
+
+        this.mData = data;
         mLayoutInflater = LayoutInflater.from(context);
+
+
     }
 
     @Override
     public int getCount() {
-        return 10;
+        /////
+        //return my_item_list.size();
+        return mData.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mData.get(position);
     }
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     /////
     static class ViewHolder1 {
-        public ImageView imageView;
-        public TextView rUsername, tvEmail, tvAge;
+        //public ImageView imageView;
+        //public TextView tvEmail, tvAge;
+        public TextView rUsername;
+        public Button viewBtn_accept;
+        public Button viewBtn_deny;
 
         /*
         public Button btn_accept, btn_deny;
@@ -73,39 +115,113 @@ public class RequestListAdapter extends BaseAdapter {
 
 
     }
+
+    /////這邊還沒改！！！
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder1 holder = null;
+
         if (convertView==null){
             convertView = mLayoutInflater.inflate(R.layout.layout_rlist_item, null);
-            holder = new ViewHolder1();
-            /*
-            holder.imageView = (ImageView) convertView.findViewById(R.id.iv_l);
-            holder.tvUsername = (TextView) convertView.findViewById(R.id.tv_username);
-            holder.tvEmail = (TextView) convertView.findViewById(R.id.tv_email);
-            holder.tvAge = (TextView) convertView.findViewById(R.id.tv_age);
+            requestDetail details = mData.get(position);
 
-             */
+            holder = new ViewHolder1();
             holder.rUsername = (TextView) convertView.findViewById(R.id.r_username);
+
+            holder.viewBtn_accept = (Button) convertView.findViewById(R.id.r_accept);
+            holder.viewBtn_deny = (Button) convertView.findViewById(R.id.r_deny);
+
+
+            holder.rUsername.setText(details.getRequestFrom());
+
+            request_from1 = details.getRequestFrom();
+            request_to1 = details.getRequestTo();
+            status1 = details.getStatus();
+
             convertView.setTag(holder);
+
+
+
         } else{
             holder = (ViewHolder1) convertView.getTag();
         }
 
-        //给控件赋值
-        holder.rUsername.setText("testing");
-        //holder.tvEmail.setText("HuaLi@gmail.com");
-        //holder.tvAge.setText("18");
-        //holder.imageView.setImageResource(R.drawable.pig);
-        //Glide.with(mContext).load("https://img2.chinadaily.com.cn/images/201808/09/5b6b8efea310add1c695e853.jpeg").into(holder.imageView);
+        holder.viewBtn_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseRef = FirebaseDatabase.getInstance().getReference();
+                databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //更新好友邀請的status
+                        databaseRef.child("friend request").child(request_to1).child(request_from1).child("status").setValue("replied");
 
-        /*
-        SendRequest.setOnClickListener(new View.OnClickListener(){
+                        //更新requestTo的好友
+                        String friendNum;
+                        //找exist
+                        if(!(snapshot.child("friends/"+request_to1).exists())){
+                            friendNum = "0";
+                        }
+                        else {
+                            Map<String,Map<?,?>> friend_list11 = (Map<String, Map<?, ?>>) snapshot.child("friends/"+request_to1).getValue();
+                            friendList11 =new ArrayList<String>(friend_list11.keySet());
+                            int friend_num = friendList11.size();//看他總共有幾個好友
+                            friendNum = String.valueOf(friend_num);
+                        }
+                        Map<String, String> friendInfo = new HashMap<String, String>();
+                        friendInfo.put("number", friendNum);
+                        friendInfo.put("username", request_from1);
+                        databaseRef.child("friends").child(request_to1).child(request_from1).setValue(friendInfo);
 
+                        //更新requestFrom的好友
+                        String friendNum2;
+                        if(!(snapshot.child("friends/"+request_from1).exists())){
+                            friendNum2 = "0";
+                        }
+                        else {
+                            Map<String,Map<?,?>> friend_list22 = (Map<String, Map<?, ?>>) snapshot.child("friends/"+request_from1).getValue();
+                            friendList22 =new ArrayList<String>(friend_list22.keySet());
+                            int friend_num2 = friendList22.size();//看他總共有幾個好友
+                            friendNum2 = String.valueOf(friend_num2);
+                        }
+                        Map<String, String> friendInfo2 = new HashMap<String, String>();
+                        friendInfo2.put("number", friendNum2);
+                        friendInfo2.put("username", request_to1);
+                        databaseRef.child("friends").child(request_from1).child(request_to1).setValue(friendInfo2);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                Toast toast1 = Toast.makeText(mContext,"The request from "+request_from1+" has been accepted",Toast.LENGTH_LONG);
+                toast1.show();
+
+
+            }
         });
+        holder.viewBtn_deny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseRef = FirebaseDatabase.getInstance().getReference();
+                databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //更新好友邀請的status
+                        databaseRef.child("friend request").child(request_to1).child(request_from1).child("status").setValue("replied");
+                    }
 
-         */
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
+                    }
+                });
+
+                Toast toast2 = Toast.makeText(mContext,"The request from "+request_from1+" has been denied",Toast.LENGTH_LONG);
+                toast2.show();
+            }
+        });
 
         return convertView;
     }

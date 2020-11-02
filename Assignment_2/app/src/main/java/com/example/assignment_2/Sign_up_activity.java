@@ -107,6 +107,7 @@ public class Sign_up_activity extends AppCompatActivity {
                                                   }
                                               }
                                           });
+
                                       }
                                   }
                                   @Override

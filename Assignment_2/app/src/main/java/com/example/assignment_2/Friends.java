@@ -107,6 +107,7 @@ public class Friends extends AppCompatActivity {
                                             username.requestFocus();
                                         }
                                         else{
+                                            //這邊可能要改，看資料庫
                                             Map<String, String> request_details = new HashMap<String, String>();
                                             request_details.put("requestFrom", self_username);
                                             request_details.put("requestTo", user_name);
