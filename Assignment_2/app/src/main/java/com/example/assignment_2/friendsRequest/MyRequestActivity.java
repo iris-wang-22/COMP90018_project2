@@ -94,21 +94,21 @@ public class MyRequestActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     String request_from_user;
 
-                    Query checkRequestExistence = databaseRef.child("friend request").child(self_username).orderByChild("status").equalTo("waiting");
-                    checkRequestExistence.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(!(snapshot.exists())) {
-                                Toast toast1 = Toast.makeText(MyRequestActivity.this,"You don't have any friend requests",Toast.LENGTH_LONG);
-                                toast1.show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+//                    Query checkRequestExistence = databaseRef.child("friend request").child(self_username).orderByChild("status").equalTo("waiting");
+//                    checkRequestExistence.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            if(!(snapshot.exists())) {
+//                                Toast toast1 = Toast.makeText(MyRequestActivity.this,"You don't have any friend requests",Toast.LENGTH_LONG);
+//                                toast1.show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
 
 
                     if (snapshot.child("friend request/"+self_username).getValue() != null){
