@@ -1,7 +1,6 @@
 package com.example.assignment_2.friendlist;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,9 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.assignment_2.Friends;
 import com.example.assignment_2.PersonalActivity;
 import com.example.assignment_2.R;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.assignment_2.Util.ToastUtil;
+import com.example.assignment_2.Util.CustomDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -105,9 +106,24 @@ public class FriendsListActivity extends AppCompatActivity {
 
                     firend_lv.setAdapter(new MyListAdapter(FriendsListActivity.this, friendsListNew));
                 } else {
-
-                    Toast toast1 = Toast.makeText(FriendsListActivity.this,"You don't have friends",Toast.LENGTH_LONG);
-                    toast1.show();
+                    CustomDialog customDialog = new CustomDialog(FriendsListActivity.this, R.style.CustomDialog);
+                    customDialog.setTitle("Tips").setMessage("No friends now."+ "\n" +"Do you want to search friends?")
+                            .setCancel("No, thanks.", new CustomDialog.IOnCancelListener() {
+                                @Override
+                                public void onCancel(CustomDialog dialog) {
+                                    ToastUtil.showMsg(FriendsListActivity.this,"Sorry...");
+                                    finish();
+                                }
+                            }).setConfirm("Yes, sure.", new CustomDialog.IOnConfirmListener() {
+                        @Override
+                        public void onConfirm(CustomDialog dialog) {
+                            Intent intent_fr = new Intent(FriendsListActivity.this, Friends.class);
+                            intent_fr.putExtra("username", username);
+                            startActivity(intent_fr);
+                            finish();
+                        }
+                    }).setCancelable(false);
+                    customDialog.show();
                 }
             }
 

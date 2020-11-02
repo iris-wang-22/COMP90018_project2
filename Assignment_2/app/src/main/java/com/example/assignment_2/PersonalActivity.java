@@ -1,14 +1,12 @@
 package com.example.assignment_2;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -32,7 +30,7 @@ import com.example.assignment_2.basepedo.service.StepService;
 import com.example.assignment_2.basepedo.ui.bActivity;
 import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.example.assignment_2.rank.RankActivity;
-import com.example.assignment_2.widget.CustomDialog;
+import com.example.assignment_2.Util.CustomDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

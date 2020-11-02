@@ -1,4 +1,4 @@
-package com.example.assignment_2.widget;
+package com.example.assignment_2.Util;
 
 import android.app.Dialog;
 import android.content.Context;

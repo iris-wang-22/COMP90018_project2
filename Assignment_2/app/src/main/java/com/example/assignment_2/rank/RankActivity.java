@@ -133,9 +133,21 @@ public class RankActivity extends AppCompatActivity {
                     }
                     rank_lv.setAdapter(new MyRankAdapter(RankActivity.this, rankModeList));
                 } else {
+                    int user_steps;
+                    if(snapshot.child("current_steps/"+username).getValue() != null){
+                        user_steps = Integer.parseInt(snapshot.child("current_steps/"+username).getValue().toString());
+                    } else {
+                        user_steps = 0;
+                    }
+                    rankMode rank_f = new rankMode();
+                    rank_f.setUsername(username);
+                    rank_f.setSteps(user_steps);
+                    //avatar
+                    String f_avatar = (String) snapshot.child("users/"+username+"/profile/avatar").getValue();
+                    rank_f.setAvatar(f_avatar);
+                    rankModeList.add(rank_f);
 
-                    Toast toast1 = Toast.makeText(RankActivity.this,"You don't have friends",Toast.LENGTH_LONG);
-                    toast1.show();
+                    rank_lv.setAdapter(new MyRankAdapter(RankActivity.this, rankModeList));
                 }
             }
 
