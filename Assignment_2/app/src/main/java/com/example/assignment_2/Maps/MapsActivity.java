@@ -145,16 +145,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(intent);
             }
         });
-//        //button map for test friend list
-//        btn_main_map = (ImageButton) findViewById(R.id.main_btn_map);
-//        btn_main_map.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MapsActivity.this, FriendsListActivity.class);
-//                intent.putExtra("username", username);
-//                startActivity(intent);
-//            }
-//        });
 
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -265,11 +255,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (latLng != null) {
-            //mMap.addMarker(new MarkerOptions().position(latLng).title("I am here"));
-            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
-            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
-        }
+
+        btn_main_map = (ImageButton) findViewById(R.id.main_btn_map);
+        btn_main_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(latLng!= null)
+                {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
+                }
+
+            }
+        });
         //mMap.getMinZoomLevel();
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setCompassEnabled(false);
@@ -293,6 +290,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     protected  void placeMarkerOnMap(LatLng location, String avatar) {
 
+
+
         if (marker != null) {
             marker.remove();
         }
@@ -311,6 +310,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         marker = mMap.addMarker(markerOptions);
 
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14));
+                return false;
+            }
+        });
         //String titleStr = getAddress(location);  // add these two lines
         //markerOptions.title(titleStr);
 
@@ -334,15 +340,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
         startLocationUpdates();
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
-//        if(mLastLocation == null)
-//        {
-//            startLocationUpdates();
-//        }
-//        else {
-//            Toast.makeText(this,"Location is not Detected",Toast.LENGTH_SHORT).show();
-//
-//        }
     }
 
     private void startLocationUpdates() {
