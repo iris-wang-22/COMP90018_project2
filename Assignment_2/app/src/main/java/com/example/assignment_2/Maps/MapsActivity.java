@@ -157,7 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     for(int i=0; i<fNameList.size(); i++){
                         f_name = fNameList.get(i);
 
-                        Map<String,Double> friendsLocations = (Map<String, Double>) snapshot.child("coordinates/"+fNameList.get(i)).getValue();
+                        Map<String,Double> friendsLocations = (Map<String, Double>) snapshot.child("coordinates/"+f_name).getValue();
                         String friendsAvatar = (String) snapshot.child("users/"+fNameList.get(i)+"/profile/avatar").getValue();
                         if(friendsLocations != null){
                             Double f_latitue = friendsLocations.get("latitude");
