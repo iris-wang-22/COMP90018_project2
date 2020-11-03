@@ -18,6 +18,8 @@ public class SettingActivity extends AppCompatActivity {
 
     private ImageButton ib_back;
 
+    private String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,8 @@ public class SettingActivity extends AppCompatActivity {
         tv_d_friend = (TextView) findViewById(R.id.set_tv_delete_friends);
         tv_about = (TextView) findViewById(R.id.set_tv_about);
         ib_back = (ImageButton) findViewById(R.id.set_btn_back);
+
+        username = getIntent().getStringExtra("username");
 
         ib_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,15 +42,15 @@ public class SettingActivity extends AppCompatActivity {
         tv_d_self.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, DeleteAccount.class);
-                startActivity(intent);
-                finish();
+
             }
         });
         tv_d_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent_s = new Intent(SettingActivity.this, DeleteFriendActivity.class);
+                intent_s.putExtra("username", username);
+                startActivity(intent_s);
             }
         });
         tv_about.setOnClickListener(new View.OnClickListener() {

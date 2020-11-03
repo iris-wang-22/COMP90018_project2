@@ -29,6 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".friendlist.ChatActivity"></activity>
+        <activity android:name=".Personal.DeleteFriendActivity"></activity>
         <activity android:name=".Personal.AboutUsActivity" />
         <activity android:name=".Personal.SettingActivity" />
         <activity android:name=".rank.RankActivity" />
