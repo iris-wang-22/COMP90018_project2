@@ -22,9 +22,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ChatActivity extends AppCompatActivity {
 
-    TextView userText;
-    FirebaseUser firebaseUser;
-    DatabaseReference reference;
+    private TextView userText;
+    private FirebaseUser firebaseUser;
+    private DatabaseReference reference;
+
+    private TextView friendUsername;
 
 
     @Override
@@ -34,8 +36,12 @@ public class ChatActivity extends AppCompatActivity {
 
 
         userText = findViewById(R.id.username_text);
+        friendUsername = findViewById(R.id.fl_tv);
 
         String username = getIntent().getStringExtra("username");
+        String friend_username = getIntent().getStringExtra("friend_username");
+
+        friendUsername.setText(friend_username);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("users").child("username");
