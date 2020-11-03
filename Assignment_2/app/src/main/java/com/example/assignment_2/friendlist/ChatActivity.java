@@ -81,7 +81,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = text_send.getText().toString();
                 if(!msg.equals("")){
-                    sendMessage(firebaseUser.getUid(),friend_username,msg);
+                    sendMessage(username,friend_username,msg);
 
                 }else
                 {
