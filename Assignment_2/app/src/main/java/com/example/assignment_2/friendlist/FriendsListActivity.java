@@ -142,13 +142,16 @@ public class FriendsListActivity extends AppCompatActivity {
                 Toast toast1 = Toast.makeText(FriendsListActivity.this,"Friend:"+position,Toast.LENGTH_SHORT);
                 toast1.show();
 
-                String friend_username;
+                String friend_username, friend_avatar;
                 friend_username = friendsListNew.get(position).getUsername();
+                friend_avatar = friendsListNew.get(position).getAvatar();
+
                 Intent intent = new Intent(FriendsListActivity.this, ChatActivity.class);
                 intent.putExtra("username",username);
                 intent.putExtra("friend_username", friend_username);
-                startActivity(intent);
+                intent.putExtra("friend_avatar", friend_avatar);
 
+                startActivity(intent);
             }
 
         });

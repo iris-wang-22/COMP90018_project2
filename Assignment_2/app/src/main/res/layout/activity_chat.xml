@@ -8,46 +8,55 @@
     android:background="@color/mainColor_01"
     tools:context=".friendlist.ChatActivity">
 
+    <ImageView
+        android:id="@+id/chat_iv"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/default_cover_img"/>
     <TextView
-        android:id="@+id/fl_tv"
+        android:id="@+id/chat_tv"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center_vertical"
-        android:drawableLeft="@drawable/bear"
-        android:drawablePadding="10dp"
         android:text="friends"
         android:textSize="36sp"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:background="@color/transparent"
         android:layout_marginTop="20dp"
-        android:paddingLeft="5dp"/>
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@+id/chat_iv"/>
 
     <LinearLayout
+        android:id="@+id/chat_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#e6e6e6"
-        android:layout_below="@+id/fl_tv">
+        android:background="@drawable/list_shape_02"
+        android:layout_below="@+id/chat_tv">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="487dp"
-            android:layout_below="@+id/bar_layout"
-
-            />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/bar_layout"/>
     </LinearLayout>
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="5dp"
         android:id="@+id/bottom"
-        android:background="#fff"
+        android:background="@drawable/list_shape_03"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
+
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <EditText
             android:id="@+id/text_send"
@@ -64,7 +73,8 @@
             android:layout_height="40dp"
             android:background="@drawable/ic_action_name"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:padding="2dp"/>
 
     </RelativeLayout>
 

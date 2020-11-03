@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -30,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.assignment_2.Util.Base64Util.base64ToBitmap;
+
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String username;
     private String friend_username;
+    private String friend_avatar;
 
     ImageButton btn_send;
     EditText text_send;
@@ -52,6 +56,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private TextView friendUsername;
+    private ImageView friendAvatar;
 
 
     @Override
@@ -67,13 +72,19 @@ public class ChatActivity extends AppCompatActivity {
         userText = findViewById(R.id.username_text);
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);
-        friendUsername = findViewById(R.id.fl_tv);
+        friendUsername = findViewById(R.id.chat_tv);
+        friendAvatar = findViewById(R.id.chat_iv);
 
         username = getIntent().getStringExtra("username");
         friend_username = getIntent().getStringExtra("friend_username");
+        friend_avatar = getIntent().getStringExtra("friend_avatar");
 
         friendUsername.setText(friend_username);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(friend_avatar !=null){
+            friendAvatar.setImageBitmap(base64ToBitmap(friend_avatar));
+        }
+
+        //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         btn_send.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +93,7 @@ public class ChatActivity extends AppCompatActivity {
                 String msg = text_send.getText().toString();
                 if(!msg.equals("")){
                     sendMessage(username,friend_username,msg);
-
+                    text_send.setText("");
                 }else
                 {
                     Toast.makeText(ChatActivity.this,"Cannot Send empty Message",Toast.LENGTH_SHORT).show();
@@ -91,22 +102,22 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         //firebaseUser.getUid(),friend_username
-        readMessage();
+        //readMessage();
 
-//        reference = FirebaseDatabase.getInstance().getReference("users").child(username);
-//
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                readMessage(firebaseUser.getUid(),friend_username);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//
-//        });
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                readMessage();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
 
 
 
