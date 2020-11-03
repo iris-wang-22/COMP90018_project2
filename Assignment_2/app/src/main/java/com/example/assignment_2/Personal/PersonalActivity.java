@@ -98,17 +98,17 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
 
         tv_userName.setText(username);
 
-        String user_path = "users/"+username;
-        databaseRef = FirebaseDatabase.getInstance().getReference(user_path);
+        //String user_path = "users/"+username;
+        databaseRef = FirebaseDatabase.getInstance().getReference();
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println("+++++++++++++++++++++++++++++++++");
 
-                age = (String) snapshot.child("profile/age").getValue();
-                gender = (String) snapshot.child("profile/gender").getValue();
-                avatar = (String) snapshot.child("profile/avatar").getValue();
+                age = (String) snapshot.child("profile/"+username +"/age").getValue();
+                gender = (String) snapshot.child("profile/"+username +"/gender").getValue();
+                avatar = (String) snapshot.child("profile/"+username +"/avatar").getValue();
 
                 if (age != null){
                     tv_age.setText(age);
