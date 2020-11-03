@@ -84,8 +84,8 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:paddingBottom="10dp"
-        android:gravity="left"
-        android:paddingLeft="10dp">
+        android:gravity="right"
+        android:paddingRight="10dp">
 
         <ImageButton
             android:id="@+id/set_btn_back"
@@ -97,7 +97,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="@color/white"
-            android:background="@drawable/rank_update" />
+            android:background="@drawable/rank_update"/>
     </LinearLayout>
 
 

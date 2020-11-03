@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:background="@color/mainColor_01">
 
     <TextView
@@ -21,32 +23,29 @@
         android:layout_marginTop="20dp"
         android:paddingLeft="5dp"/>
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/f_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/list_shape"
-        android:layout_below="@+id/fl_tv">
-        <ListView
-            android:id="@+id/f_lv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:listSelector="@drawable/flist_item"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:listSelector="@drawable/flist_item"
+        android:background="@drawable/list_shape_fl"
+        android:layout_below="@+id/fl_tv"
+        android:layout_above="@id/fl_ll"/>
 
     <LinearLayout
+        android:id="@+id/fl_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:background="@color/white"
+        android:paddingBottom="15dp">
         <ImageButton
             android:id="@+id/fl_btn_friends"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/friends_2"
-            android:background="@drawable/click_send_color2"
-            />
+            android:background="@drawable/click_send_color2"/>
         <ImageButton
             android:id="@+id/fl_btn_map"
             android:layout_width="60dp"

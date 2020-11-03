@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:background="@color/mainColor_01">
 
     <TextView
@@ -21,30 +23,27 @@
         android:layout_marginTop="20dp"
         android:paddingLeft="5dp"/>
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/r_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        tools:listSelector="@drawable/flist_item"
         android:layout_below="@id/mr_tv"
-        android:background="@drawable/list_shape">
+        android:background="@drawable/list_shape_fl"
+        android:layout_above="@id/mr_ll">
+    </ListView>
 
-        <ListView
-            android:id="@+id/r_lv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listSelector="@drawable/flist_item">
-
-        </ListView>
-    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/mr_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
         android:gravity="right"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:background="@color/white">
 
         <ImageButton
             android:id="@+id/backward_btn"
