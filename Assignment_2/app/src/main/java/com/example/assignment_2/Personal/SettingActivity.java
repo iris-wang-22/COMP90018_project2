@@ -2,6 +2,7 @@ package com.example.assignment_2.Personal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -37,7 +38,9 @@ public class SettingActivity extends AppCompatActivity {
         tv_d_self.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(SettingActivity.this, DeleteAccount.class);
+                startActivity(intent);
+                finish();
             }
         });
         tv_d_friend.setOnClickListener(new View.OnClickListener() {

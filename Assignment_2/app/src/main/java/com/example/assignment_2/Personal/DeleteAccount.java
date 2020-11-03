@@ -1,5 +1,6 @@
 package com.example.assignment_2.Personal;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.assignment_2.Login.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +41,12 @@ public class DeleteAccount extends AppCompatActivity {
         deleteSelfFromFriends();
         deleteSelfFromUsers();
         deleteSelfFromAuth();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.commit();
+        Intent intent = new Intent(DeleteAccount.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void deleteSelfFromOthersFriendList(){
@@ -138,10 +146,6 @@ public class DeleteAccount extends AppCompatActivity {
                         }
                     }
                 });
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.commit();
         FirebaseAuth.getInstance().signOut();
-
     }
 }
