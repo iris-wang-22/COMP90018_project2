@@ -118,7 +118,7 @@ public class RankActivity extends AppCompatActivity {
                         rank_f.setUsername(max_name);
                         rank_f.setSteps(max_steps);
                         //avatar
-                        String f_avatar = (String) snapshot.child("users/"+max_name+"/profile/avatar").getValue();
+                        String f_avatar = (String) snapshot.child("profile/"+max_name+"/avatar").getValue();
                         rank_f.setAvatar(f_avatar);
                         rankModeList.add(rank_f);
                         fNameList.remove(max_index);
@@ -135,7 +135,7 @@ public class RankActivity extends AppCompatActivity {
                     rank_f.setUsername(username);
                     rank_f.setSteps(user_steps);
                     //avatar
-                    String f_avatar = (String) snapshot.child("users/"+username+"/profile/avatar").getValue();
+                    String f_avatar = (String) snapshot.child("profile/"+username+"/avatar").getValue();
                     rank_f.setAvatar(f_avatar);
                     rankModeList.add(rank_f);
 
