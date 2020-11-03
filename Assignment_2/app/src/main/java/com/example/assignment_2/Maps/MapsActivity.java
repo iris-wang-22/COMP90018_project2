@@ -15,6 +15,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.ActivityManager;
 
@@ -55,6 +56,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.example.assignment_2.Util.Base64Util.base64ToBitmap;
@@ -72,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference databaseRef;
     private ImageButton btn_main_friend;
     private ImageButton btn_main_person;
+    private TextView map_location;
 
     //for test
     private ImageButton btn_main_map;
@@ -111,8 +114,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
         username = getIntent().getStringExtra("username");
-        age = getIntent().getStringExtra("z_age");
-        gender =getIntent().getStringExtra("z_gender");
+        age = getIntent().getStringExtra("age");
+        gender =getIntent().getStringExtra("gender");
+
+        map_location = findViewById(R.id.map_tv);
+
 
         if(requestSinglePermission()) {
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -195,7 +201,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-    protected  void placeMarkerOnMap(LatLng location, String avatar) {
+    protected  void placeMarkerOnMap(LatLng location, String avatar){
 
         MarkerOptions markerOptions = new MarkerOptions().position(location);
 
@@ -209,8 +215,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
 
-//        String titleStr = getAddress(location);  // add these two lines
-//        markerOptions.title(titleStr);
+        String titleStr = getAddress(location);
+        markerOptions.title(titleStr);
 
         Marker mLocationMarker = mMap.addMarker(markerOptions); // add the marker to Map
         AllMarkers.add(mLocationMarker); // add the marker to array
@@ -218,6 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14));
                 return false;
             }
@@ -226,26 +233,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-//    private String getAddress( LatLng latLng ) {
-//        // 1
-//        Geocoder geocoder = new Geocoder( this );
-//        String addressText = "";
-//        List<Address> addresses = null;
-//        Address address = null;
-//        try {
-//            // 2
-//            addresses = geocoder.getFromLocation( latLng.latitude, latLng.longitude, 1 );
-//            // 3
-//            if (null != addresses && !addresses.isEmpty()) {
-//                address = addresses.get(0);
-//                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-//                    addressText += (i == 0)?address.getAddressLine(i):("\n" + address.getAddressLine(i));
-//                }
-//            }
-//        } catch (IOException e ) {
-//        }
-//        return addressText;
-//    }
+    private String getAddress( LatLng latLng ){
+        String locality = null;
+        Locale locale = new Locale("en");
+        try {
+            Geocoder geocoder = new Geocoder(this, locale);
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            if (addresses != null || addresses.size() > 0) {
+                locality = addresses.get(0).getCountryName()+" "+addresses.get(0).getAdminArea();
+//                System.out.println("-------------------------------------------+");
+//                System.out.println(locality);
+            }
+        }catch (IOException e ) {
+       }
+        return locality;
+    }
+
 
     private void removeAllMarkers() {
         for (Marker mLocationMarker: AllMarkers) {
@@ -328,6 +331,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 if(latLng!= null)
                 {
+                    map_location.setText(getAddress(latLng));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
                 }
 

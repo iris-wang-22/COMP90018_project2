@@ -35,6 +35,7 @@ import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.example.assignment_2.friendsRequest.MyRequestActivity;
 import com.example.assignment_2.rank.RankActivity;
 import com.example.assignment_2.Util.CustomDialog;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -318,6 +319,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.clear();
                             editor.commit();
+                            FirebaseAuth.getInstance().signOut();
                             finish();
                         }
                     }).setCancelable(false);

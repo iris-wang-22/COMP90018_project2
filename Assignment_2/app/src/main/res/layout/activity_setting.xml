@@ -32,14 +32,14 @@
             android:layout_height="wrap_content"
             android:text="Delete Friends"
             android:textSize="20sp"
-            android:padding="30dp"
+            android:padding="20dp"
             android:textColor="@color/mainColor_01"
             android:background="@drawable/setting_selector"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="5dp"
             android:background="@color/grey" />
 
@@ -49,14 +49,14 @@
             android:layout_height="wrap_content"
             android:text="Delete Account"
             android:textSize="20sp"
-            android:padding="30dp"
+            android:padding="20dp"
             android:textColor="@color/mainColor_01"
             android:background="@drawable/setting_selector"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="5dp"
             android:background="@color/grey" />
         <TextView
@@ -65,14 +65,14 @@
             android:layout_height="wrap_content"
             android:text="About Us"
             android:textSize="20sp"
-            android:padding="30dp"
+            android:padding="20dp"
             android:textColor="@color/mainColor_01"
             android:background="@drawable/setting_selector"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="5dp"
             android:background="@color/grey" />
 
