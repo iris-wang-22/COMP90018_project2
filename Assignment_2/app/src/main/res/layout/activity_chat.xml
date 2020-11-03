@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainColor_01"
-    tools:context=".friendlist.ChatActivity">
+    android:background="@color/mainColor_01">
 
     <ImageView
         android:id="@+id/chat_iv"
@@ -31,54 +28,47 @@
         android:paddingLeft="10dp"
         android:layout_toRightOf="@+id/chat_iv"/>
 
-    <LinearLayout
-        android:id="@+id/chat_ll"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_below="@id/chat_tv"
         android:background="@drawable/list_shape_02"
-        android:layout_below="@+id/chat_tv">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/bar_layout"/>
-    </LinearLayout>
+        android:layout_above="@+id/bottom"/>
 
     <RelativeLayout
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:id="@+id/bottom"
-        android:background="@drawable/list_shape_03"
+        android:background="#EEEEEE"
         android:layout_alignParentBottom="true"
-
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
-
-        <EditText
-            android:id="@+id/text_send"
+        android:paddingBottom="5dp">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/btn_send"
-            android:background="@android:color/transparent"
-            android:hint="Type a message"
-            android:layout_centerVertical="true" />
-
-        <ImageButton
-            android:id="@+id/btn_send"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_action_name"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:padding="2dp"/>
+            android:orientation="horizontal"
+            android:background="@drawable/list_shape_03"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="3dp">
+            <EditText
+                android:id="@+id/text_send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/btn_send"
+                android:background="@android:color/transparent"
+                android:hint="Type a message"
+                android:gravity="center_vertical"
+                android:layout_marginRight="2dp"
+                android:layout_weight="12"/>
+            <ImageButton
+                android:id="@+id/btn_send"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_action_name"
+                android:padding="2dp"/>
+        </LinearLayout>
 
     </RelativeLayout>
-
-
-
 
 </RelativeLayout>

@@ -102,22 +102,22 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         //firebaseUser.getUid(),friend_username
-        //readMessage();
+        readMessage();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                readMessage();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
+//        reference = FirebaseDatabase.getInstance().getReference("Chats");
+//
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                readMessage();
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//
+//        });
 
 
 
@@ -132,6 +132,7 @@ public class ChatActivity extends AppCompatActivity {
         HashMap.put("message", message);
 
         reference.child("Chats").push().setValue(HashMap);
+        //readMessage();
 
     }
 
@@ -158,15 +159,9 @@ public class ChatActivity extends AppCompatActivity {
                         chat.setUsername(username);
                         mChat.add(chat);
                     }
-//                    Chat chat = snapshot.getValue(Chat.class);
-//                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
-//                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
-//                        mChat.add(chat);
-//                    }
-                    messageAdapter  = new MessageAdapter(ChatActivity.this,mChat);
-                    recyclerView.setAdapter(messageAdapter);
-
                 }
+                messageAdapter  = new MessageAdapter(ChatActivity.this,mChat);
+                recyclerView.setAdapter(messageAdapter);
             }
 
             @Override

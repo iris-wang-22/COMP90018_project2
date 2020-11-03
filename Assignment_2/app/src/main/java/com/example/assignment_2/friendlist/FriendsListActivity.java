@@ -139,9 +139,6 @@ public class FriendsListActivity extends AppCompatActivity {
         firend_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast1 = Toast.makeText(FriendsListActivity.this,"Friend:"+position,Toast.LENGTH_SHORT);
-                toast1.show();
-
                 String friend_username, friend_avatar;
                 friend_username = friendsListNew.get(position).getUsername();
                 friend_avatar = friendsListNew.get(position).getAvatar();
