@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ChatActivity extends AppCompatActivity {
@@ -119,7 +120,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void readMessage(String myid, String userid){
-        mChat = new ArrayList<>();
+        //mChat = new ArrayList<>();
+        List<Chat> mChat=new ArrayList();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
@@ -127,11 +129,22 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
+                    Map<String,String> chatMap = (Map<String, String>) snapshot.getValue();
+                    String receiver = chatMap.get("receiver");
+                    String sender = chatMap.get("sender");
+                    String message = chatMap.get("message");
+                    if((receiver==myid && sender==userid)||(receiver==userid&&sender==myid)){
+                        Chat chat = new Chat();
+                        chat.setReceiver(receiver);
+                        chat.setSender(sender);
+                        chat.setMsg(message);
                         mChat.add(chat);
                     }
+//                    Chat chat = snapshot.getValue(Chat.class);
+//                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
+//                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
+//                        mChat.add(chat);
+//                    }
                     messageAdapter  = new MessageAdapter(ChatActivity.this,mChat);
                     recyclerView.setAdapter(messageAdapter);
 
