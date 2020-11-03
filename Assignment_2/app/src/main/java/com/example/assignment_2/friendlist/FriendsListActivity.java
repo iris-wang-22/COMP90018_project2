@@ -139,6 +139,11 @@ public class FriendsListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast toast1 = Toast.makeText(FriendsListActivity.this,"Friend:"+position,Toast.LENGTH_SHORT);
                 toast1.show();
+
+                Intent intent = new Intent(FriendsListActivity.this, ChatActivity.class);
+                intent.putExtra("username",username);
+                startActivity(intent);
+
             }
 
         });
