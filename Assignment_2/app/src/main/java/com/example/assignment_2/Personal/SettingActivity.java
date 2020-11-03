@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.assignment_2.Login.MainActivity;
 import com.example.assignment_2.R;
+import com.example.assignment_2.Util.CustomDialog;
+import com.example.assignment_2.Util.ToastUtil;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -44,26 +49,24 @@ public class SettingActivity extends AppCompatActivity {
         tv_d_self.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
-                builder.setCancelable(true);
-                builder.setTitle("Account deletion");
-                builder.setMessage("Do you wish to continue deleting you account?");
-                builder.setPositiveButton("Confirm",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(SettingActivity.this, DeleteAccount.class);
-                                startActivity(intent);
-                            }
-                        });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                CustomDialog customDialog = new CustomDialog(SettingActivity.this, R.style.CustomDialog);
+                customDialog.setTitle("Warning!").setMessage("Are you sure to delete this account?")
+                        .setCancel("No, not sure.", new CustomDialog.IOnCancelListener() {
+                            @Override
+                            public void onCancel(CustomDialog dialog) {
+                                ToastUtil.showMsg(SettingActivity.this,"Good choice!");
+                            }
+                        }).setConfirm("Yes, sure.", new CustomDialog.IOnConfirmListener() {
+                    @Override
+                    public void onConfirm(CustomDialog dialog) {
+                        Intent intent = new Intent(SettingActivity.this, DeleteAccount.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setCancelable(false);
+                customDialog.show();
+
             }
         });
         tv_d_friend.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +80,8 @@ public class SettingActivity extends AppCompatActivity {
         tv_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(SettingActivity.this, AboutUsActivity.class);
+                startActivity(intent);
             }
         });
     }

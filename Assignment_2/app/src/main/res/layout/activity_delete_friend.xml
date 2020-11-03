@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@color/mainColor_01">
+    android:background="@color/mainColor_04">
 
     <TextView
         android:id="@+id/df_tv"
@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:background="@color/transparent"
-        android:drawableLeft="@drawable/bear"
+        android:drawableLeft="@drawable/friends_02"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="5dp"
@@ -56,7 +56,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="@color/white"
-            android:background="@drawable/rank_update" />
+            android:background="@drawable/button_back" />
     </LinearLayout>
 
 </RelativeLayout>

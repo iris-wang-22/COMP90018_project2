@@ -114,7 +114,7 @@ public class DeleteFriendActivity extends AppCompatActivity {
                     }
                     else {
                         showFriendList.setAdapter(new DeleteFriendAdapter(DeleteFriendActivity.this, friendsListNew, self_username));
-                        Toast toast3 = Toast.makeText(DeleteFriendActivity.this,"You don't have any friends",Toast.LENGTH_LONG);
+                        Toast toast3 = Toast.makeText(DeleteFriendActivity.this,"You don't have any friends",Toast.LENGTH_SHORT);
                         toast3.show();
 
                     }
