@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment_2.Login.MainActivity;
+import com.example.assignment_2.Maps.LocationService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,17 +37,73 @@ public class DeleteAccount extends AppCompatActivity {
         sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
         username = sharedpreferences.getString("username", null);
         dbReference = FirebaseDatabase.getInstance().getReference();
+
         deleteSelfFromOthersFriendList();
+        deleteSelfFromCurrentSteps();
         deleteSelfFromCoordinate();
         deleteSelfFromFriends();
         deleteSelfFromUsers();
         deleteSelfFromAuth();
+        deleteSelfFromFriendRequests();
+        deleteSelfFromProfile();
+
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear();
         editor.commit();
         Intent intent = new Intent(DeleteAccount.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void deleteSelfFromProfile() {
+        Query queryFriendList = dbReference.child("profile/" + username);
+        queryFriendList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot Snapshot: dataSnapshot.getChildren()) {
+                    Snapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteSelfFromFriendRequests() {
+        Query queryFriendList = dbReference.child("friend request/" + username);
+        queryFriendList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot Snapshot: dataSnapshot.getChildren()) {
+                    Snapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteSelfFromCurrentSteps() {
+        Query queryFriendList = dbReference.child("current_steps/" + username);
+        queryFriendList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot Snapshot: dataSnapshot.getChildren()) {
+                    Snapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void deleteSelfFromOthersFriendList(){
@@ -60,7 +117,7 @@ public class DeleteAccount extends AppCompatActivity {
                     List<String> fNameList = new ArrayList<String>(friendsList.keySet());
 
                     for(String aFriend:fNameList){
-                        Query Query = dbReference.child("friends").orderByChild("username").equalTo(aFriend);
+                        Query Query = dbReference.child("friends/" + aFriend + "/" + username);
                         Query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,6 +141,7 @@ public class DeleteAccount extends AppCompatActivity {
     }
 
     private void deleteSelfFromCoordinate(){
+        stopService(new Intent(DeleteAccount.this, LocationService.class));
         Query queryFriendList = dbReference.child("coordinates/" + username);
         queryFriendList.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
