@@ -61,7 +61,7 @@ public class DeleteFriendActivity extends AppCompatActivity {
         showFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast1 = Toast.makeText(DeleteFriendActivity.this,"Friend request: "+position,Toast.LENGTH_SHORT);
+                Toast toast1 = Toast.makeText(DeleteFriendActivity.this,"Friend: "+position,Toast.LENGTH_SHORT);
                 toast1.show();
             }
 
@@ -113,8 +113,9 @@ public class DeleteFriendActivity extends AppCompatActivity {
                         showFriendList.setAdapter(new DeleteFriendAdapter(DeleteFriendActivity.this, friendsListNew, self_username));//要改
                     }
                     else {
-                        Toast toast1 = Toast.makeText(DeleteFriendActivity.this,"You don't have any friends",Toast.LENGTH_LONG);
-                        toast1.show();
+                        showFriendList.setAdapter(new DeleteFriendAdapter(DeleteFriendActivity.this, friendsListNew, self_username));
+                        Toast toast3 = Toast.makeText(DeleteFriendActivity.this,"You don't have any friends",Toast.LENGTH_LONG);
+                        toast3.show();
 
                     }
                 }

@@ -130,6 +130,8 @@ public class DeleteFriendAdapter extends BaseAdapter{
                                 //更新好友邀請的status
                                 databaseRef.child("friends").child(self_username).child(deleted_username.get(position)).setValue(null);
                                 databaseRef.child("friends").child(deleted_username.get(position)).child(self_username).setValue(null);
+                                Toast toast2 = Toast.makeText(mContext,deleted_username.get(position)+" has been deleted",Toast.LENGTH_SHORT);
+                                toast2.show();
                             }
 
                             @Override
@@ -141,8 +143,7 @@ public class DeleteFriendAdapter extends BaseAdapter{
                 }).setCancelable(false);
                 customDialog.show();
 
-                Toast toast2 = Toast.makeText(mContext,deleted_username.get(position)+" has been deleted",Toast.LENGTH_SHORT);
-                toast2.show();
+
             }
         });
 
