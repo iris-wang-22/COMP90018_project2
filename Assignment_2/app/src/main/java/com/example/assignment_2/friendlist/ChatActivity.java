@@ -88,7 +88,8 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference("users").child(username);
+//        reference = FirebaseDatabase.getInstance().getReference("users").child(username);
+        reference = FirebaseDatabase.getInstance().getReference().child("Chats");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
