@@ -5,11 +5,13 @@ public class Chat {
     private String sender;
     private String receiver;
     private String msg;
+    private String username;
 
     public Chat(String sender, String receiver, String msg) {
         this.sender = sender;
         this.receiver = receiver;
         this.msg = msg;
+        this.username = username;
     }
  public Chat()
  {
@@ -38,5 +40,13 @@ public class Chat {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

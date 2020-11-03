@@ -39,6 +39,9 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private DatabaseReference reference;
 
+    private String username;
+    private String friend_username;
+
     ImageButton btn_send;
     EditText text_send;
 
@@ -46,7 +49,6 @@ public class ChatActivity extends AppCompatActivity {
     List<Chat> mChat;
 
     RecyclerView recyclerView;
-
 
 
     private TextView friendUsername;
@@ -67,8 +69,8 @@ public class ChatActivity extends AppCompatActivity {
         text_send = findViewById(R.id.text_send);
         friendUsername = findViewById(R.id.fl_tv);
 
-        String username = getIntent().getStringExtra("username");
-        String friend_username = getIntent().getStringExtra("friend_username");
+        username = getIntent().getStringExtra("username");
+        friend_username = getIntent().getStringExtra("friend_username");
 
         friendUsername.setText(friend_username);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -88,21 +90,23 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        //firebaseUser.getUid(),friend_username
+        readMessage();
+
 //        reference = FirebaseDatabase.getInstance().getReference("users").child(username);
-        reference = FirebaseDatabase.getInstance().getReference().child("Chats");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                readMessage(firebaseUser.getUid(),friend_username);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
+//
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                readMessage(firebaseUser.getUid(),friend_username);
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//
+//        });
 
 
 
@@ -120,7 +124,8 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    private void readMessage(String myid, String userid){
+    //String myid, String userid
+    private void readMessage(){
         //mChat = new ArrayList<>();
         mChat=new ArrayList();
 
@@ -134,11 +139,12 @@ public class ChatActivity extends AppCompatActivity {
                     String receiver = chatMap.get("receiver");
                     String sender = chatMap.get("sender");
                     String message = chatMap.get("message");
-                    if((receiver==myid && sender==userid)||(receiver==userid&&sender==myid)){
+                    if((receiver.equals(username) && sender.equals(friend_username))||(receiver.equals(friend_username)&&sender.equals(username))){
                         Chat chat = new Chat();
                         chat.setReceiver(receiver);
                         chat.setSender(sender);
                         chat.setMsg(message);
+                        chat.setUsername(username);
                         mChat.add(chat);
                     }
 //                    Chat chat = snapshot.getValue(Chat.class);
