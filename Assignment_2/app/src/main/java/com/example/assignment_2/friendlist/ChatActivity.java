@@ -88,7 +88,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference("users").child("username");
+        reference = FirebaseDatabase.getInstance().getReference("users").child(username);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -121,7 +121,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void readMessage(String myid, String userid){
         //mChat = new ArrayList<>();
-        List<Chat> mChat=new ArrayList();
+        mChat=new ArrayList();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
