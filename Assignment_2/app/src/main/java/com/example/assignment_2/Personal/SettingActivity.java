@@ -1,7 +1,9 @@
 package com.example.assignment_2.Personal;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +44,26 @@ public class SettingActivity extends AppCompatActivity {
         tv_d_self.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Account deletion");
+                builder.setMessage("Do you wish to continue deleting you account?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(SettingActivity.this, DeleteAccount.class);
+                                startActivity(intent);
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
         tv_d_friend.setOnClickListener(new View.OnClickListener() {
