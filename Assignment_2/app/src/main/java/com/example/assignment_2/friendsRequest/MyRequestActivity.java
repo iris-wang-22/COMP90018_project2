@@ -119,7 +119,7 @@ public class MyRequestActivity extends AppCompatActivity {
                             request_from_user = userRequestList.get(i);
 
                             Map<String,String> request_details = (Map<String, String>) snapshot.child("friend request/"+self_username+"/"+userRequestList.get(i)).getValue();
-                            String fromAvatar = (String) snapshot.child("users/"+userRequestList.get(i)+"/profile/avatar").getValue();
+                            String fromAvatar = (String) snapshot.child("profile/"+userRequestList.get(i)+"/avatar").getValue();
 
                             if (request_details != null) {
                                 if (request_details.containsValue("waiting")){

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -49,6 +51,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -162,7 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         f_name = fNameList.get(i);
 
                         Map<String,Double> friendsLocations = (Map<String, Double>) snapshot.child("coordinates/"+f_name).getValue();
-                        String friendsAvatar = (String) snapshot.child("users/"+fNameList.get(i)+"/profile/avatar").getValue();
+                        String friendsAvatar = (String) snapshot.child("profile/"+fNameList.get(i)+"/avatar").getValue();
                         if(friendsLocations != null){
                             Double f_latitue = friendsLocations.get("latitude");
                             Double f_longitude = friendsLocations.get("longitude");
@@ -206,6 +209,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
 
+//        String titleStr = getAddress(location);  // add these two lines
+//        markerOptions.title(titleStr);
+
         Marker mLocationMarker = mMap.addMarker(markerOptions); // add the marker to Map
         AllMarkers.add(mLocationMarker); // add the marker to array
 
@@ -217,10 +223,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        //String titleStr = getAddress(location);  // add these two lines
-        //markerOptions.title(titleStr);
 
     }
+
+//    private String getAddress( LatLng latLng ) {
+//        // 1
+//        Geocoder geocoder = new Geocoder( this );
+//        String addressText = "";
+//        List<Address> addresses = null;
+//        Address address = null;
+//        try {
+//            // 2
+//            addresses = geocoder.getFromLocation( latLng.latitude, latLng.longitude, 1 );
+//            // 3
+//            if (null != addresses && !addresses.isEmpty()) {
+//                address = addresses.get(0);
+//                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+//                    addressText += (i == 0)?address.getAddressLine(i):("\n" + address.getAddressLine(i));
+//                }
+//            }
+//        } catch (IOException e ) {
+//        }
+//        return addressText;
+//    }
 
     private void removeAllMarkers() {
         for (Marker mLocationMarker: AllMarkers) {

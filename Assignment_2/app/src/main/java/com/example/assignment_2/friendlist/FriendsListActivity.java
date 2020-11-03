@@ -66,7 +66,7 @@ public class FriendsListActivity extends AppCompatActivity {
                         Object obj = friendsList.get(f_name).get("number");
                         num = Integer.parseInt(obj.toString());
 
-                        Map<String,String> friendsProfile = (Map<String, String>) snapshot.child("users/"+fNameList.get(i)+"/profile").getValue();
+                        Map<String,String> friendsProfile = (Map<String, String>) snapshot.child("profile/"+f_name).getValue();
 
                         if(friendsProfile != null){
                             if (friendsProfile.containsKey("age")){
