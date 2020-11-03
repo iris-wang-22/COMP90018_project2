@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.app.ActivityManager;
 
@@ -53,6 +54,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.assignment_2.Util.Base64Util.base64ToBitmap;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -88,7 +91,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private HashMap<String, Object> fProfiles;
     private HashMap<String, HashMap<String, Object>> fAll;
 
-    private Marker marker;
+    //private Marker marker;
+    private List<Marker> markers = null;
 
 
 
@@ -153,9 +157,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (snapshot.child("friends/"+username).getValue() != null){
                     Map<String, Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child("friends/"+username).getValue();
                     fNameList =new ArrayList<String>(friendsList.keySet());
+                    mMap.clear();
 
                     for(int i=0; i<fNameList.size(); i++){
+                        //Marker marker = null;
                         f_name = fNameList.get(i);
+//                        if (markers.size()<=i){
+//                            markers.add(null);
+//                        }
 
                         Map<String,Double> friendsLocations = (Map<String, Double>) snapshot.child("coordinates/"+f_name).getValue();
                         String friendsAvatar = (String) snapshot.child("users/"+fNameList.get(i)+"/profile/avatar").getValue();
@@ -290,11 +299,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     protected  void placeMarkerOnMap(LatLng location, String avatar) {
 
-
-
-        if (marker != null) {
-            marker.remove();
-        }
+//        if (markers.get(i) != null) {
+//            markers.get(i).remove();
+//        }
 
         MarkerOptions markerOptions = new MarkerOptions().position(location);
 
@@ -308,7 +315,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon));
 
-        marker = mMap.addMarker(markerOptions);
+        mMap.addMarker(markerOptions);
+//        markers.set(i, mMap.addMarker(markerOptions));
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -322,11 +330,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    // for icon of marker
-    public static Bitmap base64ToBitmap(String base64Data) {
-        byte[] bytes = Base64.decode(base64Data, Base64.URL_SAFE);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }
+//    // for icon of marker
+//    public static Bitmap base64ToBitmap(String base64Data) {
+//        byte[] bytes = Base64.decode(base64Data, Base64.URL_SAFE);
+//        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
