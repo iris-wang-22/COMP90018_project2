@@ -1,8 +1,6 @@
 package com.example.assignment_2.friendsRequest;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.assignment_2.Login.MainActivity;
-import com.example.assignment_2.Personal.PersonalActivity;
 import com.example.assignment_2.R;
 import com.example.assignment_2.Util.CustomDialog;
 import com.example.assignment_2.Util.ToastUtil;
@@ -60,9 +56,6 @@ public class RequestListAdapter extends BaseAdapter {
 
     public RequestListAdapter(Context context, List data){
         this.mContext = context;
-
-        /////
-        //my_item_list = item_list;//this???
 
         this.mData = data;
         mLayoutInflater = LayoutInflater.from(context);
@@ -129,7 +122,7 @@ public class RequestListAdapter extends BaseAdapter {
 
             holder = new ViewHolder1();
             holder.rUsername = (TextView) convertView.findViewById(R.id.r_username);
-            holder.rAvatar = (ImageView) convertView.findViewById(R.id.mr_iv_avatar);
+            holder.rAvatar = (ImageView) convertView.findViewById(R.id.r_avatar);
 
             holder.viewBtn_accept = (Button) convertView.findViewById(R.id.r_accept);
             holder.viewBtn_deny = (Button) convertView.findViewById(R.id.r_deny);
