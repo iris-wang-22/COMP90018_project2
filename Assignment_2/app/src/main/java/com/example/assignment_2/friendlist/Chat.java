@@ -6,12 +6,14 @@ public class Chat {
     private String receiver;
     private String msg;
     private String username;
+    private String image;
 
-    public Chat(String sender, String receiver, String msg) {
+    public Chat(String sender, String receiver, String msg, String username, String image) {
         this.sender = sender;
         this.receiver = receiver;
         this.msg = msg;
         this.username = username;
+        this.image = image;
     }
  public Chat()
  {
@@ -48,5 +50,13 @@ public class Chat {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

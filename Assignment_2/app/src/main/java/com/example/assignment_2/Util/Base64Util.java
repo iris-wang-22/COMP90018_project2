@@ -13,18 +13,23 @@ public class Base64Util {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
-    public String bitMapToBase64(Bitmap bmp) throws IOException {
+    public static String bitMapToBase64(Bitmap bmp){
         String imageB64 = null;
         if (bmp != null){
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, bos);
-            bmp.recycle();
+            try {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                bmp.recycle();
 
-            bos.flush();
-            bos.close();
+                bos.flush();
+                bos.close();
 
-            byte[] byteArray = bos.toByteArray();
-            imageB64 = Base64.encodeToString(byteArray, Base64.URL_SAFE);
+                byte[] byteArray = bos.toByteArray();
+                imageB64 = Base64.encodeToString(byteArray, Base64.URL_SAFE);
+            }  catch (IOException e){
+
+            }
+
         }
         return imageB64;
     }

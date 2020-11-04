@@ -65,6 +65,12 @@
                 android:layout_marginRight="2dp"
                 android:layout_weight="12"/>
             <ImageButton
+                android:id="@+id/btn_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/click_send"
+                android:src="@drawable/ic__camera2" />
+            <ImageButton
                 android:id="@+id/btn_send"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

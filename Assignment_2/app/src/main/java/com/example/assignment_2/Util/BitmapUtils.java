@@ -1,48 +1,25 @@
 package com.example.assignment_2.Util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
+import android.view.Display;
+import android.view.WindowManager;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 public class BitmapUtils {
-
-    public static Bitmap circleBitmap(Bitmap source) {
-        //默认只对宽进行处理
-        int width = source.getWidth();
-        int height = source.getHeight();
-        int r = 0;
-        if (width < height) {
-            r = width;
-        } else {
-            r = height;
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint();    //设置抗锯齿
-        paint.setAntiAlias(true);
-
-        RectF rectF = new RectF(0, 0, r, r);
-        canvas.drawRoundRect(rectF, r / 2, r / 2, paint);
-        //canvas.drawCircle(rectF,r/2,r/2,paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(source, null, rectF, paint);
-        return bitmap;
-    }
-
-    /**
-     *
-     *
-     * @param bitmap
-     *
-     * @param tempUri
-     * @return
+    /*
      */
     public static Bitmap toRoundBitmap(Bitmap bitmap, Uri tempUri) {
         int width = bitmap.getWidth();
@@ -107,5 +84,36 @@ public class BitmapUtils {
         Bitmap bitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, false);
         return bitmap;
     }
+
+    public static Bitmap ChangeBitmap(Bitmap bm){
+        // 获得图片的宽高
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        // 设置想要的大小
+        int newWidth = 300;
+        int newHeight = (300*height/width);
+        // 计算缩放比例
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // 取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        // 得到新的图片
+        Bitmap new_bm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return new_bm;
+    }
+
+    public static Uri bitmap2uri(Context c, Bitmap b) {
+        File path = new File(c.getCacheDir() + File.separator + System.currentTimeMillis() + ".jpg");
+        try {
+            OutputStream os = new FileOutputStream(path);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.close();
+            return Uri.fromFile(path);
+        } catch (Exception ignored) {
+        }
+        return null;
+    }
+
 
 }
