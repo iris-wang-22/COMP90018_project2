@@ -59,14 +59,14 @@ public class MyRequestActivity extends AppCompatActivity {
 
 
         ////可用
-        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast1 = Toast.makeText(MyRequestActivity.this,"Friend request: "+position,Toast.LENGTH_SHORT);
-                toast1.show();
-            }
-
-        });
+//        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast toast1 = Toast.makeText(MyRequestActivity.this,"Friend request: "+position,Toast.LENGTH_SHORT);
+//                toast1.show();
+//            }
+//
+//        });
 
         btn_backward = findViewById(R.id.backward_btn);
         btn_backward.setOnClickListener(new View.OnClickListener() {
