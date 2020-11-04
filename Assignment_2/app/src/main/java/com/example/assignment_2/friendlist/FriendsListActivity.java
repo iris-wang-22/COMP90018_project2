@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.assignment_2.friendsRequest.Friends;
@@ -31,6 +32,7 @@ public class FriendsListActivity extends AppCompatActivity {
     private ListView firend_lv;
     private ImageButton fl_p;
     private ImageButton fl_map;
+//    private TextView remand;
 
     private List<friendsMode> friendsListNew=new ArrayList();
 
@@ -47,11 +49,9 @@ public class FriendsListActivity extends AppCompatActivity {
 
         username = getIntent().getStringExtra("username");
         firend_lv = (ListView) findViewById(R.id.f_lv);
-
-
+//        remand = findViewById(R.id.fl_remand);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
-
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -171,6 +171,25 @@ public class FriendsListActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+//        databaseRef.child("Chats/"+username).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Map<String,String> chatMap = (Map<String, String>) snapshot.getValue();
+//                String receiver = chatMap.get("receiver");
+//                String sender = chatMap.get("sender");
+//                if(receiver != null){
+//                    if(receiver.equals(username)){
+//                        remand.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
 }

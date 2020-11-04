@@ -60,6 +60,8 @@ public class ChatActivity extends AppCompatActivity {
     private TextView userText;
     private FirebaseUser firebaseUser;
     private DatabaseReference reference;
+    private DatabaseReference referenceR;
+    private DatabaseReference referenceS;
 
     private String username;
     private String friend_username;
@@ -71,7 +73,6 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton btn_image;
     protected static final int CHOOSE_PICTURE = 1;
     protected static final int TAKE_PICTURE = 0;
-    private static final int CROP_SMALL_PICTURE = 2;
     protected static Uri tempUri;
     private Bitmap image;
 
@@ -82,6 +83,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private TextView friendUsername;
     private ImageView friendAvatar;
+    private TextView remand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +130,9 @@ public class ChatActivity extends AppCompatActivity {
         //firebaseUser.getUid(),friend_username
         //readMessage();
 
-        reference = FirebaseDatabase.getInstance().getReference("users").child(username);
+        reference = FirebaseDatabase.getInstance().getReference();
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -153,7 +155,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendMessage(String sender, String receiver, String message, String image){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String,Object> HashMap = new HashMap<>();
         HashMap.put("sender",sender);
@@ -161,7 +162,8 @@ public class ChatActivity extends AppCompatActivity {
         HashMap.put("message", message);
         HashMap.put("image", image);
 
-        reference.child("Chats").push().setValue(HashMap);
+        reference.child("Chats/"+receiver).push().setValue(HashMap);
+        reference.child("Chats/"+sender).push().setValue(HashMap);
         //readMessage();
 
     }
@@ -171,8 +173,7 @@ public class ChatActivity extends AppCompatActivity {
         //mChat = new ArrayList<>();
         mChat=new ArrayList();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.child("Chats/"+username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
@@ -196,7 +197,6 @@ public class ChatActivity extends AppCompatActivity {
                 messageAdapter  = new MessageAdapter(ChatActivity.this,mChat);
                 recyclerView.setAdapter(messageAdapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
