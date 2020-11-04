@@ -161,7 +161,8 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        if(mFusedLocationClient!=null && mLocationCallback!=null)
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
         stopForeground(true);
         stopSelf();
         super.onDestroy();
