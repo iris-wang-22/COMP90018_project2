@@ -38,6 +38,10 @@ public class DeleteAccount extends AppCompatActivity {
         username = sharedpreferences.getString("username", null);
         dbReference = FirebaseDatabase.getInstance().getReference();
 
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.commit();
+
         deleteSelfFromOthersFriendList();
         deleteSelfFromCurrentSteps();
         deleteSelfFromCoordinate();
@@ -47,9 +51,7 @@ public class DeleteAccount extends AppCompatActivity {
         deleteSelfFromFriendRequests();
         deleteSelfFromProfile();
 
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.clear();
-        editor.commit();
+
         Intent intent = new Intent(DeleteAccount.this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -142,20 +144,21 @@ public class DeleteAccount extends AppCompatActivity {
 
     private void deleteSelfFromCoordinate(){
         stopService(new Intent(DeleteAccount.this, LocationService.class));
-        Query queryFriendList = dbReference.child("coordinates/" + username);
-        queryFriendList.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot Snapshot: dataSnapshot.getChildren()) {
-                    Snapshot.getRef().removeValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        Query queryFriendList = dbReference.child("coordinates/" + username);
+//        queryFriendList.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot Snapshot: dataSnapshot.getChildren()) {
+//                    Snapshot.getRef().removeValue();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        dbReference.child("coordinates/" + username).removeValue();
     }
 
     private void deleteSelfFromFriends(){

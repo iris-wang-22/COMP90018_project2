@@ -42,6 +42,7 @@ public class LocationService extends Service {
 
     private String username;
     private DatabaseReference databaseReference;
+    private LocationCallback mLocationCallback;
 
     @Nullable
     @Override
@@ -87,14 +88,11 @@ public class LocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: called.");
-        SharedPreferences sharedPreferences
-                = getSharedPreferences("Preferences", MODE_PRIVATE);
-        username = sharedPreferences.getString("username", "");
         databaseReference = FirebaseDatabase.getInstance().getReference("coordinates");
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //Toast.makeText(this,"testing",Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
@@ -117,46 +115,60 @@ public class LocationService extends Service {
             return;
         }
 //        Log.d(TAG, "getLocation: getting location information.");
-        mFusedLocationClient.requestLocationUpdates(mLocationRequestHighAccuracy, new LocationCallback() {
-                    @Override
-                    public void onLocationResult(LocationResult locationResult) {
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
 
-                        Location location = locationResult.getLastLocation();
+                Location location = locationResult.getLastLocation();
 
-                        if (location != null) {
-                            LocationHelper helper = new LocationHelper(location.getLongitude(), location.getLatitude());
+                if (location != null) {
+                    LocationHelper helper = new LocationHelper(location.getLongitude(), location.getLatitude());
 
-                            String msg = "update Location: " +
-                                    Double.toString(location.getLatitude()) + "," +
-                                    Double.toString(location.getLongitude());
+                    String msg = "update Location: " +
+                            Double.toString(location.getLatitude()) + "," +
+                            Double.toString(location.getLongitude());
 
-                            Log.d(TAG, msg);
+                    Log.d(TAG, msg);
 
-                            databaseReference.child(username).setValue(helper)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
-                                                Log.d(TAG, "Location Saved");
-                                            }else {
-                                                Log.d(TAG, "not Location data");
-                                            }
+                    SharedPreferences sharedPreferences
+                            = getSharedPreferences("Preferences", MODE_PRIVATE);
+                    username = sharedPreferences.getString("username", "");
+                    if(username!= null){
+                        databaseReference.child(username).setValue(helper)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Log.d(TAG, "Location Saved");
+                                            Log.d(TAG, "username:"+username);
+                                        }else {
+                                            Log.d(TAG, "not Location data");
                                         }
-                                    });
-                        }
+                                    }
+                                });
                     }
-                },
+                    else {
+                        mFusedLocationClient.removeLocationUpdates(this);
+                        stopSelf();
+                    }
+                }
+            }
+        };
+
+        mFusedLocationClient.requestLocationUpdates(mLocationRequestHighAccuracy, mLocationCallback,
                 Looper.myLooper()); // Looper.myLooper tells this to repeat forever until thread is destroyed
     }
 
     @Override
     public void onDestroy() {
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        stopForeground(true);
+        stopSelf();
         super.onDestroy();
-
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("restartservice");
-        broadcastIntent.setClass(this, Restarter.class);
-        this.sendBroadcast(broadcastIntent);
+//        Intent broadcastIntent = new Intent();
+//        broadcastIntent.setAction("restartservice");
+//        broadcastIntent.setClass(this, Restarter.class);
+//        this.sendBroadcast(broadcastIntent);
     }
 
 

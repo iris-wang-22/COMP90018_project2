@@ -2,6 +2,7 @@ package com.example.assignment_2.Personal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ServiceCompat;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -24,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.assignment_2.Maps.LocationService;
 import com.example.assignment_2.friendsRequest.Friends;
 import com.example.assignment_2.Login.MainActivity;
 import com.example.assignment_2.R;
@@ -311,15 +313,17 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                             }).setConfirm("Yes, sure.", new CustomDialog.IOnConfirmListener() {
                         @Override
                         public void onConfirm(CustomDialog dialog) {
-                            Intent intent_main = new Intent();
-                            intent_main.setClass(PersonalActivity.this, MainActivity.class);
-                            intent_main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //关键的一句，将新的activity置为栈顶
-                            startActivity(intent_main);
                             SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.clear();
                             editor.commit();
-                            FirebaseAuth.getInstance().signOut();
+                            stopService(new Intent(PersonalActivity.this, LocationService.class));
+
+                            //FirebaseAuth.getInstance().signOut();
+                            Intent intent_main = new Intent();
+                            intent_main.setClass(PersonalActivity.this, MainActivity.class);
+                            intent_main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //关键的一句，将新的activity置为栈顶
+                            startActivity(intent_main);
                             finish();
                         }
                     }).setCancelable(false);
