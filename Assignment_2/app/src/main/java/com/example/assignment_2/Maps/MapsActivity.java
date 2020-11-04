@@ -338,7 +338,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         //mMap.getMinZoomLevel();
-        mMap.getUiSettings().setZoomControlsEnabled(false);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setCompassEnabled(false);
 
 //        mMap.getUiSettings().setZoomControlsEnabled(true);
