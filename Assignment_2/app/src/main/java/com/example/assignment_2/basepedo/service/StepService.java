@@ -46,7 +46,7 @@ import java.util.List;
 public class StepService extends Service implements /*SensorEventListener,*/ StepCallBack {
     private static final long SCREEN_OFF_RECEIVER_DELAY = 500l;
     private final String TAG = "StepService";
-    private String DB_NAME = "basepedo";
+    private String DB_NAME = "Pedometer";
 
     private static int duration = 30000;
     private NotificationManager nm;
@@ -143,7 +143,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
                     Log.v(TAG, " receive ACTION_DATE_CHANGED");
                     initTodayData();
                     clearStepData();
-                    Log.v(TAG, "归零数据："+StepMode.CURRENT_SETP);
+                    Log.v(TAG, "Clear data："+StepMode.CURRENT_SETP);
                     Step(StepMode.CURRENT_SETP);
                 }
             }
@@ -172,7 +172,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     public void Step(int stepNum) {
         StepMode.CURRENT_SETP = stepNum;
         Log.v(TAG, "Step:" + stepNum);
-        updateNotification("今日步数：" + stepNum + " 步");
+        updateNotification("Today Step：" + stepNum + " step");
     }
 
     @Override
@@ -188,7 +188,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         initTodayData();
-        updateNotification("今日步数：" + StepMode.CURRENT_SETP + " 步");
+        updateNotification("Today Step：" + StepMode.CURRENT_SETP + " step");
         return START_STICKY;
     }
 
@@ -221,8 +221,8 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
                 new Intent(this, MainActivity.class), 0);
         builder.setContentIntent(contentIntent);
         builder.setSmallIcon(R.mipmap.ic_launcher_01);
-        builder.setTicker("BasePedo");
-        builder.setContentTitle("BasePedo");
+        builder.setTicker("Pedometer");
+        builder.setContentTitle("Pedometer");
         builder.setOngoing(true);
         builder.setContentText(content);
         Notification notification = builder.build();
@@ -245,7 +245,6 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
 
         @Override
         public void onFinish() {
-            // 如果计时器正常结束，则开始计步
             time.cancel();
             save();
             startTimeCount();

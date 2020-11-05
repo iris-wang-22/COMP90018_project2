@@ -137,7 +137,7 @@ public class StepInAcceleration extends StepMode {
             Log.v(TAG, "Start");
         } else if (CountTimeState == 1) {
             TEMP_STEP++;
-            Log.v(TAG, "计步中 TEMP_STEP:" + TEMP_STEP);
+            Log.v(TAG, "TEMP_STEP:" + TEMP_STEP);
         } else if (CountTimeState == 2) {
             CURRENT_SETP++;
             if (stepCallBack != null) {
@@ -220,7 +220,7 @@ public class StepInAcceleration extends StepMode {
             time.cancel();
             CURRENT_SETP += TEMP_STEP;
             lastStep = -1;
-            Log.v(TAG, "计时正常结束");
+            Log.v(TAG, "Time ends");
 
             timer = new Timer(true);
             TimerTask task = new TimerTask() {
@@ -230,7 +230,7 @@ public class StepInAcceleration extends StepMode {
                         CountTimeState = 0;
                         lastStep = -1;
                         TEMP_STEP = 0;
-                        Log.v(TAG, "停止计步：" + CURRENT_SETP);
+                        Log.v(TAG, "Stop Pedo：" + CURRENT_SETP);
                     } else {
                         lastStep = CURRENT_SETP;
                     }
@@ -243,7 +243,7 @@ public class StepInAcceleration extends StepMode {
         @Override
         public void onTick(long millisUntilFinished) {
             if (lastStep == TEMP_STEP) {
-                Log.v(TAG, "onTick 计时停止:" + TEMP_STEP);
+                Log.v(TAG, "onTick:" + TEMP_STEP);
                 time.cancel();
                 CountTimeState = 0;
                 lastStep = -1;

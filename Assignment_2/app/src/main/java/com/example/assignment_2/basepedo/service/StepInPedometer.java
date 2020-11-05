@@ -27,6 +27,7 @@ public class StepInPedometer extends StepMode {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void registerSensor() {
         addCountStepListener();
