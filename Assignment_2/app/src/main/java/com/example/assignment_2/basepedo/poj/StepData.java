@@ -1,4 +1,4 @@
-package com.example.assignment_2.basepedo.pojo;
+package com.example.assignment_2.basepedo.poj;
 
 
 

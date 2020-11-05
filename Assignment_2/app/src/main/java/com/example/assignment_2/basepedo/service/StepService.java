@@ -19,33 +19,28 @@ import android.os.Messenger;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.RemoteException;
-//import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-
-
 import com.example.assignment_2.Login.MainActivity;
-//import com.example.assignment_2.basepedo.R;
-///* import com.example.assignment_2.basepedo.R; */
-//import com.example.assignment_2.basepedo.StepMode;
 import com.example.assignment_2.R;
+import com.example.assignment_2.basepedo.base.StepMode;
 import com.example.assignment_2.basepedo.callback.StepCallBack;
 import com.example.assignment_2.basepedo.config.Constant;
-import com.example.assignment_2.basepedo.pojo.StepData;
+import com.example.assignment_2.basepedo.poj.StepData;
 import com.example.assignment_2.basepedo.utils.CountDownTimer;
 import com.example.assignment_2.basepedo.utils.DbUtils;
-import com.example.assignment_2.basepedo.base.StepMode;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+
 
 @TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class StepService extends Service implements /*SensorEventListener,*/ StepCallBack {

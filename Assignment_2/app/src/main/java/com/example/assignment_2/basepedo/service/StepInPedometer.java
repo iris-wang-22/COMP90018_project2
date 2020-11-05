@@ -4,7 +4,10 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.assignment_2.basepedo.base.StepMode;
 import com.example.assignment_2.basepedo.callback.StepCallBack;
@@ -17,6 +20,7 @@ public class StepInPedometer extends StepMode {
     private int increment = 0;
     //0-TYPE_STEP_DETECTOR 1-TYPE_STEP_COUNTER
     private int sensorMode = 0;
+
 
     public StepInPedometer(Context context, StepCallBack stepCallBack) {
         super(context, stepCallBack);
@@ -45,6 +49,7 @@ public class StepInPedometer extends StepMode {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void addCountStepListener() {
         Sensor detectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);

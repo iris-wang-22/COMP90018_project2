@@ -35,9 +35,5 @@ public abstract class StepMode implements SensorEventListener {
         }
         sensorManager = (SensorManager) context
                 .getSystemService(Context.SENSOR_SERVICE);
-
-
     }
-
-
 }

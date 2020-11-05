@@ -9,6 +9,6 @@ import android.util.Log;
 public class Receiver1 extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.v("xf","receiver1 onReceive");
+        Log.v("weTogether","receiver1 onReceive");
     }
 }
