@@ -317,8 +317,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onStop() {
         super.onStop();
         // 3
-        if(mGoogleApiClient.isConnected() ) {
-            mGoogleApiClient.disconnect();
+        if(mGoogleApiClient !=null){
+            if(mGoogleApiClient.isConnected() ) {
+                mGoogleApiClient.disconnect();
+            }
         }
     }
     @Override
