@@ -77,6 +77,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageButton btn_main_person;
     private TextView map_location;
 
+    public static DataSnapshot ds=null;
+
     //for test
     private ImageButton btn_main_map;
 

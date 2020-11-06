@@ -26,6 +26,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.assignment_2.Maps.MapsActivity.ds;
+
 public class ChatListActivity extends AppCompatActivity {
     private ListView cl_lv;
     private ImageButton fl_ib;
@@ -53,6 +55,8 @@ public class ChatListActivity extends AppCompatActivity {
         databaseRef.child("Chats/"+username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int num=0;
+                friendsListNew.clear();
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     Map<String, String> chatMap = (Map<String, String>) snapshot.getValue();
                     String receiver = chatMap.get("receiver");
@@ -82,13 +86,18 @@ public class ChatListActivity extends AppCompatActivity {
 
                             friend.setAvatar(f_avatar);
                         }
-                        f_remand =1;
+
+                        if(ds !=null && (!ds.getValue().equals(dataSnapshot.getValue()))){
+                            f_remand =1;
+                        }
+//                        f_remand=1;
                         friend.setUsername(f_name);
                         friend.setRemand(f_remand);
                         friendsListNew.add(friend);
 
                     }
                     cl_lv.setAdapter(new ChatListAdapter(ChatListActivity.this, friendsListNew));
+                    ds =dataSnapshot;
                 } else {
                     CustomDialog customDialog = new CustomDialog(ChatListActivity.this, R.style.CustomDialog);
                     customDialog.setTitle("Tips").setMessage("No chats now.")

@@ -83,7 +83,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private TextView friendUsername;
     private ImageView friendAvatar;
-    private TextView remand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +163,15 @@ public class ChatActivity extends AppCompatActivity {
 
         reference.child("Chats/"+receiver).push().setValue(HashMap);
         reference.child("Chats/"+sender).push().setValue(HashMap);
-        //readMessage();
+//        String path = "ChatsNum/"+ receiver +"/"+sender;
+//        if(reference.child(path)==null){
+//            num =1;
+//            reference.child(path).setValue(num);
+//        } else{
+//            num +=1;
+//            reference.child(path).setValue(num);
+//        }
+
 
     }
 
