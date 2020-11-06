@@ -220,7 +220,7 @@ public class StepService extends Service implements /*SensorEventListener,*/ Ste
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), 0);
         builder.setContentIntent(contentIntent);
-        builder.setSmallIcon(R.mipmap.ic_launcher_01);
+        builder.setSmallIcon(R.mipmap.icon2);
         builder.setTicker("Pedometer");
         builder.setContentTitle("Pedometer");
         builder.setOngoing(true);

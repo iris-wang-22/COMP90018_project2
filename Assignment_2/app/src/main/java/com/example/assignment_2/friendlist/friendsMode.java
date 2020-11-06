@@ -6,6 +6,7 @@ public class friendsMode {
     private String age;
     private String avatar;
     private Integer numberF;
+    private int remand;
 
     // number
     public Integer getNumber() {
@@ -53,6 +54,14 @@ public class friendsMode {
     }
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    //remand
+    public int getRemand() {
+        return remand;
+    }
+    public void setRemand(int remand) {
+        this.remand = remand;
     }
 
 

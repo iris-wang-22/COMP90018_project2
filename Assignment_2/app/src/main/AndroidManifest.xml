@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
     <uses-feature android:name="android.hardware.sensor.accelerometer" />
@@ -32,6 +33,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="MissingClass">
+        <activity android:name=".friendlist.ChatListActivity"></activity>
         <activity android:name=".friendlist.ChatActivity" />
         <activity android:name=".Personal.DeleteFriendActivity" />
         <activity android:name=".Personal.AboutUsActivity" />
@@ -43,7 +45,6 @@
         <activity android:name=".Personal.PersonalActivity" />
         <activity android:name=".friendlist.FriendsListActivity" />
         <activity android:name=".friendsRequest.Friends" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -91,10 +92,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
-
-        <!-- 守护进程相关 -->
-
+        </receiver> <!-- 守护进程相关 -->
         <receiver
             android:name=".basepedo.receiver.Receiver1"
             android:process=":process1" />

@@ -32,6 +32,7 @@ public class FriendsListActivity extends AppCompatActivity {
     private ListView firend_lv;
     private ImageButton fl_p;
     private ImageButton fl_map;
+    private ImageButton fl_chat;
 //    private TextView remand;
 
     private List<friendsMode> friendsListNew=new ArrayList();
@@ -49,6 +50,7 @@ public class FriendsListActivity extends AppCompatActivity {
 
         username = getIntent().getStringExtra("username");
         firend_lv = (ListView) findViewById(R.id.f_lv);
+        fl_chat = findViewById(R.id.fl_chat);
 //        remand = findViewById(R.id.fl_remand);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
@@ -68,6 +70,7 @@ public class FriendsListActivity extends AppCompatActivity {
 
                         Map<String,String> friendsProfile = (Map<String, String>) snapshot.child("profile/"+f_name).getValue();
 
+                        friendsMode friend=new friendsMode();
                         if(friendsProfile != null){
                             if (friendsProfile.containsKey("age")){
                                 f_age = friendsProfile.get("age");
@@ -84,26 +87,28 @@ public class FriendsListActivity extends AppCompatActivity {
                             } else{
                                 f_avatar = null;
                             }
-                            friendsMode friend=new friendsMode();
+
                             friend.setNumber(num);
                             friend.setUsername(f_name);
                             friend.setAge(f_age);
                             friend.setGender(f_gender);
                             friend.setAvatar(f_avatar);
-                            friendsListNew.add(friend);
+                            friend.setRemand(0);
 
                         } else{
                             f_age = null;
                             f_gender = null;
                             f_avatar = null;
-                            friendsMode friend=new friendsMode();
                             friend.setNumber(num);
                             friend.setUsername(f_name);
                             friend.setAge(f_age);
                             friend.setGender(f_gender);
                             friend.setAvatar(f_avatar);
-                            friendsListNew.add(friend);
+                            friend.setRemand(0);
+
                         }
+                        friendsListNew.add(friend);
+
                     }
 
                     firend_lv.setAdapter(new MyListAdapter(FriendsListActivity.this, friendsListNew));
@@ -148,6 +153,7 @@ public class FriendsListActivity extends AppCompatActivity {
                 intent.putExtra("friend_username", friend_username);
                 intent.putExtra("friend_avatar", friend_avatar);
 
+
                 startActivity(intent);
             }
 
@@ -172,24 +178,15 @@ public class FriendsListActivity extends AppCompatActivity {
             }
         });
 
-//        databaseRef.child("Chats/"+username).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Map<String,String> chatMap = (Map<String, String>) snapshot.getValue();
-//                String receiver = chatMap.get("receiver");
-//                String sender = chatMap.get("sender");
-//                if(receiver != null){
-//                    if(receiver.equals(username)){
-//                        remand.setVisibility(View.VISIBLE);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        fl_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendsListActivity.this, ChatListActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
+
     }
 
 }

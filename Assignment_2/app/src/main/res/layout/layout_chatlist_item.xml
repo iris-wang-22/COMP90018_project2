@@ -30,24 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Username"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/tv_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Gender"
-                android:textSize="12sp"
-                android:textColor="@color/mainColor_02"
-                android:layout_marginTop="2dp"/>
-            <TextView
-                android:id="@+id/tv_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Age"
-                android:textSize="12sp"
-                android:textColor="@color/mainColor_03"
-                android:layout_marginTop="2dp"/>
         </LinearLayout>
         <TextView
             android:id="@+id/fl_remand"

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/mainColor_01">
+
+
+    <RelativeLayout
+        android:id="@+id/fl_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/fl_tv"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/bear"
+            android:drawablePadding="10dp"
+            android:text="Chats"
+            android:textSize="36sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@color/transparent"
+            android:paddingLeft="5dp"/>
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/cl_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@drawable/flist_item"
+        android:background="@drawable/list_shape_fl"
+        android:layout_below="@id/fl_head" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="10dp"
+        android:gravity="right"
+        android:paddingRight="10dp">
+
+        <ImageButton
+            android:id="@+id/cl_backward_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_icon"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rank_update" />
+    </LinearLayout>
+
+
+</RelativeLayout>

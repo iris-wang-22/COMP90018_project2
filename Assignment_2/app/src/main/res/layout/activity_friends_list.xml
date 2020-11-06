@@ -27,14 +27,17 @@
             android:textStyle="bold"
             android:background="@color/transparent"
             android:paddingLeft="5dp"
-            android:layout_toLeftOf="@id/fl_remand"/>
-        <TextView
-            android:id="@+id/fl_remand"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@color/mainColor_05"
+            android:layout_toLeftOf="@id/fl_chat"/>
+        <ImageButton
+            android:id="@+id/fl_chat"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_action_name_2"
+            android:background="@drawable/list_shape_05"
             android:layout_alignParentRight="true"
-            android:visibility="invisible"/>
+            android:paddingLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
 

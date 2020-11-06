@@ -11,12 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.assignment_2.R;
 
 import java.util.List;
 
-public class MyListAdapter extends BaseAdapter {
+public class ChatListAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
@@ -25,7 +24,7 @@ public class MyListAdapter extends BaseAdapter {
     private List<friendsMode> mData;
     private ViewHolder holder = null;
 
-    MyListAdapter(Context context, List data){
+    ChatListAdapter(Context context, List data){
         this.mContext = context;
         this.mData = data;
         mLayoutInflater = LayoutInflater.from(context);
@@ -47,29 +46,19 @@ public class MyListAdapter extends BaseAdapter {
 
     static class ViewHolder{
         public ImageView ivAvatar;
-        public TextView tvUsername, tvAge, tvGender;
-        public TextView tvRemand;
+        public TextView tvUsername;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView==null){
-            convertView = mLayoutInflater.inflate(R.layout.layout_flist_item, null);
+            convertView = mLayoutInflater.inflate(R.layout.layout_chatlist_item, null);
             friendsMode friends = mData.get(position);
 
             holder = new ViewHolder();
             holder.ivAvatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
             holder.tvUsername = (TextView) convertView.findViewById(R.id.tv_username);
-            holder.tvAge = (TextView) convertView.findViewById(R.id.tv_age);
-            holder.tvGender = (TextView) convertView.findViewById(R.id.tv_gender);
-            holder.tvRemand = convertView.findViewById(R.id.fl_remand);
-
 
             holder.tvUsername.setText(friends.getUsername());
-            holder.tvAge.setText(friends.getAge());
-            holder.tvGender.setText(friends.getGender());
-            if(friends.getRemand() != 0){
-                holder.tvRemand.setVisibility(View.VISIBLE);
-            }
 
             if (friends.getAvatar() != null){
                 holder.ivAvatar.setImageBitmap(base64ToBitmap(friends.getAvatar()));

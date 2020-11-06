@@ -267,19 +267,6 @@ public class ChatActivity extends AppCompatActivity {
         }
 
     }
-    protected String setImageToView(Intent data) {
-        Bundle extras = data.getExtras();
-        String base64I = null;
-        if (extras != null) {
-            image = extras.getParcelable("data");
-            base64I = bitMapToBase64(image);
-
-            //saveImage(photo);
-            //iv_image.setImageDrawable(null);
-            //iv_image.setImageBitmap(image);
-        }
-        return base64I;
-    }
 
 
 }
