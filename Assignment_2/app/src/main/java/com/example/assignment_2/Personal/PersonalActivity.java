@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.assignment_2.Maps.LocationService;
+import com.example.assignment_2.friendlist.ChatListActivity;
 import com.example.assignment_2.friendsRequest.Friends;
 import com.example.assignment_2.Login.MainActivity;
 import com.example.assignment_2.R;
@@ -330,7 +331,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                     customDialog.show();
                     break;
                 case R.id.p_btn_friends:
-                    Intent intent_f = new Intent(PersonalActivity.this, FriendsListActivity.class);
+                    Intent intent_f = new Intent(PersonalActivity.this, ChatListActivity.class);
                     intent_f.putExtra("username", username);
                     startActivity(intent_f);
                     finish();
