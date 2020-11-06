@@ -54,13 +54,13 @@ public class FriendsListActivity extends AppCompatActivity {
 //        remand = findViewById(R.id.fl_remand);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        databaseRef.child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String f_name, f_age, f_gender, f_avatar;
                 Integer num;
-                if (snapshot.child(username).getValue() != null){
-                    Map<String,Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child(username).getValue();
+                if (snapshot.child("friends/"+username).getValue() != null){
+                    Map<String,Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child("friends/"+username).getValue();
                     fNameList =new ArrayList<String>(friendsList.keySet());
 
                     for(int i=0; i<fNameList.size(); i++){
@@ -93,7 +93,6 @@ public class FriendsListActivity extends AppCompatActivity {
                             friend.setAge(f_age);
                             friend.setGender(f_gender);
                             friend.setAvatar(f_avatar);
-                            friend.setRemand(0);
 
                         } else{
                             f_age = null;
@@ -104,7 +103,6 @@ public class FriendsListActivity extends AppCompatActivity {
                             friend.setAge(f_age);
                             friend.setGender(f_gender);
                             friend.setAvatar(f_avatar);
-                            friend.setRemand(0);
 
                         }
                         friendsListNew.add(friend);

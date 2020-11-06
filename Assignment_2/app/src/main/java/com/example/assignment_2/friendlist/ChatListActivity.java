@@ -52,12 +52,13 @@ public class ChatListActivity extends AppCompatActivity {
         fl_ib = findViewById(R.id.fl);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        databaseRef.child("Chats/"+username).addValueEventListener(new ValueEventListener() {
+        databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int num=0;
                 friendsListNew.clear();
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+
+                for(DataSnapshot snapshot: dataSnapshot.child("Chats/"+username).getChildren()) {
                     Map<String, String> chatMap = (Map<String, String>) snapshot.getValue();
                     String receiver = chatMap.get("receiver");
                     String sender = chatMap.get("sender");
@@ -87,12 +88,12 @@ public class ChatListActivity extends AppCompatActivity {
                             friend.setAvatar(f_avatar);
                         }
 
-                        if(ds !=null && (!ds.getValue().equals(dataSnapshot.getValue()))){
-                            f_remand =1;
-                        }
+//                        if(ds !=null && (!ds.getValue().equals(dataSnapshot.getValue()))){
+//                            f_remand =1;
+//                        }
 //                        f_remand=1;
                         friend.setUsername(f_name);
-                        friend.setRemand(f_remand);
+//                        friend.setRemand(f_remand);
                         friendsListNew.add(friend);
 
                     }
@@ -125,7 +126,7 @@ public class ChatListActivity extends AppCompatActivity {
                 friend_username = friendsListNew.get(position).getUsername();
                 friend_avatar = friendsListNew.get(position).getAvatar();
 
-                friendsListNew.get(position).setRemand(0);
+//                friendsListNew.get(position).setRemand(0);
 
                 cl_lv.setAdapter(new ChatListAdapter(ChatListActivity.this, friendsListNew));
                 Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
