@@ -225,10 +225,10 @@ public class ChatListActivity extends AppCompatActivity {
                                     }
                                 }
                             }
-                            System.out.println("===========");
-                            System.out.println(receiveNum);
-                            System.out.println(receiveNum_);
-                            System.out.println(userList);
+//                            System.out.println("===========");
+//                            System.out.println(receiveNum);
+//                            System.out.println(receiveNum_);
+//                            System.out.println(userList);
                         }
                         ////////
 
