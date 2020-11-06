@@ -114,12 +114,6 @@ public class ChatListActivity extends AppCompatActivity {
             }
         });
 
-
-        update();
-
-
-
-
     }
 
     public static List removeDuplicate(List list) {
@@ -139,92 +133,6 @@ public class ChatListActivity extends AppCompatActivity {
                     }
                 }
                 friendsListNew.clear();
-
-
-                for(DataSnapshot snapshot: dataSnapshot.child("Chats/"+username).getChildren()) {
-                    Map<String, String> chatMap = (Map<String, String>) snapshot.getValue();
-                    String receiver = chatMap.get("receiver");
-                    String sender = chatMap.get("sender");
-                    if ((!sender.equals(username)) && (receiver.equals(username))) {
-                        fNameList.add(sender);
-                    } else if ((!receiver.equals(username)) && (sender.equals(username))) {
-                        fNameList.add(receiver);
-                    }
-                }
-                fNameList = removeDuplicate(fNameList);
-
-                String f_name, f_avatar;
-                if(fNameList != null){
-                    for(int i=0; i<fNameList.size(); i++){
-                        f_name = fNameList.get(i);
-                        Map<String,String> friendsProfile = (Map<String, String>) dataSnapshot.child("profile/"+f_name).getValue();
-                        friendsMode friend=new friendsMode();
-                        if(friendsProfile != null){
-                            if (friendsProfile.containsKey("avatar")){
-                                f_avatar = friendsProfile.get("avatar");
-                            } else{
-                                f_avatar = null;
-                            }
-                            friend.setAvatar(f_avatar);
-                        }
-
-                        /////////
-                        int f_remand=0;
-                        if(ds==null){
-                            f_remand = 0;
-                        } else if(ds!=null){
-                            if(fN.size()== fNameList.size()){
-                                Map<String,Map<String, String>> test = (Map<String,Map<String, String>>) dataSnapshot.child("Chats/" + username).getValue();
-                                Iterator<Map<String, String>> iterator_ = test.values().iterator();
-                                int rNum = 0;
-                                while(iterator_.hasNext()) {
-                                    if (iterator_.next().get("sender").equals(f_name)) {
-                                        rNum += 1;
-                                    }
-                                }
-                                receiveNum.put(f_name, rNum);
-
-                                if(receiveNum.get(f_name) != receiveNum_.get(f_name)){
-                                    f_remand = 1;
-                                }
-                            } else if(receiveNum_.get(f_name)==null){
-                                f_remand = 1;
-                            }
-                            if(userList!=null){
-                                for(int j=0; j<userList.size();j++){
-                                    if(f_name.equals(userList.get(j))){
-                                        f_remand = 1;
-                                    }
-                                }
-                            }
-//                            System.out.println("===========");
-//                            System.out.println(receiveNum);
-//                            System.out.println(receiveNum_);
-//                            System.out.println(userList);
-                        }
-                        ////////
-
-                        friend.setUsername(f_name);
-                        if(f_remand==1){
-                            friend.setRemand(f_remand);
-                        }
-
-                        friendsListNew.add(friend);
-
-                    }
-                    cl_lv.setAdapter(new ChatListAdapter(ChatListActivity.this, friendsListNew));
-                    ds =dataSnapshot;
-                } else {
-                    CustomDialog customDialog = new CustomDialog(ChatListActivity.this, R.style.CustomDialog);
-                    customDialog.setTitle("Tips").setMessage("No chats now.")
-                            .setCancel("Fine.", new CustomDialog.IOnCancelListener() {
-                                @Override
-                                public void onCancel(CustomDialog dialog) {
-                                    finish();
-                                }
-                            }).setCancelable(false);
-                    customDialog.show();
-                }
 
                 //test
                 if(ds != null){
@@ -259,6 +167,94 @@ public class ChatListActivity extends AppCompatActivity {
                     }
                 }
                 ////////////////////////////////////////////////////////////////
+
+
+                for(DataSnapshot snapshot: dataSnapshot.child("Chats/"+username).getChildren()) {
+                    Map<String, String> chatMap = (Map<String, String>) snapshot.getValue();
+                    String receiver = chatMap.get("receiver");
+                    String sender = chatMap.get("sender");
+                    if ((!sender.equals(username)) && (receiver.equals(username))) {
+                        fNameList.add(sender);
+                    } else if ((!receiver.equals(username)) && (sender.equals(username))) {
+                        fNameList.add(receiver);
+                    }
+                }
+                fNameList = removeDuplicate(fNameList);
+
+                String f_name, f_avatar;
+                if(fNameList != null){
+                    for(int i=0; i<fNameList.size(); i++){
+                        f_name = fNameList.get(i);
+                        Map<String,String> friendsProfile = (Map<String, String>) dataSnapshot.child("profile/"+f_name).getValue();
+                        friendsMode friend=new friendsMode();
+                        if(friendsProfile != null){
+                            if (friendsProfile.containsKey("avatar")){
+                                f_avatar = friendsProfile.get("avatar");
+                            } else{
+                                f_avatar = null;
+                            }
+                            friend.setAvatar(f_avatar);
+                        }
+
+                        /////////
+                        int f_remand=0;
+                        if(ds==null){
+                            f_remand = 0;
+                        } else if(ds!=null){
+                            if(fN != null && fN.size()== fNameList.size()){
+                                Map<String,Map<String, String>> test = (Map<String,Map<String, String>>) dataSnapshot.child("Chats/" + username).getValue();
+                                Iterator<Map<String, String>> iterator_ = test.values().iterator();
+                                int rNum = 0;
+                                while(iterator_.hasNext()) {
+                                    if (iterator_.next().get("sender").equals(f_name)) {
+                                        rNum += 1;
+                                    }
+                                }
+                                receiveNum.put(f_name, rNum);
+
+                                if(receiveNum.get(f_name) != receiveNum_.get(f_name)){
+                                    f_remand = 1;
+                                }
+                            } else if(receiveNum_.get(f_name)==null){
+                                f_remand = 1;
+                            }
+                            if(userList!=null){
+                                for(int j=0; j<userList.size();j++){
+                                    if(f_name.equals(userList.get(j))){
+                                        f_remand = 1;
+                                    }
+                                }
+                            }
+                            System.out.println("===========");
+                            System.out.println(receiveNum);
+                            System.out.println(receiveNum_);
+                            System.out.println(userList);
+                        }
+                        ////////
+
+                        friend.setUsername(f_name);
+                        if(f_remand==1){
+                            friend.setRemand(f_remand);
+                        }
+
+                        friendsListNew.add(friend);
+
+                    }
+                    cl_lv.setAdapter(new ChatListAdapter(ChatListActivity.this, friendsListNew));
+                    ds =dataSnapshot;
+                } else {
+                    CustomDialog customDialog = new CustomDialog(ChatListActivity.this, R.style.CustomDialog);
+                    customDialog.setTitle("Tips").setMessage("No chats now.")
+                            .setCancel("Fine.", new CustomDialog.IOnCancelListener() {
+                                @Override
+                                public void onCancel(CustomDialog dialog) {
+                                    finish();
+                                }
+                            }).setCancelable(false);
+                    customDialog.show();
+                }
+
+
             }
 
             @Override
