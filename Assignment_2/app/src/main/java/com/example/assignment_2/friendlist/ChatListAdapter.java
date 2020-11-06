@@ -65,9 +65,9 @@ public class ChatListAdapter extends BaseAdapter {
                 holder.ivAvatar.setImageBitmap(base64ToBitmap(friends.getAvatar()));
             }
 
-//            if(friends.getRemand() != 0){
-//                holder.tvRemand.setVisibility(View.VISIBLE);
-//            }
+            if(friends.getRemand()==1){
+                holder.tvRemand.setVisibility(View.VISIBLE);
+            }
 
             convertView.setTag(holder);
 

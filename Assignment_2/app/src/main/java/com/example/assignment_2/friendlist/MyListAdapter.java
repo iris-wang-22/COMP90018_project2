@@ -67,9 +67,6 @@ public class MyListAdapter extends BaseAdapter {
             holder.tvUsername.setText(friends.getUsername());
             holder.tvAge.setText(friends.getAge());
             holder.tvGender.setText(friends.getGender());
-            if(friends.getRemand() != 0){
-                holder.tvRemand.setVisibility(View.VISIBLE);
-            }
 
             if (friends.getAvatar() != null){
                 holder.ivAvatar.setImageBitmap(base64ToBitmap(friends.getAvatar()));
