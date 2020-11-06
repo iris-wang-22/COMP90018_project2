@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.assignment_2.Personal.PersonalActivity;
 import com.example.assignment_2.R;
+import com.example.assignment_2.friendlist.ChatListActivity;
 import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -140,7 +141,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btn_main_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapsActivity.this, FriendsListActivity.class);
+                Intent intent = new Intent(MapsActivity.this, ChatListActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
             }
@@ -241,8 +242,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
             if (addresses != null || addresses.size() > 0) {
                 locality = addresses.get(0).getCountryName()+" "+addresses.get(0).getAdminArea();
-//                System.out.println("-------------------------------------------+");
-//                System.out.println(locality);
             }
         }catch (IOException e ) {
        }

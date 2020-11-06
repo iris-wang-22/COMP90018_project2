@@ -46,7 +46,7 @@ public class ChatListAdapter extends BaseAdapter {
 
     static class ViewHolder{
         public ImageView ivAvatar;
-        public TextView tvUsername;
+        public TextView tvUsername, tvRemand;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,12 +57,18 @@ public class ChatListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.ivAvatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
             holder.tvUsername = (TextView) convertView.findViewById(R.id.tv_username);
+            holder.tvRemand = (TextView) convertView.findViewById(R.id.tv_remand);
 
             holder.tvUsername.setText(friends.getUsername());
 
             if (friends.getAvatar() != null){
                 holder.ivAvatar.setImageBitmap(base64ToBitmap(friends.getAvatar()));
             }
+
+            if(friends.getRemand() != 0){
+                holder.tvRemand.setVisibility(View.VISIBLE);
+            }
+            //holder.tvRemand.setVisibility(View.VISIBLE);
 
             convertView.setTag(holder);
 

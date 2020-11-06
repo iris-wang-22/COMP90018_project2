@@ -54,13 +54,13 @@ public class FriendsListActivity extends AppCompatActivity {
 //        remand = findViewById(R.id.fl_remand);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String f_name, f_age, f_gender, f_avatar;
                 Integer num;
-                if (snapshot.child("friends/"+username).getValue() != null){
-                    Map<String,Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child("friends/"+username).getValue();
+                if (snapshot.child(username).getValue() != null){
+                    Map<String,Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child(username).getValue();
                     fNameList =new ArrayList<String>(friendsList.keySet());
 
                     for(int i=0; i<fNameList.size(); i++){
@@ -159,31 +159,14 @@ public class FriendsListActivity extends AppCompatActivity {
 
         });
 
-        fl_p = findViewById(R.id.fl_btn_personal);
-        fl_map = findViewById(R.id.fl_btn_map);
-        fl_p.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_p = new Intent(FriendsListActivity.this, PersonalActivity.class);
-                intent_p.putExtra("username", username);
-                startActivity(intent_p);
-                finish();
-            }
-        });
-
-        fl_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         fl_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FriendsListActivity.this, ChatListActivity.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
+//                Intent intent = new Intent(FriendsListActivity.this, ChatListActivity.class);
+//                intent.putExtra("username", username);
+//                startActivity(intent);
+                finish();
             }
         });
 

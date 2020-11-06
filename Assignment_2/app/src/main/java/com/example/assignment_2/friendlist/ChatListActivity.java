@@ -28,7 +28,10 @@ import java.util.Map;
 
 public class ChatListActivity extends AppCompatActivity {
     private ListView cl_lv;
-    private ImageButton cl_back;
+    private ImageButton fl_ib;
+
+    private ImageButton fl_p;
+    private ImageButton fl_map;
 
     private String username;
 
@@ -44,7 +47,7 @@ public class ChatListActivity extends AppCompatActivity {
 
         username = getIntent().getStringExtra("username");
         cl_lv = (ListView) findViewById(R.id.cl_lv);
-        cl_back = findViewById(R.id.cl_backward_btn);
+        fl_ib = findViewById(R.id.fl);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
         databaseRef.child("Chats/"+username).addValueEventListener(new ValueEventListener() {
@@ -63,6 +66,7 @@ public class ChatListActivity extends AppCompatActivity {
 
                 fNameList = removeDuplicate(fNameList);
                 String f_name, f_avatar;
+                int f_remand =0;
                 if(fNameList != null){
                     for(int i=0; i<fNameList.size(); i++){
                         f_name = fNameList.get(i);
@@ -78,7 +82,9 @@ public class ChatListActivity extends AppCompatActivity {
 
                             friend.setAvatar(f_avatar);
                         }
+                        f_remand =1;
                         friend.setUsername(f_name);
+                        friend.setRemand(f_remand);
                         friendsListNew.add(friend);
 
                     }
@@ -110,22 +116,49 @@ public class ChatListActivity extends AppCompatActivity {
                 friend_username = friendsListNew.get(position).getUsername();
                 friend_avatar = friendsListNew.get(position).getAvatar();
 
+                friendsListNew.get(position).setRemand(0);
+
+                cl_lv.setAdapter(new ChatListAdapter(ChatListActivity.this, friendsListNew));
                 Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
                 intent.putExtra("username",username);
                 intent.putExtra("friend_username", friend_username);
                 intent.putExtra("friend_avatar", friend_avatar);
+
 
                 startActivity(intent);
             }
 
         });
 
-        cl_back.setOnClickListener(new View.OnClickListener() {
+        fl_ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatListActivity.this, FriendsListActivity.class);
+                intent.putExtra("username",username);
+                startActivity(intent);
+                //finish();
+            }
+        });
+
+        fl_p = findViewById(R.id.fl_btn_personal);
+        fl_map = findViewById(R.id.fl_btn_map);
+        fl_p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_p = new Intent(ChatListActivity.this, PersonalActivity.class);
+                intent_p.putExtra("username", username);
+                startActivity(intent_p);
+                finish();
+            }
+        });
+
+        fl_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
 
 
 
