@@ -33,6 +33,9 @@ import com.example.assignment_2.Login.user;
 import com.example.assignment_2.Personal.NewProfileActivity;
 import com.example.assignment_2.R;
 import com.example.assignment_2.Util.BitmapUtils;
+import com.example.assignment_2.Util.CustomDialog;
+import com.example.assignment_2.Util.ToastUtil;
+import com.example.assignment_2.friendsRequest.Friends;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -111,25 +114,51 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         //firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = text_send.getText().toString();
-                if(!msg.equals("")){
-                    sendMessage(username,friend_username,msg,null);
-                    text_send.setText("");
-                }else
-                {
-                    Toast.makeText(ChatActivity.this,"Cannot Send empty Message",Toast.LENGTH_SHORT).show();
-                }
+                reference.child("friends/"+username).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child(friend_username).getValue() == null){
+                            CustomDialog customDialog = new CustomDialog(ChatActivity.this, R.style.CustomDialog);
+                            customDialog.setTitle("Tips").setMessage("Sorry."+ "\n" +"This user is not your friend now.")
+                                    .setConfirm("Got it.", new CustomDialog.IOnConfirmListener() {
+                                        @Override
+                                        public void onConfirm(CustomDialog dialog) {
+                                        }
+                                    })
+                                    .setCancel("Return.", new CustomDialog.IOnCancelListener() {
+                                        @Override
+                                        public void onCancel(CustomDialog dialog) {
+                                            finish();
+                                        }
+                                    }).setCancelable(false);
+                            customDialog.show();
+                        }
+                        else{
+                            String msg = text_send.getText().toString();
+
+                            if(!msg.equals("")){
+                                sendMessage(username,friend_username,msg,null);
+                                text_send.setText("");
+                            }else
+                            {
+                                Toast.makeText(ChatActivity.this,"Cannot Send empty Message",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             }
         });
 
         //firebaseUser.getUid(),friend_username
         //readMessage();
-
-        reference = FirebaseDatabase.getInstance().getReference();
 
         reference.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
@@ -163,15 +192,6 @@ public class ChatActivity extends AppCompatActivity {
 
         reference.child("Chats/"+receiver).push().setValue(HashMap);
         reference.child("Chats/"+sender).push().setValue(HashMap);
-//        String path = "ChatsNum/"+ receiver +"/"+sender;
-//        if(reference.child(path)==null){
-//            num =1;
-//            reference.child(path).setValue(num);
-//        } else{
-//            num +=1;
-//            reference.child(path).setValue(num);
-//        }
-
 
     }
 
