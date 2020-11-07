@@ -105,7 +105,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
         //String user_path = "users/"+username;
         databaseRef = FirebaseDatabase.getInstance().getReference();
 
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println("+++++++++++++++++++++++++++++++++");
