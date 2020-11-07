@@ -33,7 +33,7 @@
     <ListView
         android:id="@+id/f_lv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:listSelector="@drawable/flist_item"
         android:background="@drawable/list_shape_fl"
         android:layout_below="@id/fl_head"/>
