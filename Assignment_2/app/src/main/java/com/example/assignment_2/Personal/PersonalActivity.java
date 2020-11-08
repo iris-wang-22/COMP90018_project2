@@ -33,7 +33,6 @@ import com.example.assignment_2.R;
 import com.example.assignment_2.Util.ToastUtil;
 import com.example.assignment_2.basepedo.config.Constant;
 import com.example.assignment_2.basepedo.service.StepService;
-import com.example.assignment_2.basepedo.ui.bActivity;
 import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.example.assignment_2.friendsRequest.MyRequestActivity;
 import com.example.assignment_2.rank.RankActivity;
@@ -69,7 +68,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
     private Bitmap image;
 
     //basepedo
-    private final String TAG = bActivity.class.getSimpleName();
+    private final String TAG = PersonalActivity.class.getSimpleName();
     private long TIME_INTERVAL = 500;
     private TextView text_step;
     private Messenger messenger;

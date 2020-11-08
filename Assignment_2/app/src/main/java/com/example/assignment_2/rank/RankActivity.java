@@ -78,6 +78,7 @@ public class RankActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                rankModeList.clear();
 
                 if (snapshot.child("friends/"+username).getValue() != null){
                     Map<String, Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child("friends/"+username).getValue();

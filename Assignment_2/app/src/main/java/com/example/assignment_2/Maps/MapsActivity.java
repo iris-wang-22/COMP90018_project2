@@ -29,6 +29,7 @@ import com.example.assignment_2.R;
 import com.example.assignment_2.friendlist.ChatListActivity;
 import com.example.assignment_2.friendlist.FriendsListActivity;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
