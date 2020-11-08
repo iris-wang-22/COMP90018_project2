@@ -72,6 +72,9 @@ public class Log_in_activity extends AppCompatActivity {
                                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                                             username = child.getKey();
                                         }
+                                        //Update password for the accounts have been utilized 'forgot password'
+                                        updatePassword(username, password_Str);
+
                                         Toast.makeText(Log_in_activity.this, "Successful!!!!.",
                                                 Toast.LENGTH_SHORT).show();
                                         SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("Preferences", MODE_PRIVATE);
@@ -125,6 +128,20 @@ public class Log_in_activity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Log_in_activity.this, ForgetPasswordActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+    private void updatePassword(String username, String password){
+        databaseRef.child("users/" + username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.child("password").getValue().toString().equals(password))
+                    databaseRef.child("users/"+username+"/"+"password").setValue(password);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
