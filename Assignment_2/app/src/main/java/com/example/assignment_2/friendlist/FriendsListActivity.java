@@ -38,9 +38,8 @@ public class FriendsListActivity extends AppCompatActivity {
     private List<friendsMode> friendsListNew=new ArrayList();
 
 
-
     private DatabaseReference databaseRef;
-    private String username;
+    private String username, avatar;
     private List<String> fNameList;
 
     @Override
@@ -54,6 +53,17 @@ public class FriendsListActivity extends AppCompatActivity {
 //        remand = findViewById(R.id.fl_remand);
 
         databaseRef = FirebaseDatabase.getInstance().getReference();
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                avatar = (String) snapshot.child("profile/"+username+"avatar").getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -124,6 +134,7 @@ public class FriendsListActivity extends AppCompatActivity {
                         public void onConfirm(CustomDialog dialog) {
                             Intent intent_fr = new Intent(FriendsListActivity.this, Friends.class);
                             intent_fr.putExtra("username", username);
+                            intent_fr.putExtra("avatar", avatar);
                             startActivity(intent_fr);
                             finish();
                         }

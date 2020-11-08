@@ -83,8 +83,8 @@ public class RankActivity extends AppCompatActivity {
                 if (snapshot.child("friends/"+username).getValue() != null){
                     Map<String, Map<?,?>> friendsList = (Map<String, Map<?, ?>>) snapshot.child("friends/"+username).getValue();
                     fNameList =new ArrayList<String>(friendsList.keySet());
-
                     fNameList.add(username);
+
                     while (fNameList.size() > 0){
                         String f_name = null;
                         String max_name = null;
@@ -122,7 +122,7 @@ public class RankActivity extends AppCompatActivity {
                         String f_avatar = (String) snapshot.child("profile/"+max_name+"/avatar").getValue();
                         rank_f.setAvatar(f_avatar);
                         rankModeList.add(rank_f);
-                        fNameList.remove(max_index);
+                        fNameList.remove(max_name);
                     }
                     rank_lv.setAdapter(new MyRankAdapter(RankActivity.this, rankModeList));
                 } else {
