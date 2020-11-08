@@ -318,6 +318,7 @@ public class PersonalActivity extends AppCompatActivity implements Handler.Callb
                             editor.clear();
                             editor.commit();
                             stopService(new Intent(PersonalActivity.this, LocationService.class));
+                            stopService(new Intent(PersonalActivity.this, StepService.class));
 
                             //FirebaseAuth.getInstance().signOut();
                             Intent intent_main = new Intent();
