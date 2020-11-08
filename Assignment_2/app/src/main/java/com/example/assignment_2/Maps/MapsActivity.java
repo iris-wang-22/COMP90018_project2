@@ -416,7 +416,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String msg = "update Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
 
         latLng = new LatLng(location.getLatitude(),location.getLongitude());
 
